@@ -1,0 +1,39 @@
+{work station}
+
+1. login - kawsar bhai
+2. dashboard{full manth work sammry and how many day i submit task and total erning for the month and if task complete not visiable otherwish{task name, discription, duration date}} and degisnation{boro kore}
+3. work submision{working title, working description, status[continous, complete, start], GitHub commit message, submit}
+4. employee profile{full name*, father name*, mother name*, NID*, date of birth*, user name, password, profile picture }(edit)
+
+5. team admin panel(same login page)
+	1. dashboard{dipermant employee list(profile picture, username, today job status), dipermant employee work history summary(date to date{username, title}), employee list (work status(start and continuous for yellow bg, complete for green, date over for red bg), full name,) table,  {date to date search button all work detail for the date(date, user name, job title )table}
+	2.  employee personal page{two date picker(date to date), search button} show all work detail form the date of end date.
+	3. work distirbition {job title , job discription, expire date, use name dropdown, submit} same page table{job detail for today with edite button}
+	4. profile edite {full name*, father name*, mother name*, NID*, date of birth*, user name, password, profile picture }(edit)
+
+	1. dashboard{dipermant employee list(profile picture, username, today job status, work status(start and continuous for yellow bg, complete for green, date over for red bg), full name,) and  dipermant employee work history summary(date to date{username, title}),  total erning for the month
+
+6. hr admin
+	1. dashboard {total erning for the previuse month,}
+	2. add new employee {full name, father name, mother name, NID, date of birth,  local address, permanet address, last education, salary, dipertment, designation, gender, blade group, join date, working type dropdown(remote or pyhical), send for approvel button}
+	3. edit employe info{employee dropdown, (full name, father name, mother name, NID, date of birth, local adress, permanet address, last education, gender, blade group, update )}
+	4. job detail table {date to date selector(date, user name, picture, status(present or adsent))}
+	5. 
+	
+
+
+7. super admin
+	1. add employee{}
+	2. accept employee {full name, hr name, view(modal employee and approve button)}
+	3. edit employee
+	4. working history{date to date and dipertment dropdown, search} visiable work history
+	5. employee list {depermant dropdown, search} (employee detail, resing button, edit button, view profile with user name and password,)}
+	6. work distribution (dropdown with diperment and user name) and visiable work bistribution page
+	7. deperment info{add deperment button,} table {depertmant name, depertment description, edit}
+	8. 
+
+
+momin bhai - side bar
+mahbub bhai - nave bar
+
+
