@@ -1,10 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router";
+import HeaderNav from "../components/headerNavbar/headerNav";
 
 function Root() {
   return (
     <div>
-      <h1>Root Layout</h1>
+     <HeaderNav/>
+    
       <Outlet />
     </div>
   );
