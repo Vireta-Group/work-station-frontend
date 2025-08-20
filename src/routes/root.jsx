@@ -1,12 +1,17 @@
 import React from "react";
 import { Outlet } from "react-router";
+import HeaderNav from "../components/headerNavbar/headerNav";
+import Sidebar from "../components/sidebar/Sidebar";
 
 function Root() {
   return (
-    <div>
-      <h1>Root Layout</h1>
-      <Outlet />
-    </div>
+    <>
+      <HeaderNav />
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
+    </>
   );
 }
 
