@@ -5,11 +5,13 @@ import Sidebar from "../components/sidebar/Sidebar";
 
 function Root() {
   return (
-    <div>
+    <>
       <HeaderNav />
-      <Sidebar />
-      <Outlet />
-    </div>
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
+    </>
   );
 }
 
