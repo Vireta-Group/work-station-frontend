@@ -8,7 +8,7 @@ function Root() {
     <>
       <HeaderNav />
       <div className="flex">
-        <Sidebar />
+        <Sidebar  />
         <Outlet />
       </div>
     </>
