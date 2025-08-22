@@ -10,6 +10,7 @@ import UserDashboard from "../coreModule/userPanel/userDashbord/UserDashbord.jsx
 import EProfile from "../coreModule/userPanel/employProfile/EProfile.jsx";
 import WorkDis from "../coreModule/teamAdminPanel/workDistrubition/WorkDis.jsx";
 import EWorkDetail from "../coreModule/teamAdminPanel/EWorkDetail/EWorkDetail.jsx";
+import TaskSubmit from "../coreModule/userPanel/taskSubmit/TaskSubmit.jsx";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -22,7 +23,7 @@ const route = createBrowserRouter(
           <Route path="eprofile" element={<EProfile/>}/>
           <Route path="work-dis" element={<WorkDis />} />
           <Route path="e-work" element={<EWorkDetail />} />
-          <Route path="taskSubmit" element={<TaskSubmit />} />
+               <Route path="taskSubmit" element={<TaskSubmit />} />
         </Route>
 
       </Route>
