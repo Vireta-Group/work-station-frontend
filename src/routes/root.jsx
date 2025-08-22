@@ -1,15 +1,17 @@
 import React from "react";
 import { Outlet } from "react-router";
-import HeaderNav from "../components/headerNavbar/headerNav";
+import HeaderNav from "../components/headerNavbar/HeaderNav"
 import Sidebar from "../components/sidebar/Sidebar";
 
 function Root() {
   return (
     <>
       <HeaderNav />
-      <div className="flex">
+      <div className="flex relative ">
         <Sidebar />
-        <Outlet />
+        <div className="pt-30 pl-[220px] flex justify-center w-[100%]">
+          <Outlet />
+        </div>
       </div>
     </>
   );
