@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { tasks } from "./userInformation";
 
+
 const UserDashboard = () => {
   const [expanded, setExpanded] = useState(null);
 
@@ -17,6 +18,7 @@ const UserDashboard = () => {
 
   return (
     <div className="p-4 min-h-[100vh] w-[100%] text-gray-900 dark:text-gray-100">
+      <b className=" flex justify-end pr-[5%]  w-[100%] "> <span className="bg-black/20  py-2 px-4  m-2 rounded-[10px]">Total Earning <br></br> <span className="text-red-500"> $500</span></span></b>
       <h1 className="text-2xl font-bold mb-4 text-center">User Dashboard</h1>
 
       <div className="overflow-x-auto flex justify-center">
@@ -30,7 +32,7 @@ const UserDashboard = () => {
               <th className="p-2 border border-gray-600">Task Name</th>
               <th className="p-2 border border-gray-600">Description</th>
               <th className="p-2 border border-gray-600">Task Duration</th>
-              <th className="p-2 border border-gray-600">Amount</th>
+              
               <th className="p-2 border border-gray-600">Status</th>
             </tr>
           </thead>
@@ -53,7 +55,7 @@ const UserDashboard = () => {
                 <td className="p-2 border border-gray-700">
                   {task.taskDuration}
                 </td>
-                <td className="p-2 border border-gray-700">{task.amount}</td>
+               
                 <td className="p-2 border border-gray-700">
                  <span
                   className={`${getStatusColor(task.status)} px-4 py-2 min-w-[120px] text-center rounded-[10px] block`}
