@@ -1,12 +1,13 @@
-import logoheader from "../../assets/logo/logo.png"
-import user from "../../assets/logo/user.png"
+import logoheader from "../../assets/logo/logo.png";
+import user from "../../assets/logo/user.png";
 const HeaderNav = () => {
   return (
-    <nav className="flex sticky top-0 z-[999] overflow-clip px-[2%] py-1 h-[70px] w-full justify-between items-center bg-[#3C3D37] shadow-md ">
+    <nav className="flex overflow-clip px-[2%] py-1 h-[70px] w-full justify-between items-center bg-[#1C352D] shadow-md fixed z-10">
+      <div className="logo">
+        <img className="w-[4rem]" src={logoheader} alt="logoHeader" />
+      </div>
 
-        <div className="logo">
-            <img className="w-[4rem]" src={logoheader} alt="logoHeader" />
-        </div>
+      
 
         <div className="user ">
           
@@ -17,8 +18,9 @@ const HeaderNav = () => {
         </div>
 
 
+      
     </nav>
-  )
-}
+  );
+};
 
-export default HeaderNav
+export default HeaderNav;

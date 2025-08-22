@@ -9,7 +9,7 @@ const menuItems = [
 
 const Sidebar = () => {
   return (
-    <div className="w-[220px] h-screen bg-[#21282e] shadow-md p-4">
+    <div className="w-[220px] h-screen bg-[#21282e] shadow-md p-4 fixed">
       <h2 className="text-xl text-gray-100 font-semibold mb-6 text-shadow-gray-200">
         Dashboard
       </h2>

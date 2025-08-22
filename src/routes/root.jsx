@@ -6,10 +6,12 @@ import Sidebar from "../components/sidebar/Sidebar";
 function Root() {
   return (
     <>
-      <HeaderNav></HeaderNav>
-      <div className="flex">
-        <Sidebar  />
-        <Outlet />
+      <HeaderNav />
+      <div className="flex relative ">
+        <Sidebar />
+        <div className="pt-30 pl-[220px] flex justify-center w-[100%]">
+          <Outlet />
+        </div>
       </div>
     </>
   );
