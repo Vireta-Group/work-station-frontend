@@ -63,15 +63,15 @@ export default function WorkDistributionForm({ onSubmit }) {
           Work Distribution Form
         </h2>
         <form onSubmit={handleSubmit}>
-          <FormControl
-            label="Today's Date"
-            type="date"
-            value={today}
-            InputLabelProps={{ shrink: true }}
-            InputProps={{ readOnly: true }}
-            sx={{ m: 2, width: "45%" }}
-          >
-            <TextField value={today} sx={muiInputStyles} />
+          <FormControl sx={{ m: 2, width: "45%" }}>
+            <TextField
+              label="Today's Date"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              InputProps={{ readOnly: true }}
+              sx={muiInputStyles}
+              value={today}
+            />
           </FormControl>
 
           <FormControl sx={{ m: 2, width: "45%" }}>

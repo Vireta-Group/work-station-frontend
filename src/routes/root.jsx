@@ -9,7 +9,7 @@ function Root() {
       <HeaderNav />
       <div className="flex relative ">
         <Sidebar />
-        <div className="mt-20 ml-[270px] flex justify-center w-[100%]">
+        <div className="pt-30 pl-[220px] flex justify-center w-[100%]">
           <Outlet />
         </div>
       </div>
