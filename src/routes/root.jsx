@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router";
-import HeaderNav from "../components/headerNavbar/headerNav";
+import HeaderNav from "../components/headerNavbar/HeaderNav"
 import Sidebar from "../components/sidebar/Sidebar";
 
 function Root() {
