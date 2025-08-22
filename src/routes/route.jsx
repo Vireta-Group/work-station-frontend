@@ -6,6 +6,7 @@ import {
 import Root from "./root";
 import LoginPage from "../components/loginPage/LoginPage.jsx";
 import ProtectRoute from "./ProtectRoute.jsx";
+import UserDashboard from "../coreModule/userPanel/userDashbord/UserDashbord.jsx";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -14,6 +15,7 @@ const route = createBrowserRouter(
       <Route path="/" element={<ProtectRoute />}>
         <Route path="" element={<Root />}>
           <Route path="" element={<p className="text-red-500"> hell </p>} />
+          <Route path="userDashbord" element={<UserDashboard/>}/>
         </Route>
       </Route>
     </>
