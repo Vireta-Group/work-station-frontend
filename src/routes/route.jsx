@@ -10,6 +10,7 @@ import UserDashboard from "../coreModule/userPanel/userDashbord/UserDashbord.jsx
 import EProfile from "../coreModule/userPanel/employProfile/EProfile.jsx";
 import WorkDis from "../coreModule/teamAdminPanel/workDistrubition/WorkDis.jsx";
 import EWorkDetail from "../coreModule/teamAdminPanel/EWorkDetail/EWorkDetail.jsx";
+import EmployeeForm from "../coreModule/hrAdmin/addEmployee/AddEmployee.jsx";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -18,10 +19,11 @@ const route = createBrowserRouter(
       <Route path="/" element={<ProtectRoute />}>
         <Route path="" element={<Root />}>
           <Route path="" element={<p className="text-red-500"> hell </p>} />
-          <Route path="userDashbord" element={<UserDashboard/>}/>
-          <Route path="eprofile" element={<EProfile/>}/>
+          <Route path="userDashbord" element={<UserDashboard />} />
+          <Route path="eprofile" element={<EProfile />} />
           <Route path="work-dis" element={<WorkDis />} />
           <Route path="e-work" element={<EWorkDetail />} />
+          <Route path="employer-form" element={<EmployeeForm />} />
         </Route>
       </Route>
     </>
