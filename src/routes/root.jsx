@@ -8,6 +8,7 @@ import { useSidebar, SidebarProvider } from "../context/SidebarContext";
 function LayoutContent() {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
+
   return (
     <div className="min-h-screen xl:flex">
       <div>
