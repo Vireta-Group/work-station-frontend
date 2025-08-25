@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 
 export default function UserJobTable({ onEdit }) {
-  // Sample data for the table
   const jobs = [
     {
       id: 1,
@@ -49,7 +48,6 @@ export default function UserJobTable({ onEdit }) {
     },
   ];
 
-  // Function to determine status color
   const getStatusColor = (status) => {
     switch (status) {
       case "In Progress":

@@ -129,7 +129,7 @@ export default function WorkDistributionForm({ onSubmit }) {
               }}
             >
               {users.map((user) => (
-                <MenuItem key={user.id} value={user.id} sx={{ color: "white" }}>
+                <MenuItem key={user.id} value={user.id}>
                   {user.name}
                 </MenuItem>
               ))}

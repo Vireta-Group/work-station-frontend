@@ -1,19 +1,38 @@
 import React from "react";
 import { Outlet } from "react-router";
-import HeaderNav from "../components/headerNavbar/headerNav";
-import Sidebar from "../components/sidebar/Sidebar";
+import AppSidebar from "../layout/AppSidebar";
+import Backdrop from "../layout/Backdrop";
+import AppHeader from "../layout/AppHeader";
+import { useSidebar, SidebarProvider } from "../context/SidebarContext";
 
-function Root() {
+function LayoutContent() {
+  const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+
   return (
-    <>
-      <HeaderNav />
-      <div className="flex relative ">
-        <Sidebar />
-        <div className="pt-30 pl-[220px] flex justify-center w-[100%]">
+    <div className="min-h-screen xl:flex">
+      <div>
+        <AppSidebar />
+        <Backdrop />
+      </div>
+      <div
+        className={`flex-1 transition-all duration-300 ease-in-out ${
+          isExpanded || isHovered ? "lg:ml-[290px]" : "lg:ml-[90px]"
+        } ${isMobileOpen ? "ml-0" : ""}`}
+      >
+        <AppHeader />
+        <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
           <Outlet />
         </div>
       </div>
-    </>
+    </div>
+  );
+}
+
+function Root() {
+  return (
+    <SidebarProvider>
+      <LayoutContent />
+    </SidebarProvider>
   );
 }
 
