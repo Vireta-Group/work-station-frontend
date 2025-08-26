@@ -7,6 +7,7 @@ import icons from "../icons/main.js";
 
 import { useSidebar } from "../context/SidebarContext";
 import SidebarWidget from "./SidebarWidget";
+import viretaLogo from "../assets/logo/vireta-logo.jpg";
 
 const navItems = [
   {
@@ -287,14 +288,14 @@ const AppSidebar = () => {
             <>
               <img
                 className="dark:hidden"
-                src="/images/logo/logo.svg"
+                // src={viretaLogo}
                 alt="Logo"
                 width={150}
                 height={40}
               />
               <img
                 className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                // src={viretaLogo}
                 alt="Logo"
                 width={150}
                 height={40}
