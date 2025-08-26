@@ -2,7 +2,7 @@ import logoheader from "../../assets/logo/logo.png";
 import user from "../../assets/logo/user.png";
 const HeaderNav = () => {
   return (
-    <nav className="flex overflow-clip px-[2%] py-1 h-[70px] w-full justify-between items-center bg-[#1C352D] shadow-md fixed z-10">
+    <nav className="flex overflow-clip px-[2%] py-1 h-[70px] w-full justify-between items-center bg-[#21282e] shadow-md fixed z-10">
       <div className="logo">
         <img className="w-[4rem]" src={logoheader} alt="logoHeader" />
       </div>
