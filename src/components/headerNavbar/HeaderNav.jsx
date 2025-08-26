@@ -7,16 +7,18 @@ const HeaderNav = () => {
         <img className="w-[4rem]" src={logoheader} alt="logoHeader" />
       </div>
 
-      <div className="user ">
-        <div className="flex flex-col justify-center items-center ">
-          <img
-            className="w-[2.2rem] border-2 rounded-full "
-            src={user}
-            alt=""
-          />
-          <h2 className="text-shadow-lg font-semibold ">John David</h2>
+      
+
+        <div className="user ">
+          
+          <div className="flex flex-col justify-center items-center ">
+          <img className="w-[2.2rem] border-2 border-white  rounded-full " src={user} alt="" />
+           <h2 className="text-shadow-lg text-blue-50 font-semibold ">John David</h2>
+          </div>
         </div>
-      </div>
+
+
+      
     </nav>
   );
 };
