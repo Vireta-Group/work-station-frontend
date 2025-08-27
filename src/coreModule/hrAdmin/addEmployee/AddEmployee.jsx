@@ -190,44 +190,19 @@ export default function EmployeeFormCard() {
               ),
             }}
           />
-
-          {/* Email */}
-          {/* <TextField
-            label="Email"
-            placeholder="info@gmail.com"
+          {/* Designation */}
+          <TextField
+            label="Designation"
+            placeholder="Software Engineer"
             fullWidth
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Email />
+                  <Work />
                 </InputAdornment>
               ),
             }}
-          /> */}
-
-          {/* Phone */}
-          {/* <Box sx={{ display: "flex", gap: 2 }}>
-            <FormControl sx={{ minWidth: 120 }}>
-              <InputLabel>Code</InputLabel>
-              <Select value="+1" label="Code">
-                <MenuItem value="+1">🇺🇸 +1</MenuItem>
-                <MenuItem value="+880">🇧🇩 +880</MenuItem>
-                <MenuItem value="+91">🇮🇳 +91</MenuItem>
-              </Select>
-            </FormControl>
-            <TextField
-              label="Phone"
-              placeholder="(555) 000-0000"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Phone />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box> */}
+          />
 
           {/* Gender */}
           <FormControl>
