@@ -5,11 +5,8 @@ import {
 } from "react-router";
 import Root from "./root";
 import SignIn from "../pages/AuthPages/SignIn";
-// import LoginPage from "../components/loginPage/LoginPage.jsx";
-// import ProtectRoute from "./ProtectRoute.jsx";
-// import WorkDis from "../coreModule/teamAdminPanel/workDistrubition/WorkDis.jsx";
-// import EWorkDetail from "../coreModule/teamAdminPanel/EWorkDetail/EWorkDetail.jsx";
-
+import Dashbord from "../pages/Home";
+import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
 
 
 const route = createBrowserRouter(
@@ -20,10 +17,10 @@ const route = createBrowserRouter(
       <Route path="" element={<Root />}>
         <Route path="" element={<p className="text-text-muted"> hell </p>} />
         <Route path="signIn" element={<SignIn></SignIn>} />
-        {/* <Route path="work-dis" element={<WorkDis />} />
-          <Route path="e-work" element={<EWorkDetail />} /> */}
+        <Route path="dashbord" element={<Dashbord />} />
+        <Route path="profile" element={<UserProfiles />} />
       </Route>
-      {/* </Route> */}
+
     </>
   )
 );

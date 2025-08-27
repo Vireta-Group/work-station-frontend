@@ -1,4 +1,3 @@
-// src/components/Input.jsx
 import React from "react";
 
 const Input = ({
@@ -59,6 +58,7 @@ const Input = ({
             )}
         </div>
     );
+
 };
 
 export default Input;
