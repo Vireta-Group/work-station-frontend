@@ -4,13 +4,10 @@ import {
   Route,
 } from "react-router";
 import Root from "./root";
-import { Home } from "@mui/icons-material";
+import SignIn from "../pages/AuthPages/SignIn";
 import Dashbord from "../pages/Home";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
-// import LoginPage from "../components/loginPage/LoginPage.jsx";
-// import ProtectRoute from "./ProtectRoute.jsx";
-// import WorkDis from "../coreModule/teamAdminPanel/workDistrubition/WorkDis.jsx";
-// import EWorkDetail from "../coreModule/teamAdminPanel/EWorkDetail/EWorkDetail.jsx";
+import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
 
 
 const route = createBrowserRouter(
@@ -22,10 +19,11 @@ const route = createBrowserRouter(
         <Route path="" element={<p className="text-text-muted"> hell </p>} />
         <Route path="dashbord" element={<Dashbord/>}/>
         <Route path="adminDashbord" element={<AdminDashbord/>}/>
-        {/* <Route path="work-dis" element={<WorkDis />} />
-          <Route path="e-work" element={<EWorkDetail />} /> */}
+        <Route path="signIn" element={<SignIn></SignIn>} />
+        <Route path="dashbord" element={<Dashbord />} />
+        <Route path="profile" element={<UserProfiles />} />
       </Route>
-      {/* </Route> */}
+
     </>
   )
 );
