@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { clsx } from "clsx";
 
 const Label = ({ htmlFor, children, className }) => {
+
   return (
     <label
       htmlFor={htmlFor}
