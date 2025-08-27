@@ -1,81 +1,40 @@
 
 import Badge from "../ui/badge/Badge";
+// icon mapping
 import { IoIosCloudDone } from "react-icons/io";
 import { BsBox } from "react-icons/bs";
 import { MdOutlineUpcoming } from "react-icons/md";
 import { GiReceiveMoney } from "react-icons/gi";
+
 import Table from "../table/Table";
 import Calendar from "../calender/Calendar";
+import Card from "../card/Card";
 export default function EcommerceMetrics() {
+      const cardData = [
+    { title: "Complete Task", value: "12", Icon: IoIosCloudDone },
+    { title: "Ongoing Task", value: "5", Icon: BsBox },
+    { title: "UpComing Task", value: "3", Icon: MdOutlineUpcoming },
+    { title: "Total Earned", value: "$1200", Icon: GiReceiveMoney },
+    {title: "Web developer", value: "$Junior", Icon: GiReceiveMoney}
+  ];
   return (
-    <div className="flex gap-5 flex-wrap justify-around  dark:bg-[#101828] w-full min-h-[100vh] p-5 px-[4%] overflow-x-scroll">
+    <div className="flex gap-5 flex-wrap justify-around  dark:bg-[#101828] w-full min-h-[100vh] p-5 pb-20 px-[4%] overflow-x-scroll">
 
       
-
-         <div className="cards flex  gap-10 flex-wrap my-10  w-full">
-
-            <div className="card flex justify-between items-center gap-10  rounded-[10px] shadow-md border border-gray-200 dark:border-gray-700 w-fit p-4  dark:bg-[#171f2f]">
-                <div className="flex  flex-col gap-5">
-                    <h2 className="text-[1.2rem] dark:text-gray-500">Complete Task</h2>
-                    <b className="text-2xl dark:text-white">12</b>
-                </div>
-                <div>
-                    <IoIosCloudDone className="text-3xl dark:text-white " />
-                </div>
-            </div>
-
-                <div className="card flex justify-between items-center gap-10  rounded-[10px] shadow-md border border-gray-200 dark:border-gray-700 w-fit p-4  dark:bg-[#171f2f]">
-                <div className="flex  flex-col gap-5">
-                    <h2 className="text-[1.2rem] dark:text-gray-500">Ongoing Task</h2>
-                    <b className="text-2xl dark:text-white">12</b>
-                </div>
-                <div>
-                    <BsBox className="text-3xl dark:text-white " />
-                </div>
-            </div>
-
-
-                <div className="card flex justify-between items-center gap-10  rounded-[10px] shadow-md border border-gray-200 dark:border-gray-700 w-fit p-4  dark:bg-[#171f2f]">
-                <div className="flex  flex-col gap-5">
-                    <h2 className="text-[1.2rem] dark:text-gray-500">UpComing Task</h2>
-                    <b className="text-2xl dark:text-white">12</b>
-                </div>
-                <div>
-                    <MdOutlineUpcoming className="text-3xl dark:text-white " />
-                </div>   
-            </div>
-
-
-
-
-             <div className="card flex justify-between items-center gap-10  rounded-[10px] shadow-md border border-gray-200 dark:border-gray-700 w-fit p-4  dark:bg-[#171f2f]">
-                <div className="flex  flex-col gap-5">
-                    <h2 className="text-[1.2rem] dark:text-gray-500">Total Task</h2>
-                    <b className="text-2xl dark:text-white">$ 1200</b>
-                </div>
-                <div>
-                    <GiReceiveMoney className="text-3xl dark:text-white " />
-                </div>   
-            </div>
-
-
-
-            
-
-       </div>
+          <Card cardData={cardData} />
        {/* card end here............................................... */}
 
 
         <div className="leftSide flex w-full justify-between flex-wrap gap-10 ">
 
          
-         <div className="table w-[70%]  overflow-x-scroll">
+         <div className="table w-[65%] max-md:w-full overflow-x-scroll">
             <Table/>
          </div>
 
      
 
-      <div className="calender h-fit ">
+      <div className="calender h-fit w-[30%] max-md:w-full ">
         <Calendar/>
       </div>
 

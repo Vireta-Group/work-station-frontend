@@ -6,6 +6,7 @@ import {
 import Root from "./root";
 import { Home } from "@mui/icons-material";
 import Dashbord from "../pages/Home";
+import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 // import LoginPage from "../components/loginPage/LoginPage.jsx";
 // import ProtectRoute from "./ProtectRoute.jsx";
 // import WorkDis from "../coreModule/teamAdminPanel/workDistrubition/WorkDis.jsx";
@@ -20,6 +21,7 @@ const route = createBrowserRouter(
       <Route path="" element={<Root />}>
         <Route path="" element={<p className="text-text-muted"> hell </p>} />
         <Route path="dashbord" element={<Dashbord/>}/>
+        <Route path="adminDashbord" element={<AdminDashbord/>}/>
         {/* <Route path="work-dis" element={<WorkDis />} />
           <Route path="e-work" element={<EWorkDetail />} /> */}
       </Route>
