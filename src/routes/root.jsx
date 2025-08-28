@@ -8,7 +8,6 @@ import { useSidebar, SidebarProvider } from "../context/SidebarContext";
 function LayoutContent() {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
-
   return (
     <div className="min-h-screen xl:flex">
       <div>
@@ -21,7 +20,7 @@ function LayoutContent() {
         } ${isMobileOpen ? "ml-0" : ""}`}
       >
         <AppHeader />
-        <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+        <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6 dark:bg-black">
           <Outlet />
         </div>
       </div>
