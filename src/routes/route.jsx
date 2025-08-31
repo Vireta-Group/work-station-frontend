@@ -10,6 +10,8 @@ import SignIn from "../pages/AuthPages/SignIn";
 import Dashbord from "../pages/Home";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
+// import WorkDistribution from "../coreModule/WorkDistribution/WorkDistribution";
+import TeamAdminPanel from "../coreModule/teamAdminPanel/TeamAdminPanel";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +28,8 @@ const route = createBrowserRouter(
 
         <Route path="dashbord" element={<Dashbord />} />
         <Route path="profile" element={<UserProfiles />} />
+
+        <Route path="teamadminpanel" element={<TeamAdminPanel />} />
       </Route>
     </>
   )

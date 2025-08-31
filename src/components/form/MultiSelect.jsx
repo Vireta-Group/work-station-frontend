@@ -1,47 +1,32 @@
-import type React from "react";
 import { useState } from "react";
 
-interface Option {
-  value: string;
-  text: string;
-}
-
-interface MultiSelectProps {
-  label: string;
-  options: Option[];
-  defaultSelected?: string[];
-  onChange?: (selected: string[]) => void;
-  disabled?: boolean;
-}
-
-const MultiSelect: React.FC<MultiSelectProps> = ({
+const MultiSelect = ({
   label,
   options,
   defaultSelected = [],
   onChange,
   disabled = false,
 }) => {
-  const [selectedOptions, setSelectedOptions] =
-    useState<string[]>(defaultSelected);
+  const [selectedOptions, setSelectedOptions] = useState(defaultSelected);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
     if (!disabled) setIsOpen((prev) => !prev);
   };
 
-  const handleSelect = (optionValue: string) => {
+  const handleSelect = (optionValue) => {
     const newSelectedOptions = selectedOptions.includes(optionValue)
       ? selectedOptions.filter((value) => value !== optionValue)
       : [...selectedOptions, optionValue];
 
     setSelectedOptions(newSelectedOptions);
-    onChange?.(newSelectedOptions);
+    if (onChange) onChange(newSelectedOptions);
   };
 
-  const removeOption = (value: string) => {
+  const removeOption = (value) => {
     const newSelectedOptions = selectedOptions.filter((opt) => opt !== value);
     setSelectedOptions(newSelectedOptions);
-    onChange?.(newSelectedOptions);
+    if (onChange) onChange(newSelectedOptions);
   };
 
   const selectedValuesText = selectedOptions.map(
@@ -137,7 +122,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                 {options.map((option, index) => (
                   <div
                     key={index}
-                    className={`hover:bg-primary/5 w-full cursor-pointer rounded-t border-b border-gray-200 dark:border-gray-800`}
+                    className="hover:bg-primary/5 w-full cursor-pointer rounded-t border-b border-gray-200 dark:border-gray-800"
                     onClick={() => handleSelect(option.value)}
                   >
                     <div
