@@ -82,6 +82,13 @@ const lastMonth = earnings[earnings.length -1]
      {/* hr card end ................... */}
 
 
+       <div>
+      
+        <u className='flex justify-center text-2xl dark:text-white p-1'>Previous Income Data</u>
+        <HrDashboardChart/>
+     </div>
+
+
      <div className="hrShedule">
         <h1 className='p-2 text-gray-800 text-2xl dark:text-white'>HR Shedule ...</h1>
       <HrSheduleComponent/>
@@ -89,11 +96,7 @@ const lastMonth = earnings[earnings.length -1]
      </div>
      {/* HR shedule end here.............................. */}
 
-     <div>
-      
-        <u className='flex justify-center text-2xl dark:text-white p-1'>Previous Income Data</u>
-        <HrDashboardChart/>
-     </div>
+   
 
 
     </div>
