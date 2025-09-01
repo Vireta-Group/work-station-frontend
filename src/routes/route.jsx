@@ -5,9 +5,12 @@ import {
 } from "react-router";
 import Root from "./root";
 import SignIn from "../pages/AuthPages/SignIn";
-import Dashbord from "../pages/Home";
+
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
+import HomeDashbord from "../pages/HomeDashbord";
+import HrDashbord from "../coreModule/hrAdmin/hrDashbord/HrDashbord";
+
 
 
 const route = createBrowserRouter(
@@ -17,11 +20,11 @@ const route = createBrowserRouter(
       {/* <Route path="/" element={<ProtectRoute />}> */}
       <Route path="" element={<Root />}>
         <Route path="" element={<p className="text-text-muted"> hell </p>} />
-        <Route path="dashbord" element={<Dashbord/>}/>
-        <Route path="adminDashbord" element={<AdminDashbord/>}/>
+        <Route path="homeDashbord" element={<HomeDashbord />} />{/* mahbub.................. */}
+        <Route path="adminDashbord" element={<AdminDashbord/>}/>{/* mahbub.................. */}
         <Route path="signIn" element={<SignIn></SignIn>} />
-        <Route path="dashbord" element={<Dashbord />} />
         <Route path="profile" element={<UserProfiles />} />
+        <Route path="hrDashbord" element={<HrDashbord/>}/>{/* mahbub.................. */}
       </Route>
 
     </>
