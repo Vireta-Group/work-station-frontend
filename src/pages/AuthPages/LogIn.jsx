@@ -1,8 +1,8 @@
-import SignInForm from "../../components/auth/SignInFom";
+import LogInForm from "../../components/auth/LogInFom";
 import PageMeta from "../../components/common/PageMeta";
 import AuthLayout from "./AuthPageLayout";
 
-export default function SignIn() {
+export default function LogIn() {
     return (
         <>
             <PageMeta
@@ -10,7 +10,7 @@ export default function SignIn() {
                 description="This is React.js SignIn Tables Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
             />
             <AuthLayout>
-                <SignInForm />
+                <LogInForm />
             </AuthLayout>
         </>
     );
