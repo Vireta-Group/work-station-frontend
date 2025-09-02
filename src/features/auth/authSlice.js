@@ -55,7 +55,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         if (Cookies.get("token")) {
           state.status = "succeeded";
-          state.user = action.payload.userInfo;
+          state.user = action.payload;
           state.isAuthenticated = true;
         } else {
           state.status = "failed";

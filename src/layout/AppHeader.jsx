@@ -5,10 +5,8 @@ import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
-import { useSelector } from "react-redux";
 
 const AppHeader = () => {
-  const [user, setUser] = useState(useSelector((state) => state.auth));
 
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 

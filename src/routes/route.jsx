@@ -6,7 +6,7 @@ import {
 import Root from "./root";
 import LogIn from "../pages/AuthPages/LogIn";
 import WorkSubmission from "../coreModule/userPanel/workSubmission/WorkSubmission";
-import Dashbord from "../pages/HomeDashbord";
+// import Dashbord from "../pages/HomeDashbord";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
 import ProtectRoute from "../components/protectRoute/ProtectRoute";
@@ -33,14 +33,16 @@ const route = createBrowserRouter(
           </ProtectRoute>
         }
       >
-        <Route index element={<p className="text-text-muted"> hell </p>} />
+        {/* <Route index element={<p className="text-text-muted"> hell </p>} /> */}
         <Route path="workSubmission" element={<WorkSubmission />} />
-        <Route path="dashbord" element={<Dashbord />} />
-        <Route path="adminDashbord" element={<AdminDashbord />} />
+        {/* <Route path="/" element={<Dashbord />} /> */}
         <Route path="profile" element={<UserProfiles />} />
-        <Route path="hrDashbord" element={<HrDashbord/>}/>{/* mahbub.................. */}
-        <Route path="homeDashbord" element={<HomeDashbord/>} />{/* mahbub.................. */}
-        <Route path="adminDashbord" element={<AdminDashbord/>}/>{/* mahbub.................. */}
+        <Route path="hrDashbord" element={<HrDashbord />} />
+        {/* mahbub.................. */}
+        <Route index element={<HomeDashbord />} />
+        {/* mahbub.................. */}
+        <Route path="adminDashbord" element={<AdminDashbord />} />
+        {/* mahbub.................. */}
       </Route>
     </>
   )
