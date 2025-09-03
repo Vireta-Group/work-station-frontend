@@ -1,6 +1,8 @@
+// MAHBUB❤️❤️❤️❤️❤️..........................
+
 import EcommerceMetrics from "../components/ecommerce/EcommerceMetrics";
 
-const Dashbord = () => {
+const HomeDashbord = () => {
   return (
     <div className="dark:bg-gray-800 ">
       <EcommerceMetrics />
@@ -8,4 +10,4 @@ const Dashbord = () => {
   );
 };
 
-export default Dashbord;
+export default HomeDashbord;

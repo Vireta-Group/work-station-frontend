@@ -5,6 +5,7 @@ import { IoIosCloudDone } from "react-icons/io";
 import { BsBox } from "react-icons/bs";
 import { MdOutlineUpcoming } from "react-icons/md";
 import { GiReceiveMoney } from "react-icons/gi";
+import { MdManageAccounts } from "react-icons/md";
 
 import Table from "../table/Table";
 import Calendar from "../calender/Calendar";
@@ -15,13 +16,16 @@ export default function EcommerceMetrics() {
     { title: "Ongoing Task", value: "5", Icon: BsBox },
     { title: "UpComing Task", value: "3", Icon: MdOutlineUpcoming },
     { title: "Total Earned", value: "$1200", Icon: GiReceiveMoney },
-    {title: "Web developer", value: "$Junior", Icon: GiReceiveMoney}
+    {title: "Web developer", value: "$Junior", Icon: MdManageAccounts}
+
   ];
   return (
-    <div className="flex gap-5 flex-wrap justify-around  dark:bg-[#101828] w-full min-h-[100vh] p-5 pb-20 px-[4%] overflow-x-scroll">
+    <div className="flex gap-5  flex-wrap justify-around  dark:bg-[#101828] w-full min-h-[100vh]  pb-20 overflow-x-scroll">
 
-      
-          <Card cardData={cardData} />
+      <div className="w-full">
+        
+          <Card cardData={cardData}  />
+      </div>
        {/* card end here............................................... */}
 
 

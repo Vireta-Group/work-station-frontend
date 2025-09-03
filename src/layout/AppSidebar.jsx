@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router";
 import icons from "../icons/main.js";
 
 import { useSidebar } from "../context/SidebarContext";
-import SidebarWidget from "./SidebarWidget";
+// import SidebarWidget from "./SidebarWidget";
 import viretaLogo from "../assets/logo/vireta-logo.png";
 import viretaLogoDark from "../assets/logo/vireta-logo-dark.png";
 import viretaLogoSmall from "../assets/logo/vireta-small-logo.png";
@@ -15,68 +15,58 @@ const navItems = [
   {
     icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
     name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
-  },
-  {
-    icon: <img src={icons.CalenderIcon} alt="Calendar Icon" />,
-    name: "Calendar",
-    path: "/calendar",
+    path: "/",
   },
   {
     icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
     name: "User Profile",
     path: "/profile",
   },
-  {
-    name: "Forms",
-    icon: <img src={icons.ListIcon} alt="Forms Icon" />,
-    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  },
-  {
-    name: "Tables",
-    icon: <img src={icons.TableIcon} alt="Tables Icon" />,
-    subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  },
-  {
-    name: "Pages",
-    icon: <img src={icons.PageIcon} alt="Pages Icon" />,
-    subItems: [
-      { name: "Blank Page", path: "/blank", pro: false },
-      { name: "404 Error", path: "/error-404", pro: false },
-    ],
-  },
+  // {
+  //   name: "Tables",
+  //   icon: <img src={icons.TableIcon} alt="Tables Icon" />,
+  //   subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
+  // },
+  // {
+  //   name: "Pages",
+  //   icon: <img src={icons.PageIcon} alt="Pages Icon" />,
+  //   subItems: [
+  //     { name: "Blank Page", path: "/blank", pro: false },
+  //     { name: "404 Error", path: "/error-404", pro: false },
+  //   ],
+  // },
 ];
 
-const othersItems = [
-  {
-    icon: <img src={icons.PieChartIcon} alt="Charts Icon" />,
-    name: "Charts",
-    subItems: [
-      { name: "Line Chart", path: "/line-chart", pro: false },
-      { name: "Bar Chart", path: "/bar-chart", pro: false },
-    ],
-  },
-  {
-    icon: <img src={icons.BoxCubeIcon} alt="UI Elements Icon" />,
-    name: "UI Elements",
-    subItems: [
-      { name: "Alerts", path: "/alerts", pro: false },
-      { name: "Avatar", path: "/avatars", pro: false },
-      { name: "Badge", path: "/badge", pro: false },
-      { name: "Buttons", path: "/buttons", pro: false },
-      { name: "Images", path: "/images", pro: false },
-      { name: "Videos", path: "/videos", pro: false },
-    ],
-  },
-  {
-    icon: <img src={icons.PlugInIcon} alt="Authentication Icon" />,
-    name: "Authentication",
-    subItems: [
-      { name: "Sign In", path: "/signin", pro: false },
-      { name: "Sign Up", path: "/signup", pro: false },
-    ],
-  },
-];
+const othersItems = [];
+//   {
+//     icon: <img src={icons.PieChartIcon} alt="Charts Icon" />,
+//     name: "Charts",
+//     subItems: [
+//       { name: "Line Chart", path: "/line-chart", pro: false },
+//       { name: "Bar Chart", path: "/bar-chart", pro: false },
+//     ],
+//   },
+//   {
+//     icon: <img src={icons.BoxCubeIcon} alt="UI Elements Icon" />,
+//     name: "UI Elements",
+//     subItems: [
+//       { name: "Alerts", path: "/alerts", pro: false },
+//       { name: "Avatar", path: "/avatars", pro: false },
+//       { name: "Badge", path: "/badge", pro: false },
+//       { name: "Buttons", path: "/buttons", pro: false },
+//       { name: "Images", path: "/images", pro: false },
+//       { name: "Videos", path: "/videos", pro: false },
+//     ],
+//   },
+//   {
+//     icon: <img src={icons.PlugInIcon} alt="Authentication Icon" />,
+//     name: "Authentication",
+//     subItems: [
+//       { name: "Sign In", path: "/signin", pro: false },
+//       { name: "Sign Up", path: "/signup", pro: false },
+//     ],
+//   },
+// ];
 
 const AppSidebar = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
@@ -349,7 +339,7 @@ const AppSidebar = () => {
             </div>
           </div>
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
+        {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}
       </div>
     </aside>
   );

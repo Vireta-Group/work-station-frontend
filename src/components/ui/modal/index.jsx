@@ -5,10 +5,10 @@ export const Modal = ({
   onClose,
   children,
   className,
-  showCloseButton = true, // Default to true for backwards compatibility
+  showCloseButton = true,
   isFullscreen = false,
 }) => {
-  const modalRef = useRef(null); // ✅ এখানে TypeScript বাদ দিয়ে JS এ করা হলো
+  const modalRef = useRef(null);
 
   useEffect(() => {
     const handleEscape = (event) => {
