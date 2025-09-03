@@ -13,7 +13,7 @@ export default function TeamAdminPanel() {
       />
       <PageBreadcrumb pageTitle="Basic Tables" />
       <div className="space-y-6">
-        <ComponentCard title="Basic Table 1">
+        <ComponentCard title="Team Admin Panel   ">
           <TeamAdminTaskForm />
           <TeamAdminTable />
         </ComponentCard>

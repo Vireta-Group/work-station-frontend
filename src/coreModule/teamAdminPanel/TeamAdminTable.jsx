@@ -7,7 +7,14 @@ import {
 } from "../../components/ui/table";
 
 import Badge from "../../components/ui/badge/Badge";
-
+import { useState } from "react";
+import EditEmployees from "../hrAdmin/editEmployee/editEmployee";
+import { useModal } from "../../hooks/useModal";
+import { Modal } from "../../components/ui/modal";
+import Label from "../../components/form/Label";
+import Input from "../../components/form/input/InputField";
+import Button from "../../components/ui/dropdown/button/Button";
+import EditEmployee from "../hrAdmin/editEmployee/editEmployee";
 // Table data
 const tableData = [
   {
@@ -91,6 +98,12 @@ const tableData = [
 ];
 
 export default function TeamAdminTable() {
+  const { isOpen, openModal, closeModal } = useModal();
+  const handleSave = () => {
+    // Handle save logic here
+    console.log("Saving changes...");
+    closeModal();
+  };
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
@@ -122,6 +135,12 @@ export default function TeamAdminTable() {
                 className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
                 expire date
+              </TableCell>
+              <TableCell
+                isHeader
+                className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+              >
+                Action
               </TableCell>
             </TableRow>
           </TableHeader>
@@ -172,6 +191,22 @@ export default function TeamAdminTable() {
 
                 <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                   {order.expireDate}
+                </TableCell>
+                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  {/* Modal Open Button */}
+
+                  <button
+                    onClick={openModal}
+                    className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
+                  >
+                    Edit
+                  </button>
+
+                  <EditEmployee
+                    isOpen={isOpen}
+                    onClose={closeModal}
+                    onSave={handleSave}
+                  />
                 </TableCell>
               </TableRow>
             ))}
