@@ -4,11 +4,14 @@ import {
   Route,
 } from "react-router";
 import Root from "./root";
+import AddEmployee from "../coreModule/hrAdmin/addEmployee/AddEmployee";
 import LogIn from "../pages/AuthPages/LogIn";
 import WorkSubmission from "../coreModule/userPanel/workSubmission/WorkSubmission";
 // import Dashbord from "../pages/HomeDashbord";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
+// import WorkDistribution from "../coreModule/WorkDistribution/WorkDistribution";
+import TeamAdminPanel from "../coreModule/teamAdminPanel/TeamAdminPanelDashboard";
 import ProtectRoute from "../components/protectRoute/ProtectRoute";
 import PublicRoute from "../components/protectRoute/PublicRoute";
 import HrDashbord from "../coreModule/hrAdmin/hrDashbord/HrDashbord";
@@ -43,6 +46,8 @@ const route = createBrowserRouter(
         {/* mahbub.................. */}
         <Route path="adminDashbord" element={<AdminDashbord />} />
         {/* mahbub.................. */}
+        <Route path="employee-form" element={<AddEmployee />} />
+        <Route path="teamadminpanel" element={<TeamAdminPanel />} />
       </Route>
     </>
   )

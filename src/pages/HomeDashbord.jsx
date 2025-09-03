@@ -1,13 +1,13 @@
 // MAHBUB❤️❤️❤️❤️❤️..........................
 
-import EcommerceMetrics from '../components/ecommerce/EcommerceMetrics'
+import EcommerceMetrics from "../components/ecommerce/EcommerceMetrics";
 
 const HomeDashbord = () => {
   return (
-    <div className='dark:bg-gray-800 '>
-      <EcommerceMetrics/>
+    <div className="dark:bg-gray-800 ">
+      <EcommerceMetrics />
     </div>
-  )
-}
+  );
+};
 
-export default HomeDashbord
+export default HomeDashbord;
