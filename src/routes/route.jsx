@@ -14,6 +14,8 @@ import WorkSubmission from "../coreModule/userPanel/workSubmission/WorkSubmissio
 import Dashbord from "../pages/Home";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
+import EmployeePersonalPage from "../coreModule/teamAdminPanel/employeePersonalPage/EmployeePersonalPage";
+import UserAttendence from "../coreModule/hrAdmin/UserAttendence/UserAttendence";
 
 
 const route = createBrowserRouter(
@@ -27,6 +29,8 @@ const route = createBrowserRouter(
         <Route path="dashbord" element={<Dashbord />} />
         <Route path="adminDashbord" element={<AdminDashbord />} />
         <Route path="profile" element={<UserProfiles />} />
+        <Route path="employeeStatus" element={<EmployeePersonalPage />} />
+        <Route path="employeeAttendence" element={<UserAttendence />} />
       </Route>
     </>
   )
