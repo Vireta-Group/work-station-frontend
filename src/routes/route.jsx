@@ -16,6 +16,7 @@ import ProtectRoute from "../components/protectRoute/ProtectRoute";
 import PublicRoute from "../components/protectRoute/PublicRoute";
 import HrDashbord from "../coreModule/hrAdmin/hrDashbord/HrDashbord";
 import HomeDashbord from "../pages/HomeDashbord";
+import SupAdDashbord from "../coreModule/superAdmin/dashbord/SupAdDashbord";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +49,7 @@ const route = createBrowserRouter(
         {/* mahbub.................. */}
         <Route path="employee-form" element={<AddEmployee />} />
         <Route path="teamadminpanel" element={<TeamAdminPanel />} />
+        <Route path="SupAdDashbord" element={<SupAdDashbord/>}/>
       </Route>
     </>
   )

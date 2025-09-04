@@ -45,6 +45,7 @@ export default function Table() {
   const toggleExpand = (id) => {
     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+  
 
   return (
     <div className="overflow-x-auto">
