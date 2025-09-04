@@ -13,6 +13,7 @@ import ProtectRoute from "../components/protectRoute/ProtectRoute";
 import PublicRoute from "../components/protectRoute/PublicRoute";
 import HrDashbord from "../coreModule/hrAdmin/hrDashbord/HrDashbord";
 import HomeDashbord from "../pages/HomeDashbord";
+import SupAdDashbord from "../coreModule/superAdmin/dashbord/SupAdDashbord";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,7 @@ const route = createBrowserRouter(
         <Route path="hrDashbord" element={<HrDashbord/>}/>{/* mahbub.................. */}
         <Route path="homeDashbord" element={<HomeDashbord/>} />{/* mahbub.................. */}
         <Route path="adminDashbord" element={<AdminDashbord/>}/>{/* mahbub.................. */}
+        <Route path="SupAdDashbord" element={<SupAdDashbord/>}/>
       </Route>
     </>
   )
