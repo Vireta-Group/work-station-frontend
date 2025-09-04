@@ -4,33 +4,57 @@ import {
   Route,
 } from "react-router";
 import Root from "./root";
-import SignIn from "../pages/AuthPages/SignIn";
+import AddEmployee from "../coreModule/hrAdmin/addEmployee/AddEmployee";
+import LogIn from "../pages/AuthPages/LogIn";
 import WorkSubmission from "../coreModule/userPanel/workSubmission/WorkSubmission";
-// import LoginPage from "../components/loginPage/LoginPage.jsx";
-// import ProtectRoute from "./ProtectRoute.jsx";
-// import WorkDis from "../coreModule/teamAdminPanel/workDistrubition/WorkDis.jsx";
-// import EWorkDetail from "../coreModule/teamAdminPanel/EWorkDetail/EWorkDetail.jsx";
-
-import Dashbord from "../pages/Home";
+// import Dashbord from "../pages/HomeDashbord";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
 import EmployeePersonalPage from "../coreModule/teamAdminPanel/employeePersonalPage/EmployeePersonalPage";
 import UserAttendence from "../coreModule/hrAdmin/UserAttendence/UserAttendence";
 
+// import WorkDistribution from "../coreModule/WorkDistribution/WorkDistribution";
+import TeamAdminPanel from "../coreModule/teamAdminPanel/TeamAdminPanelDashboard";
+import ProtectRoute from "../components/protectRoute/ProtectRoute";
+import PublicRoute from "../components/protectRoute/PublicRoute";
+import HrDashbord from "../coreModule/hrAdmin/hrDashbord/HrDashbord";
+import HomeDashbord from "../pages/HomeDashbord";
+import SupAdDashbord from "../coreModule/superAdmin/dashbord/SupAdDashbord";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="signIn" element={<SignIn />} />
-      {/* <Route path="/" element={<ProtectRoute />}> */}
-      <Route path="" element={<Root />}>
-        <Route path="" element={<p className="text-text-muted"> hell </p>} />
+      <Route
+        path="login"
+        element={
+          <PublicRoute>
+            <LogIn />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/"
+        element={
+          <ProtectRoute>
+            <Root />
+          </ProtectRoute>
+        }
+      >
+        {/* <Route index element={<p className="text-text-muted"> hell </p>} /> */}
         <Route path="workSubmission" element={<WorkSubmission />} />
-        <Route path="dashbord" element={<Dashbord />} />
-        <Route path="adminDashbord" element={<AdminDashbord />} />
+        {/* <Route path="/" element={<Dashbord />} /> */}
         <Route path="profile" element={<UserProfiles />} />
         <Route path="employeeStatus" element={<EmployeePersonalPage />} />
         <Route path="employeeAttendence" element={<UserAttendence />} />
+        <Route path="hrDashbord" element={<HrDashbord />} />
+        {/* mahbub.................. */}
+        <Route index element={<HomeDashbord />} />
+        {/* mahbub.................. */}
+        <Route path="adminDashbord" element={<AdminDashbord />} />
+        {/* mahbub.................. */}
+        <Route path="employee-form" element={<AddEmployee />} />
+        <Route path="teamadminpanel" element={<TeamAdminPanel />} />
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />
       </Route>
     </>
   )
