@@ -8,13 +8,13 @@ import {
 
 import Badge from "../../components/ui/badge/Badge";
 import { useState } from "react";
-import EditEmployees from "../hrAdmin/editEmployee/editEmployee";
+import EditModal from "./EditModal";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../../components/ui/modal";
 import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
 import Button from "../../components/ui/dropdown/button/Button";
-import EditEmployee from "../hrAdmin/editEmployee/editEmployee";
+import EditEmployee from "./EditModal";
 // Table data
 const tableData = [
   {
@@ -202,7 +202,7 @@ export default function TeamAdminTable() {
                     Edit
                   </button>
 
-                  <EditEmployee
+                  <EditModal
                     isOpen={isOpen}
                     onClose={closeModal}
                     onSave={handleSave}
