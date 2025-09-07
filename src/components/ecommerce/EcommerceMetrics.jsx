@@ -19,6 +19,7 @@ export default function EcommerceMetrics() {
     {title: "Web developer", value: "$Junior", Icon: MdManageAccounts}
 
   ];
+  
   return (
     <div className="flex gap-5  flex-wrap justify-around  dark:bg-[#101828] w-full min-h-[100vh]  pb-20 overflow-x-scroll">
 

@@ -5,7 +5,7 @@ import employeeSchedules from './hrData'
 import HrSheduleComponent from './HrSheduleComponent';
 
 // icons...............
-import { FaUser, FaUserCheck } from "react-icons/fa";
+import {  FaUserCheck } from "react-icons/fa";
 import { FaUserXmark } from "react-icons/fa6";
 
 const HrDashbord = () => {

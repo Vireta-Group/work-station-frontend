@@ -20,7 +20,7 @@ const data = [
   },
   {
     id: 2,
-    date: "2025-08-15",
+    date: "2025-08-30",
     user: {
       name: "Kaiya George",
       jobTitle: "Project Manager",
@@ -32,7 +32,7 @@ const data = [
   },
   {
     id: 3,
-    date: "2025-08-01",
+    date: "2025-09-01",
     user: {
       name: "Zain Geidt",
       jobTitle: "Content Writer",
@@ -47,6 +47,19 @@ const data = [
     date: "2025-07-28",
     user: {
       name: "Abram Schleifer",
+      jobTitle: "Digital Marketer",
+      profileImg: "/images/user/user-20.jpg",
+    },
+    taskTitle: "SEO Optimization",
+    status: "Ongoing",
+    expire: "Complete",
+  },
+
+    {
+    id: 5,
+    date: "2025-8-28",
+    user: {
+      name: "John Schleifer",
       jobTitle: "Digital Marketer",
       profileImg: "/images/user/user-20.jpg",
     },

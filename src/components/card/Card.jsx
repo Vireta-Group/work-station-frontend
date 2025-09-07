@@ -14,6 +14,7 @@ const SingleCard = ({ title, value, Icon }) => {
   );
 };
 
+
 const Card = ({ cardData }) => {
   return (
     <div>

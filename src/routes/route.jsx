@@ -18,6 +18,7 @@ import HrDashbord from "../coreModule/hrAdmin/hrDashbord/HrDashbord";
 import HomeDashbord from "../pages/HomeDashbord";
 import EditEmployee from "../coreModule/hrAdmin/editEmployee/EditEmployee";
 import EditEmployeeDashboard from "../coreModule/hrAdmin/editEmployee/EditEmployeeDashboard";
+import SupAdDashbord from "../coreModule/superAdmin/dashbord/SupAdDashbord";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +52,7 @@ const route = createBrowserRouter(
         <Route path="employee-form" element={<AddEmployee />} />
         <Route path="teamadminpanel" element={<TeamAdminPanel />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />
       </Route>
     </>
   )
