@@ -1,99 +1,96 @@
-// src/components/modals/EditEmployeeModal.jsx
-import React from "react";
-// import { Modal } from "../../components/ui/modal";
-// import Label from "../../components/form/Label";
-// import Input from "../../components/form/input/InputField";
-// import Button from "../../components/ui/dropdown/button/Button";
-import { Modal } from "../../../components/ui/modal";
+// EditEmployee.jsx
+import React, { useState } from "react";
+import { FaUserEdit } from "react-icons/fa";
+import EditEmployeeForm from "./EditEmployeeForm";
 import Label from "../../../components/form/Label";
-// import Input from "../../../components/form/input/FileInput";
-import Button from "../../../components/ui/dropdown/button/Button";
-import Input from "../../../components/form/input/InputField";
+import { BsGenderAmbiguous } from "react-icons/bs";
+import Select from "../../../components/form/Select";
 
-export default function EditEmployee({ isOpen, onClose, onSave }) {
+const employees = [
+  {
+    id: 1,
+    name: "Abdul Karim",
+    father: "Rahim",
+    mother: "Ayesha",
+    nid: "123456789",
+    dob: "1995-05-10",
+    local: "Dhaka",
+    permanent: "Chittagong",
+    education: "BSc",
+    gender: "Male",
+    blood: "A+",
+  },
+  {
+    id: 2,
+    name: "Hasan Ali",
+    father: "Salam",
+    mother: "Rokeya",
+    nid: "987654321",
+    dob: "1992-02-15",
+    local: "Sylhet",
+    permanent: "Barishal",
+    education: "HSC",
+    gender: "Male",
+    blood: "B+",
+  },
+];
+
+const EditEmployee = () => {
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+  // Dropdown select
+  const handleSelect = (id) => {
+    const emp = employees.find((e) => e.id === parseInt(id));
+    setSelectedEmployee(emp);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="max-w-[700px] m-4">
-      <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
-        <div className="px-2 pr-14">
-          <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-            Edit Personal Information
-          </h4>
-        </div>
-        <form className="flex flex-col">
-          <div className="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
-            <div>
-              <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                <div>
-                  <Label>father name</Label>
-                  <Input type="text" placeholder="John Doe" />
-                </div>
+    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-black  shadow-lg rounded-2xl">
+      <h2 className="text-xl font-bold mb-4 flex items-center gap-2 dark:text-white">
+        <FaUserEdit className="text-blue-600 dark:text dark:text-white" /> Edit
+        Employee Info
+      </h2>
 
-                <div>
-                  <Label>father name</Label>
-                  <Input type="text" placeholder="John Doe" />
-                </div>
+      {/* Employee Dropdown */}
 
-                <div>
-                  <Label>mother name</Label>
-                  <Input type="text" placeholder="John Doe" />
-                </div>
+      <select
+        className="w-full border p-2 rounded mb-4 bg-white dark:bg-black  dark:text-white"
+        onChange={(e) => handleSelect(e.target.value)}
+      >
+        <option className="dark:text-white" value="">
+          Select Employee
+        </option>
+        {employees.map((emp) => (
+          <option className="dark:text-white" key={emp.id} value={emp.id}>
+            {emp.name}
+          </option>
+        ))}
+      </select>
 
-                <div>
-                  <Label>NID</Label>
-                  <Input type="text" placeholder="4524457" />
-                </div>
-
-                <div className="col-span-2 lg:col-span-1">
-                  <Label>date of Birth</Label>
-                  <Input type="date" />
-                </div>
-
-                <div className="col-span-2 lg:col-span-1">
-                  <Label>Local Address</Label>
-                  <Input type="text" placeholder="Enter your address" />
-                </div>
-                <div className="col-span-2 lg:col-span-1">
-                  <Label>Permanent address</Label>
-                  <Input type="text" placeholder="Enter your address" />
-                </div>
-
-                <div className="col-span-2 lg:col-span-1">
-                  <Label>last education</Label>
-                  <Input type="text" placeholder="Enter your education" />
-                </div>
-
-                <div className="col-span-2 lg:col-span-1">
-                  <Label>Gender</Label>
-                  <select
-                    className="w-full rounded-md border border-gray-300 bg-white p-3 text-sm text-gray-700 focus:border-blue-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Select Gender
-                    </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div className="col-span-2 lg:col-span-1">
-                  <Label>blood group</Label>
-                  <Input type="text" placeholder={"o+"} />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 px-2 mt-6  justify-center">
-            <Button size="sm" variant="outline" onClick={onClose}>
-              Close
-            </Button>
-            <Button size="sm" onClick={onSave}>
-              Update
-            </Button>
-          </div>
-        </form>
-      </div>
-    </Modal>
+      {/* Form Component */}
+      {selectedEmployee && <EditEmployeeForm employee={selectedEmployee} />}
+    </div>
+    //==========================================================
+    // <div>
+    //   <Label>Gender</Label>
+    //   <div className="relative">
+    //     <select
+    //       className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
+    //       onChange={(e) => handleSelect(e.target.value)}
+    //     >
+    //       <option value="">Select Employee</option>
+    //       {employees.map((emp) => (
+    //         <option key={emp.id} value={emp.id}>
+    //           {emp.name}
+    //         </option>
+    //       ))}
+    //     </select>
+    //     <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+    //       {selectedEmployee && <EditEmployeeForm employee={selectedEmployee} />}
+    //     </span>
+    //   </div>
+    // </div>
   );
-}
+};
+
+export default EditEmployee;
