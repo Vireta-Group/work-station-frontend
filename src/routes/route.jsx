@@ -16,6 +16,8 @@ import ProtectRoute from "../components/protectRoute/ProtectRoute";
 import PublicRoute from "../components/protectRoute/PublicRoute";
 import HrDashbord from "../coreModule/hrAdmin/hrDashbord/HrDashbord";
 import HomeDashbord from "../pages/HomeDashbord";
+import EditEmployee from "../coreModule/hrAdmin/editEmployee/EditEmployee";
+import EditEmployeeDashboard from "../coreModule/hrAdmin/editEmployee/EditEmployeeDashboard";
 import SupAdDashbord from "../coreModule/superAdmin/dashbord/SupAdDashbord";
 import EmployeeList from "../coreModule/superAdmin/employeeList/EmployeeList";
 
