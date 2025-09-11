@@ -62,7 +62,7 @@ export default function WorkSubmission() {
         const result = dispatch(workSubmision(payload));
 
         result.then((res) => {
-            console.log(res);
+            // console.log(res);
             if (res.type.endsWith("fulfilled")) {
                 setMessage("✅ Work details saved successfully");
                 // এখানে form reset করতে পারো
