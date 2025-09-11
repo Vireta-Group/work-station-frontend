@@ -15,39 +15,34 @@ import { ThemeProvider } from "./context/ThemeContext";
 //   </StrictMode>
 // );
 
-// fetch("https://work.vireta.com/api/work/addProfile", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": null,
-//     Authorization: `Bearer ${Cookies.get("token")}`,
-//   },
-//   body: JSON.stringify({
-//     name: "string",
-//     father: "string",
-//     mother: "string",
-//     full_address: "string",
-//     nid: "string",
-//     mobile: "string",
-//     email: "string",
-//     pic: "string",
-//     last_edu: "string",
-//     bkash: "string",
-//     dob: "2019-08-24",
-//     bank_account: "string",
-//     bank_routing: "string",
-//     bank_name: "string",
-//     bank_branch: "string",
-//     username: "string",
-//     password: "string",
-//   }),
-// })
-//   .then((response) => response.json())
-//   .then((data) => {
+// import axios from "axios";
+// import Cookies from "js-cookie";
+
+// axios
+//   .post(
+//     "https://work.vireta.com/api/work/change_password",
+//     {
+//       old_password: "string",
+//       new_password: "string",
+//     },
+//     {
+//       headers: {
+//         Authorization: `Bearer ${Cookies.get("token")}`,
+//         "Content-Type": null,
+//         Origin: "https://work.vireta.com",
+//       },
+//     }
+//   )
+//   .then((response) => {
+//     const data = response.data;
 //     if (data.error) {
 //       console.error(data.error);
 //       return;
 //     }
 //     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.error("Request failed:", error);
 //   });
 
 createRoot(document.getElementById("root")).render(
