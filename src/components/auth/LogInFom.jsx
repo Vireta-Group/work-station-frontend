@@ -10,8 +10,17 @@ import { IoEyeOutline } from "react-icons/io5";
 import { GoEyeClosed } from "react-icons/go";
 import Button from "../ui/dropdown/button/Button";
 
+import { z } from "zod";
+
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/auth/authSlice.js";
+import { CircularProgress } from "@mui/material";
+
+// Zod Schema define
+const loginSchema = z.object({
+  username: z.string().nonempty("Username is required"),
+  password: z.string().nonempty("password is required"),
+});
 
 export default function LogInForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,9 +30,11 @@ export default function LogInForm() {
     password: "",
   });
 
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-  const value = useSelector((state) => state.auth);
+  const { error, isAuthenticated, status } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  // const { status, error } = useSelector((state) => state.auth);
 
   function changeHanlder(e) {
     setLoginInfo((pre) => ({ ...pre, [e.target.name]: e.target.value }));
@@ -31,14 +42,29 @@ export default function LogInForm() {
 
   function login(e) {
     e.preventDefault();
+
+    // validation with zod
+    const result = loginSchema.safeParse(loginInfo);
+
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
+      const formatted = {};
+      Object.keys(fieldErrors).forEach((k) => {
+        if (fieldErrors[k]?.length) formatted[k] = fieldErrors[k][0];
+      });
+      setErrors(formatted);
+      return;
+    }
+
+    setErrors({});
     dispatch(loginUser(loginInfo));
   }
 
   useEffect(() => {
-    if (value.isAuthenticated) {
+    if (isAuthenticated) {
       navigate("/");
     }
-  }, [value.isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="flex flex-col flex-1">
@@ -65,6 +91,11 @@ export default function LogInForm() {
             <form>
               <div className="space-y-6">
                 <div>
+                  {errors.global ? (
+                    <p className="text-red-500 text-sm">{errors.global}</p>
+                  ) : error ? (
+                    <p className="text-red-500 text-sm">{error}</p>
+                  ) : null}
                   <Label>
                     User Name <span className="text-error-500">*</span>{" "}
                   </Label>
@@ -74,6 +105,9 @@ export default function LogInForm() {
                     name="username"
                     value={loginInfo.username}
                   />
+                  {errors.username && (
+                    <p className="text-red-500 text-sm">{errors.username}</p>
+                  )}
                 </div>
                 <div>
                   <Label>
@@ -87,6 +121,9 @@ export default function LogInForm() {
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
                     />
+                    {errors.password && (
+                      <p className="text-red-500 text-sm">{errors.password}</p>
+                    )}
                     <span
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
@@ -112,7 +149,14 @@ export default function LogInForm() {
                 </div>
                 <div>
                   <Button className="w-full" size="sm" onClick={login}>
-                    Log In
+                    {status === "loading" && (
+                      <CircularProgress
+                        size={20}
+                        color="inherit"
+                        style={{ marginRight: 8 }}
+                      />
+                    )}
+                    {status === "loading" ? "Logging in..." : "Log In"}
                   </Button>
                 </div>
               </div>
