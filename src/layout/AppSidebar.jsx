@@ -10,6 +10,7 @@ import { useSidebar } from "../context/SidebarContext";
 import viretaLogo from "../assets/logo/vireta-logo.png";
 import viretaLogoDark from "../assets/logo/vireta-logo-dark.png";
 import viretaLogoSmall from "../assets/logo/vireta-small-logo.png";
+import viretaLogoSmallDark from "../assets/logo/vireta-small-logo-dark.png";
 
 const navItems = [
   {
@@ -294,7 +295,14 @@ const AppSidebar = () => {
               />
             </>
           ) : (
-            <img src={viretaLogoSmall} alt="Logo" width={32} height={32} />
+            <>
+              <img
+                src={viretaLogoSmall}
+                alt="Logo"
+                width={32}
+                height={32}
+              />
+            </>
           )}
         </Link>
       </div>
