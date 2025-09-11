@@ -29,32 +29,54 @@ export default function WorkSubmission() {
         setLoading(true);
         setMessage("");
 
-        const data = dispatch(workSubmision());
-        data.then((data1) => console.log(data1));
+        // const data = dispatch(workSubmision());
+        // data.then((data1) => console.log(data1));
 
-        // try {
-        //   const payload = {
+
+        // const payload = {
         //     title: taskTitle,
         //     description: taskDescription,
-        //     status: status,
-        //     commitMessage: commitMessage,
-        //     commitId: commitId,
-        //   };
+        //     status,
+        //     commitMessage,
+        //     commitId,
+        // };
 
-        //   const res = workSubmision(payload);
-        //   console.log(res);
+        // dispatch(workSubmision(payload))
+        //     .unwrap()
+        //     .then((res) => {
+        //         setMessage("✅ " + res.message); // backend message
+        //     })
+        //     .catch((err) => {
+        //         setMessage("❌ " + err);
+        //     })
+        //     .finally(() => setLoading(false));
 
-        //   if (res.data.status === "success") {
-        //     setMessage("✅ " + res.data.message);
-        //   } else {
-        //     setMessage("❌ Something went wrong");
-        //   }
-        // } catch (err) {
-        //   console.error(err);
-        //   setMessage("❌ API error occurred");
-        // } finally {
-        //   setLoading(false);
-        // }
+        const payload = {
+            title: taskTitle,
+            description: taskDescription,
+            status: status?.value,
+            commitMessage: commitMessage,
+            commitId: commitId,
+        };
+
+        const result = dispatch(workSubmision(payload));
+
+        result.then((res) => {
+            console.log(res);
+            if (res.type.endsWith("fulfilled")) {
+                setMessage("✅ Work details saved successfully");
+                // এখানে form reset করতে পারো
+                setTaskTitle("");
+                setTaskDescription("");
+                setStatus("");
+                setCommitMessage("");
+                setCommitId("");
+                setLoading(false);
+            } else {
+                setMessage("❌ Something went wrong");
+            }
+        });
+
     };
 
     return (
