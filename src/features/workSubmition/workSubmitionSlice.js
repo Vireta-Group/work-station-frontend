@@ -20,7 +20,7 @@ export const workSubmision = createAsyncThunk(
       }
     } catch (err) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Login failed"
+        err.response?.data?.message || err.message || "Work Submission failed"
       );
     }
   }
