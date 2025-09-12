@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { Link, useNavigate } from "react-router";
-import userImg from "../../assets/logo/user.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
+import { user } from "../../features/user/userSlice";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+  const userData = useSelector((state) => state.user).user;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(user);
+  useEffect(() => {
+    if (userData === null) {
+      dispatch(
+        user((error) => {
+          return (
+            error.response?.data?.message || error.message || "token expired"
+          );
+        })
+      );
+    }
+  }, [dispatch, userData]);
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -27,6 +37,7 @@ export default function UserDropdown() {
     navigate("/login");
   }
 
+
   return (
     <div className="relative">
       <button
@@ -34,11 +45,12 @@ export default function UserDropdown() {
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
         <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-          <img src={userImg} alt="User" />
+          {/* <img src={`data:image/jpeg;base64,${userData.pic}`} alt="User" /> */}
+          <Base64Image base64String={userData?.pic} alt="User" />
         </span>
 
         <span className="block mr-1 font-medium text-theme-sm">
-          {user?.userName}
+          {userData?.username}
         </span>
         <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
@@ -67,10 +79,10 @@ export default function UserDropdown() {
       >
         <div>
           <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-            {user?.fullName}
+            {userData?.name}
           </span>
           <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-            {user?.designation}
+            {userData?.designation}
           </span>
         </div>
 
@@ -176,3 +188,13 @@ export default function UserDropdown() {
     </div>
   );
 }
+
+const Base64Image = ({ base64String, alt = "User", className = "" }) => {
+  if (!base64String) return <img src="#" alt={alt} className={className} />;
+
+  const imageSrc = base64String.startsWith("data:image")
+    ? base64String
+    : `data:image/jpeg;base64,${base64String}`;
+
+  return <img src={imageSrc} alt={alt} className={className} />;
+};

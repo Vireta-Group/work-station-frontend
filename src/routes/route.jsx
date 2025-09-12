@@ -10,6 +10,9 @@ import WorkSubmission from "../coreModule/userPanel/workSubmission/WorkSubmissio
 // import Dashbord from "../pages/HomeDashbord";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
+import EmployeePersonalPage from "../coreModule/teamAdminPanel/employeePersonalPage/EmployeePersonalPage";
+import UserAttendence from "../coreModule/hrAdmin/UserAttendence/UserAttendence";
+
 // import WorkDistribution from "../coreModule/WorkDistribution/WorkDistribution";
 import TeamAdminPanel from "../coreModule/teamAdminPanel/TeamAdminPanelDashboard";
 import ProtectRoute from "../components/protectRoute/ProtectRoute";
@@ -44,6 +47,8 @@ const route = createBrowserRouter(
         <Route path="workSubmission" element={<WorkSubmission />} />
         {/* <Route path="/" element={<Dashbord />} /> */}
         <Route path="profile" element={<UserProfiles />} />
+        <Route path="employeeStatus" element={<EmployeePersonalPage />} />
+        <Route path="employeeAttendence" element={<UserAttendence />} />
         <Route path="hrDashbord" element={<HrDashbord />} />
         {/* mahbub.................. */}
         <Route index element={<HomeDashbord />} />
