@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "./context/ThemeContext";
-// import Cookies from "js-cookie";
 
 // console.log(Cookies.get("token"));
 
@@ -18,24 +17,21 @@ import { ThemeProvider } from "./context/ThemeContext";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 
-// axios
-//   .post(
-//     "https://work.vireta.com/api/work/change_password",
-//     {
-//       old_password: "string",
-//       new_password: "string",
-//     },
-//     {
-//       headers: {
-//         Authorization: `Bearer ${Cookies.get("token")}`,
-//         "Content-Type": null,
-//         Origin: "https://work.vireta.com",
-//       },
+// fetch("https://work.viretadev.com/api/work/profile", {
+//   method: "POST",
+//   headers: {
+//     Authorization: `Bearer ${Cookies.get("token")}`,
+//     "Content-Type": null,
+//     // Note: do NOT set Origin here — browsers will ignore/deny it.
+//   },
+// })
+//   .then(async (res) => {
+//     const data = await res.json().catch(() => null);
+//     if (!res.ok) {
+//       console.error("Server error:", data || res.statusText);
+//       return;
 //     }
-//   )
-//   .then((response) => {
-//     const data = response.data;
-//     if (data.error) {
+//     if (data?.error) {
 //       console.error(data.error);
 //       return;
 //     }
