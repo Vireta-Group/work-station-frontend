@@ -3,8 +3,12 @@ import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
+import { useSelector } from "react-redux";
 
 export default function UserInfoCard() {
+  const userData = useSelector((data) => data.user).user;
+   
+
   const { isOpen, openModal, closeModal } = useModal();
   const handleSave = () => {
     // Handle save logic here
@@ -22,28 +26,29 @@ export default function UserInfoCard() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                First Name
+                Full Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Musharof
+                {userData?.name}
               </p>
             </div>
 
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                Last Name
+                Department
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Chowdhury
+                {userData?.department}
               </p>
             </div>
+            
 
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                 Email address
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                {userData?.email }
               </p>
             </div>
 
@@ -58,12 +63,78 @@ export default function UserInfoCard() {
 
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                Bio
+                Father Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Team Manager
+                {userData?.father}
               </p>
             </div>
+
+
+             <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Father Name
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userData?.mother}
+              </p>
+            </div>
+
+
+
+             <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                NID
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userData?.nid}
+              </p>
+            </div>
+            
+
+
+             <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Date of birth
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userData?.dob}
+              </p>
+            </div>
+
+
+             <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Bkash
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userData?.bkash}
+              </p>
+            </div>
+
+             <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Education
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userData?.last_edu}
+              </p>
+            </div>
+
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Address
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userData?.full_address}
+              </p>
+            </div>
+
+
+
+
+
+
           </div>
         </div>
 

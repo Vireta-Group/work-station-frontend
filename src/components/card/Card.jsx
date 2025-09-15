@@ -2,7 +2,7 @@
 
 const SingleCard = ({ title, value, Icon }) => {
   return (
-    <div className="card  flex justify-between  items-center w-[13rem] h-[8rem] rounded-[10px] shadow-md border border-gray-200 dark:border-gray-700 p-4 dark:bg-[#171f2f]">
+    <div className="card  flex justify-between  items-center max-sm:w-[20rem] max-sm:h-[10rem] w-[13rem] h-[8rem] rounded-[10px] shadow-md border border-gray-200 dark:border-gray-700 max-sm:p-6 p-4 dark:bg-[#171f2f]">
       <div className="flex flex-col gap-5">
         <h2 className="text-[1.2rem] dark:text-gray-500">{title}</h2>
         <b className="text-2xl dark:text-white">{value}</b>
