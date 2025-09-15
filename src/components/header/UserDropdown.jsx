@@ -8,14 +8,12 @@ import { user } from "../../features/user/userSlice";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const authUser = useSelector((state) => state.auth);
-  const fallbackUser = useSelector((state) => state.user);
-  const userData = authUser.user ?? fallbackUser.user;
+  const userData = useSelector((state) => state.user).user;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!authUser.user && !fallbackUser.user) {
+    if (userData === null) {
       dispatch(
         user((error) => {
           return (
@@ -24,7 +22,7 @@ export default function UserDropdown() {
         })
       );
     }
-  }, [dispatch, authUser.user, fallbackUser.user, userData]);
+  }, [dispatch, userData]);
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -38,6 +36,7 @@ export default function UserDropdown() {
     dispatch(logout());
     navigate("/login");
   }
+
 
   return (
     <div className="relative">

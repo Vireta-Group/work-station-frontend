@@ -63,6 +63,8 @@ const route = createBrowserRouter(
         <Route path="employeeList" element={<EmployeeList />} />
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />         {/* mahbub.................. */}
+        <Route path="employeeList" element={<EmployeeList />} />         {/* mahbub.................. */}
       </Route>
     </>
   )
