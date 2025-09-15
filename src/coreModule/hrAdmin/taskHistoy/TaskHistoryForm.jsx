@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { FaCalendarAlt, FaBriefcase } from "react-icons/fa";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-select";
+
 import Label from "../../../components/form/Label";
+import DatePicker from "../../../components/form/DatePicker";
 
 export default function TaskHistoryForm() {
   const [startDate, setStartDate] = useState(null);
@@ -34,11 +33,14 @@ export default function TaskHistoryForm() {
             <label className="text-sm font-medium text-gray-700 flex items-center gap-2 mb-1 dark:text-gray-200">
               <FaCalendarAlt className="text-blue-500" /> Start Date
             </label>
+
             <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              placeholderText="Start date"
-              className="border rounded-lg px-3 py-2 w-44 focus:ring-2 focus:ring-blue-400 outline-none dark:text-gray-200"
+              id="date-picker"
+              placeholder="Select a date "
+              onChange={(dates, currentDateString) => {
+                // Handle your logic
+                console.log({ dates, currentDateString });
+              }}
             />
           </div>
 
@@ -48,10 +50,12 @@ export default function TaskHistoryForm() {
               <FaCalendarAlt className="text-red-500" /> Expire Date
             </label>
             <DatePicker
-              selected={expireDate}
-              onChange={(date) => setExpireDate(date)}
-              placeholderText="Expire date"
-              className="border rounded-lg px-3 py-2 w-44 focus:ring-2 focus:ring-red-400 outline-none dark:text-gray-200"
+              id="date-picker"
+              placeholder="Select a date "
+              onChange={(dates, currentDateString) => {
+                // Handle your logic
+                console.log({ dates, currentDateString });
+              }}
             />
           </div>
 
