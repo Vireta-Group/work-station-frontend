@@ -23,6 +23,8 @@ import EditEmployee from "../coreModule/hrAdmin/editEmployee/EditEmployee";
 import EditEmployeeDashboard from "../coreModule/hrAdmin/editEmployee/EditEmployeeDashboard";
 import SupAdDashbord from "../coreModule/superAdmin/dashbord/SupAdDashbord";
 import EmployeeList from "../coreModule/superAdmin/employeeList/EmployeeList";
+import TaskHistory from "../coreModule/hrAdmin/taskHistoy/TaskHistory";
+import EmployeeViewModal from "../coreModule/EmployeeViewModal/EmployeeViewModal";
 import AddDepartment from "../coreModule/superAdmin/addDepartment/AddDepartment";
 import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader";
 
@@ -59,12 +61,21 @@ const route = createBrowserRouter(
         {/* mahbub.................. */}
         <Route path="employee-form" element={<AddEmployee />} />
         <Route path="teamadminpanel" element={<TeamAdminPanel />} />
-        <Route path="SupAdDashbord" element={<SupAdDashbord />} />         {/* mahbub.................. */}
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />{" "}
+        {/* mahbub.................. */}
+        <Route path="employeeList" element={<EmployeeList />} />
+        <Route path="taskhistory" element={<TaskHistory />} />
+        <Route path="editemployee" element={<EditEmployeeDashboard />} />
+        <Route path="viewmodal" element={<EmployeeViewModal />} />
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />{" "}
+        {/* mahbub.................. */}
         <Route path="employeeList" element={<EmployeeList />} />
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
-        <Route path="SupAdDashbord" element={<SupAdDashbord />} />         {/* mahbub.................. */}
-        <Route path="employeeList" element={<EmployeeList />} />         {/* mahbub.................. */}
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />{" "}
+        {/* mahbub.................. */}
+        <Route path="employeeList" element={<EmployeeList />} />{" "}
+        {/* mahbub.................. */}
       </Route>
     </>
   )
