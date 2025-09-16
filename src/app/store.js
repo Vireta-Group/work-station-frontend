@@ -4,11 +4,13 @@ import { thunk } from "redux-thunk";
 import authReducer from "../features/auth/authSlice.js";
 import workSubmissionReducers from "../features/workSubmition/workSubmitionSlice.js";
 import userSlice from "../features/user/userSlice.js";
+import updateProfileSlice from "../features/updateProfile/updateProfileSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   workSubmision: workSubmissionReducers,
   user: userSlice,
+  updateUser: updateProfileSlice,
 });
 
 const store = createStore(

@@ -15,30 +15,34 @@ import { ThemeProvider } from "./context/ThemeContext";
 // );
 
 // import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
-fetch("https://work.viretadev.com/api/work/all_team_members_for_leader", {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${Cookies.get("token")}`,
-    "Content-Type": null,
-  },
-})
-  .then(async (res) => {
-    const data = await res.json().catch(() => null);
-    if (!res.ok) {
-      console.error("Server error:", data || res.statusText);
-      return;
-    }
-    if (data?.error) {
-      console.error(data.error);
-      return;
-    }
-    console.log(data);
-  })
-  .catch((error) => {
-    console.error("Request failed:", error);
-  });
+// fetch("https://work.viretadev.com/api/work/change_password", {
+//   method: "POST",
+//   headers: {
+//     Authorization: `Bearer ${Cookies.get("token")}`,
+//     "Content-Type": null,
+//   },
+//   body: JSON.stringify({
+//     current_password: "12345",
+//     new_password: "123456",
+//   }),
+// })
+//   .then(async (res) => {
+//     const data = await res.json().catch(() => null);
+//     if (!res.ok) {
+//       console.error("Server error:", data || res.statusText);
+//       return;
+//     }
+//     if (data?.error) {
+//       console.error(data.error);
+//       return;
+//     }
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.error("Request failed:", error);
+//   });
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider>

@@ -4,25 +4,27 @@ import Input from "../../../../components/form/input/InputField";
 import Label from "../../../../components/form/Label";
 import { Modal } from "../../../../components/ui/modal/index";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../../../../features/updateProfile/updateProfileSlice";
+import base64Conveter from "../../../../lib/base64Conveter/base64Conveter";
 
 function ModalCom({ isOpen, closeModal, handleSave }) {
   const user = useSelector((data) => data.user).user;
   const [userData, setUserData] = useState({
     email: user?.email ?? "",
-    education: user?.last_edu ?? "",
-    address: user?.full_address ?? "",
+    last_edu: user?.last_edu ?? "",
+    full_address: user?.full_address ?? "",
     bkash: user?.bkash ?? "",
-    phone: user?.mobile ?? "",
+    mobile: user?.mobile ?? "",
   });
-
+  const dispatch = useDispatch();
   const [passwords, setPasswords] = useState({
     oldPassword: "",
     newPassword: "",
   });
   const [profileField, setProfileField] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(user?.avatar ?? "");
+  const [previewUrl, setPreviewUrl] = useState("");
 
   // handlers
   const handleUserChange = (field) => (e) =>
@@ -42,7 +44,12 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
     }
     setSelectedFile(file);
     setProfileField(file.name);
-    const url = URL.createObjectURL(file);
+    let url;
+    base64Conveter(file.name, (data) => {
+      url = data;
+    });
+
+    // const url = URL.createObjectURL(file);
     setPreviewUrl(url);
   };
 
@@ -61,8 +68,28 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
 
   const onSave = (e) => {
     e?.preventDefault?.();
+
+    dispatch(
+      updateUser({
+        user: {
+          ...userData,
+          name: user?.name,
+          father: user?.father,
+          mother: user?.mother,
+          nid: user?.nid,
+          pic: previewUrl,
+          dob: user?.dob,
+          bank_account: user?.bank_account,
+          bank_routing: user?.bank_routing,
+          bank_name: user?.bank_name,
+          bank_branch: user?.bank_branch,
+          username: user?.username,
+        },
+        password: { ...passwords },
+      })
+    );
     if (typeof handleSave === "function") {
-      handleSave({ userData, passwords, profileField, selectedFile });
+      handleSave();
     }
   };
 
@@ -94,16 +121,16 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   <Label>Last Education</Label>
                   <Input
                     type="text"
-                    value={userData.education}
-                    onChange={handleUserChange("education")}
+                    value={userData.last_edu}
+                    onChange={handleUserChange("last_edu")}
                   />
                 </div>
                 <div>
                   <Label>Address</Label>
                   <Input
                     type="text"
-                    value={userData.address}
-                    onChange={handleUserChange("address")}
+                    value={userData.full_address}
+                    onChange={handleUserChange("full_address")}
                   />
                 </div>
 
@@ -120,7 +147,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   <Label>Phone Number</Label>
                   <Input
                     type="number"
-                    value={userData.phone}
+                    value={userData.mobile}
                     onChange={handleUserChange("phone")}
                   />
                 </div>
@@ -166,7 +193,11 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   />
                   <div className="preview mt-4">
                     {previewUrl ? (
-                      <img src={previewUrl} alt="Preview" className="w-28 h-28 object-cover rounded-full" />
+                      <img
+                        src={previewUrl}
+                        alt="Preview"
+                        className="w-28 h-28 object-cover rounded-full"
+                      />
                     ) : null}
                   </div>
                 </div>
