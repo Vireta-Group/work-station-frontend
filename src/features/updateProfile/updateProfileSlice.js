@@ -13,17 +13,26 @@ export const updateUser = createAsyncThunk(
     try {
       console.log(updateUser);
       if (updateUser.password.newPassword.trim()) {
-        console.log("hell");
+        const response = await apiClient.post(
+          "work/update_profile",
+          updateUser.user
+        );
+        const updatePass = await apiClient.post("work/change_password", {
+          current_password: updateUser.password.oldPassword,
+          new_password: updateUser.password.newPassword,
+        });
+
+        if (response.status === "success" && updatePass.status === "success") {
+          return response;
+        }
       } else {
         const response = await apiClient.post(
           "work/update_profile",
           updateUser.user
         );
-        const { data } = response;
-        console.log(data);
 
-        if (data.status === "success") {
-          return data.user;
+        if (response.status === "success") {
+          response;
         }
       }
 
@@ -45,7 +54,7 @@ const updateProfileSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload;
+        state.message = action.payload.message;
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.status = "failed";

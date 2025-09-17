@@ -1,4 +1,3 @@
-// ...existing code...
 import Button from "../../../../components/ui/button/Button";
 import Input from "../../../../components/form/input/InputField";
 import Label from "../../../../components/form/Label";
@@ -6,16 +5,16 @@ import { Modal } from "../../../../components/ui/modal/index";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../../../features/updateProfile/updateProfileSlice";
-import base64Conveter from "../../../../lib/base64Conveter/base64Conveter";
+// import { user } from "../../../../features/user/userSlice.js";
 
 function ModalCom({ isOpen, closeModal, handleSave }) {
-  const user = useSelector((data) => data.user).user;
-  const [userData, setUserData] = useState({
-    email: user?.email ?? "",
-    last_edu: user?.last_edu ?? "",
-    full_address: user?.full_address ?? "",
-    bkash: user?.bkash ?? "",
-    mobile: user?.mobile ?? "",
+  const userInfo = useSelector((data) => data.user).user;
+  const [userData, setuserData] = useState({
+    email: userInfo?.email,
+    last_edu: userInfo?.last_edu,
+    full_address: userInfo?.full_address,
+    bkash: userInfo?.bkash,
+    mobile: userInfo?.mobile,
   });
   const dispatch = useDispatch();
   const [passwords, setPasswords] = useState({
@@ -26,17 +25,26 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
 
+  useEffect(() => {
+    setuserData({
+      email: userInfo?.email ?? "",
+      last_edu: userInfo?.last_edu ?? "",
+      full_address: userInfo?.full_address ?? "",
+      bkash: userInfo?.bkash ?? "",
+      mobile: userInfo?.mobile ?? "",
+    });
+  }, [userInfo]);
+
   // handlers
-  const handleUserChange = (field) => (e) =>
-    setUserData((prev) => ({ ...prev, [field]: e.target.value }));
+  const handleuserChange = (field) => (e) =>
+    setuserData((prev) => ({ ...prev, [field]: e.target.value }));
 
   const handlePasswordChange = (field) => (e) =>
     setPasswords((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const handleProfileChange = (e) => {
+  const handleProfileChange = async (e) => {
     const file = e?.target?.files?.[0] ?? null;
     if (!file) {
-      // cleared file input
       setSelectedFile(null);
       setProfileField("");
       setPreviewUrl("");
@@ -44,19 +52,23 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
     }
     setSelectedFile(file);
     setProfileField(file.name);
-    let url;
-    base64Conveter(file.name, (data) => {
-      url = data;
-    });
 
-    // const url = URL.createObjectURL(file);
-    setPreviewUrl(url);
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
+    setPreviewUrl(base64);
   };
 
   useEffect(() => {
-    // cleanup object URL when preview changes/unmount
     return () => {
-      if (previewUrl) {
+      if (
+        previewUrl &&
+        typeof previewUrl === "string" &&
+        previewUrl.startsWith("blob:")
+      ) {
         try {
           URL.revokeObjectURL(previewUrl);
         } catch (e) {
@@ -65,7 +77,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
       }
     };
   }, [previewUrl]);
-
+  console.log(user);
   const onSave = (e) => {
     e?.preventDefault?.();
 
@@ -73,21 +85,22 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
       updateUser({
         user: {
           ...userData,
-          name: user?.name,
-          father: user?.father,
-          mother: user?.mother,
-          nid: user?.nid,
-          pic: previewUrl,
-          dob: user?.dob,
-          bank_account: user?.bank_account,
-          bank_routing: user?.bank_routing,
-          bank_name: user?.bank_name,
-          bank_branch: user?.bank_branch,
-          username: user?.username,
+          name: userInfo?.name,
+          father: userInfo?.father,
+          mother: userInfo?.mother,
+          nid: userInfo?.nid,
+          pic: previewUrl ? previewUrl : userInfo.pic,
+          dob: userInfo?.dob,
+          bank_account: userInfo?.bank_account,
+          bank_routing: userInfo?.bank_routing,
+          bank_name: userInfo?.bank_name,
+          bank_branch: userInfo?.bank_branch,
+          username: userInfo?.username,
         },
         password: { ...passwords },
       })
     );
+    // dispatch(user(""));
     if (typeof handleSave === "function") {
       handleSave();
     }
@@ -113,7 +126,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   <Input
                     type="text"
                     value={userData.email}
-                    onChange={handleUserChange("email")}
+                    onChange={handleuserChange("email")}
                   />
                 </div>
 
@@ -122,7 +135,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   <Input
                     type="text"
                     value={userData.last_edu}
-                    onChange={handleUserChange("last_edu")}
+                    onChange={handleuserChange("last_edu")}
                   />
                 </div>
                 <div>
@@ -130,7 +143,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   <Input
                     type="text"
                     value={userData.full_address}
-                    onChange={handleUserChange("full_address")}
+                    onChange={handleuserChange("full_address")}
                   />
                 </div>
 
@@ -139,7 +152,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   <Input
                     type="number"
                     value={userData.bkash}
-                    onChange={handleUserChange("bkash")}
+                    onChange={handleuserChange("bkash")}
                   />
                 </div>
 
@@ -148,7 +161,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                   <Input
                     type="number"
                     value={userData.mobile}
-                    onChange={handleUserChange("phone")}
+                    onChange={handleuserChange("mobile")}
                   />
                 </div>
               </div>
