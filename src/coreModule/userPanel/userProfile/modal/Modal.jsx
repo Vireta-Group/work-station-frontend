@@ -6,6 +6,26 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../../../features/updateProfile/updateProfileSlice";
 // import { user } from "../../../../features/user/userSlice.js";
+import { z } from "zod";
+
+const profileSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  last_edu: z.string().min(1, "Last education is required"),
+  full_address: z.string().min(1, "Address is required"),
+  bkash: z.preprocess(
+    (val) => val?.toString(),
+    z
+      .string()
+      .regex(/^\d{10,14}$/, "Invalid BKASH number")
+      .optional()
+      .nullable()
+  ),
+  mobile: z
+    .string()
+    .regex(/^\d{10,14}$/, "Invalid phone number")
+    .optional()
+    .nullable(),
+});
 
 function ModalCom({ isOpen, closeModal, handleSave }) {
   const userInfo = useSelector((data) => data.user).user;
@@ -24,6 +44,7 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
   const [profileField, setProfileField] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     setuserData({
@@ -77,9 +98,21 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
       }
     };
   }, [previewUrl]);
-  console.log(user);
+  // console.log(user);
   const onSave = (e) => {
     e?.preventDefault?.();
+
+    const result = profileSchema.safeParse(userData);
+
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
+      const formatted = {};
+      Object.keys(fieldErrors).forEach((k) => {
+        if (fieldErrors[k]?.length) formatted[k] = fieldErrors[k][0];
+      });
+      setErrors(formatted);
+      return;
+    }
 
     dispatch(
       updateUser({
@@ -128,6 +161,9 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                     value={userData.email}
                     onChange={handleuserChange("email")}
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm">{errors.email}</p>
+                  )}
                 </div>
 
                 <div>
@@ -137,6 +173,9 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                     value={userData.last_edu}
                     onChange={handleuserChange("last_edu")}
                   />
+                  {errors.last_edu && (
+                    <p className="text-red-500 text-sm">{errors.last_edu}</p>
+                  )}
                 </div>
                 <div>
                   <Label>Address</Label>
@@ -145,6 +184,11 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                     value={userData.full_address}
                     onChange={handleuserChange("full_address")}
                   />
+                  {errors.full_address && (
+                    <p className="text-red-500 text-sm">
+                      {errors.full_address}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -154,6 +198,9 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                     value={userData.bkash}
                     onChange={handleuserChange("bkash")}
                   />
+                  {errors.bkash && (
+                    <p className="text-red-500 text-sm">{errors.bkash}</p>
+                  )}
                 </div>
 
                 <div>
@@ -163,6 +210,9 @@ function ModalCom({ isOpen, closeModal, handleSave }) {
                     value={userData.mobile}
                     onChange={handleuserChange("mobile")}
                   />
+                  {errors.mobile && (
+                    <p className="text-red-500 text-sm">{errors.mobile}</p>
+                  )}
                 </div>
               </div>
             </div>
