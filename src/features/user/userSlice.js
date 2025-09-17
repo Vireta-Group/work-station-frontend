@@ -13,6 +13,7 @@ export const user = createAsyncThunk(
     try {
       const response = await apiClient.post("work/profile");
       const { data } = response;
+      console.log(data);
 
       if (data.status === "success") {
         return data.user;
