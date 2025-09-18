@@ -5,7 +5,7 @@ export const submitEmployee = createAsyncThunk(
   "employee/submitEmployee",
   async (employeeData, { rejectWithValue }) => {
     try {
-      const res = await apiClient("work/addProfile", employeeData);
+      const res = await apiClient.post("work/addProfile", employeeData);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Something went wrong");
