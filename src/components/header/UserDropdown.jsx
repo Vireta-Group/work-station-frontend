@@ -37,7 +37,6 @@ export default function UserDropdown() {
     navigate("/login");
   }
 
-
   return (
     <div className="relative">
       <button

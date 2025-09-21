@@ -34,3 +34,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+mangment = super admin
+hr = hr
+accounting = accounting
+user = 1. maneger 2. teamleader 3. user 
+
+
+
+

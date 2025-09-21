@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 export default function UserInfoCard() {
   const userData = useSelector((data) => data.user).user;
 
+  console.log(userData);
+
   const { isOpen, openModal, closeModal } = useModal();
   const handleSave = () => {
     closeModal();
@@ -50,7 +52,7 @@ export default function UserInfoCard() {
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                +09 363 398 46
+                {userData?.mobile}
               </p>
             </div>
 
