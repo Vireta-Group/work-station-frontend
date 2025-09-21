@@ -47,9 +47,7 @@ const route = createBrowserRouter(
           </ProtectRoute>
         }
       >
-        {/* <Route index element={<p className="text-text-muted"> hell </p>} /> */}
         <Route path="workSubmission" element={<WorkSubmission />} />
-        {/* <Route path="/" element={<Dashbord />} /> */}
         <Route path="profile" element={<UserProfiles />} />
         <Route path="employeeStatus" element={<EmployeePersonalPage />} />
         <Route path="employeeAttendence" element={<UserAttendence />} />
@@ -61,20 +59,16 @@ const route = createBrowserRouter(
         {/* mahbub.................. */}
         <Route path="employee-form" element={<AddEmployee />} />
         <Route path="teamadminpanel" element={<TeamAdminPanel />} />
-        <Route path="SupAdDashbord" element={<SupAdDashbord />} />{" "}
         {/* mahbub.................. */}
         <Route path="employeeList" element={<EmployeeList />} />
         <Route path="taskhistory" element={<TaskHistory />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
         <Route path="viewmodal" element={<EmployeeViewModal />} />
-        <Route path="SupAdDashbord" element={<SupAdDashbord />} />{" "}
         {/* mahbub.................. */}
-        <Route path="employeeList" element={<EmployeeList />} />
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
-        <Route path="SupAdDashbord" element={<SupAdDashbord />} />{" "}
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />
         {/* mahbub.................. */}
-        <Route path="employeeList" element={<EmployeeList />} />{" "}
         {/* mahbub.................. */}
       </Route>
     </>
