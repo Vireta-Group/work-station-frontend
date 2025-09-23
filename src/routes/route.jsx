@@ -12,8 +12,6 @@ import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
 import EmployeePersonalPage from "../coreModule/teamAdminPanel/employeePersonalPage/EmployeePersonalPage";
 import UserAttendence from "../coreModule/hrAdmin/UserAttendence/UserAttendence";
-
-// import WorkDistribution from "../coreModule/WorkDistribution/WorkDistribution";
 import TeamAdminPanel from "../coreModule/teamAdminPanel/TeamAdminPanelDashboard";
 import ProtectRoute from "../components/protectRoute/ProtectRoute";
 import PublicRoute from "../components/protectRoute/PublicRoute";
@@ -27,6 +25,7 @@ import TaskHistory from "../coreModule/hrAdmin/taskHistoy/TaskHistory";
 import EmployeeViewModal from "../coreModule/EmployeeViewModal/EmployeeViewModal";
 import AddDepartment from "../coreModule/superAdmin/addDepartment/AddDepartment";
 import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader";
+import WorkDistributionForm from "../coreModule/teamAdminPanel/workDistrubition/WorkDis";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -50,6 +49,7 @@ const route = createBrowserRouter(
         <Route path="workSubmission" element={<WorkSubmission />} />
         <Route path="profile" element={<UserProfiles />} />
         <Route path="employeeStatus" element={<EmployeePersonalPage />} />
+        <Route path="workDistribution" element={<WorkDistributionForm />} />
         <Route path="employeeAttendence" element={<UserAttendence />} />
         <Route path="hrDashbord" element={<HrDashbord />} />
         {/* mahbub.................. */}
@@ -64,11 +64,9 @@ const route = createBrowserRouter(
         <Route path="taskhistory" element={<TaskHistory />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
         <Route path="viewmodal" element={<EmployeeViewModal />} />
-        {/* mahbub.................. */}
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />
-        {/* mahbub.................. */}
         {/* mahbub.................. */}
       </Route>
     </>
