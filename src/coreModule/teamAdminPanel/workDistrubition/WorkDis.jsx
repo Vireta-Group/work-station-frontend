@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -8,20 +8,29 @@ import {
   MenuItem,
 } from "@mui/material";
 import JobTable from "./JobTable";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMembersByLeader } from "../../../features/membersByLeader/membersByLeaderSlice";
 
-export default function WorkDistributionForm({ onSubmit }) {
+export default function WorkDistributionForm() {
+  const members = useSelector((state) => state.membersByLeader.items);
+  const dispatch = useDispatch();
+  const today = new Date().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState({
-    jobTitle: "",
-    jobDescription: "",
-    expirationDate: "",
-    assignedUser: "",
+    work_title: "",
+    work_desc: "",
+    work_expire_date: "",
+    work_date: today,
+    work_emp_id: "",
   });
 
-  const users = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Peter Jones" },
-  ];
+  console.log(members);
+
+  useEffect(() => {
+    if (members.length <= 0) {
+      dispatch(fetchMembersByLeader());
+    }
+  }, [members, dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,16 +42,13 @@ export default function WorkDistributionForm({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(typeof formData.expirationDate);
     setFormData({
-      jobTitle: "",
-      jobDescription: "",
-      expirationDate: "",
-      assignedUser: "",
+      work_title: "",
+      work_desc: "",
+      work_expire_date: "",
+      work_emp_id: "",
     });
   };
-
-  const today = new Date().toISOString().split("T")[0];
 
   const muiInputStyles = {
     "& .MuiInputBase-input": {
@@ -77,8 +83,8 @@ export default function WorkDistributionForm({ onSubmit }) {
           <FormControl sx={{ m: 2, width: "45%" }}>
             <TextField
               label="Job Title"
-              name="jobTitle"
-              value={formData.jobTitle}
+              name="work_title"
+              value={formData.work_title}
               onChange={handleChange}
               required
               sx={muiInputStyles}
@@ -88,8 +94,8 @@ export default function WorkDistributionForm({ onSubmit }) {
           <FormControl fullWidth className="mb-4" sx={{ my: 2 }}>
             <TextField
               label="Job Description"
-              name="jobDescription"
-              value={formData.jobDescription}
+              name=" work_desc"
+              value={formData.work_desc}
               onChange={handleChange}
               multiline
               rows={4}
@@ -102,9 +108,9 @@ export default function WorkDistributionForm({ onSubmit }) {
           <FormControl fullWidth className="mb-4" sx={{ my: 2 }}>
             <TextField
               label="Expiration Date"
-              name="expirationDate"
+              name="work_expire_date"
               type="date"
-              value={formData.expirationDate}
+              value={formData.work_expire_date}
               onChange={handleChange}
               InputLabelProps={{ shrink: true }}
               required
@@ -117,8 +123,8 @@ export default function WorkDistributionForm({ onSubmit }) {
             <InputLabel sx={{ color: "white" }}>Assign User</InputLabel>
             <Select
               label="Assign User"
-              name="assignedUser"
-              value={formData.assignedUser}
+              name="  work_emp_id"
+              value={formData.work_emp_id}
               onChange={handleChange}
               required
               sx={{
@@ -128,9 +134,9 @@ export default function WorkDistributionForm({ onSubmit }) {
                 },
               }}
             >
-              {users.map((user) => (
-                <MenuItem key={user.id} value={user.id}>
-                  {user.name}
+              {members?.map((user) => (
+                <MenuItem key={user.empId} value={user.empId}>
+                  {user.empName}
                 </MenuItem>
               ))}
             </Select>

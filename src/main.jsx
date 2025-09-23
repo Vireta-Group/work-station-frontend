@@ -17,16 +17,16 @@ import { ThemeProvider } from "./context/ThemeContext";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 
-// fetch("https://work.viretadev.com/api/work/change_password", {
+// fetch("https://work.viretadev.com/api/work/getAllDepartment", {
 //   method: "POST",
 //   headers: {
 //     Authorization: `Bearer ${Cookies.get("token")}`,
 //     "Content-Type": null,
 //   },
-//   body: JSON.stringify({
-//     current_password: "12345",
-//     new_password: "123456",
-//   }),
+//   // body: JSON.stringify({
+//   //   current_password: "12345",
+//   //   new_password: "123456",
+//   // }),
 // })
 //   .then(async (res) => {
 //     const data = await res.json().catch(() => null);
