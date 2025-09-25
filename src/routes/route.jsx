@@ -25,7 +25,8 @@ import TaskHistory from "../coreModule/hrAdmin/taskHistoy/TaskHistory";
 import EmployeeViewModal from "../coreModule/EmployeeViewModal/EmployeeViewModal";
 import AddDepartment from "../coreModule/superAdmin/addDepartment/AddDepartment";
 import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader";
-import WorkDistributionForm from "../coreModule/teamAdminPanel/workDistrubition/WorkDis";
+// import WorkDistributionForm from "../coreModule/teamAdminPanel/workDistrubition/WorkDis";
+import WorkGroup from "../coreModule/teamAdminPanel/WorkDistribution/WorkGroup";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -49,7 +50,8 @@ const route = createBrowserRouter(
         <Route path="workSubmission" element={<WorkSubmission />} />
         <Route path="profile" element={<UserProfiles />} />
         <Route path="employeeStatus" element={<EmployeePersonalPage />} />
-        <Route path="workDistribution" element={<WorkDistributionForm />} />
+        <Route path="workDistribution" element={<WorkGroup />} />
+        {/* <Route path="workDistribution" element={<WorkDistributionForm />} /> */}
         <Route path="employeeAttendence" element={<UserAttendence />} />
         <Route path="hrDashbord" element={<HrDashbord />} />
         {/* mahbub.................. */}
