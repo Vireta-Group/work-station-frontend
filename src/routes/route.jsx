@@ -27,6 +27,7 @@ import TaskHistory from "../coreModule/hrAdmin/taskHistoy/TaskHistory";
 import EmployeeViewModal from "../coreModule/EmployeeViewModal/EmployeeViewModal";
 import AddDepartment from "../coreModule/superAdmin/addDepartment/AddDepartment";
 import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader";
+import WorkDistribution from "../coreModule/WorkDistribution/WorkDistribution";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -68,6 +69,7 @@ const route = createBrowserRouter(
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />
+        <Route path="WorkDistribution" element={<WorkDistribution />} />
         {/* mahbub.................. */}
         {/* mahbub.................. */}
       </Route>

@@ -17,15 +17,15 @@ import { ThemeProvider } from "./context/ThemeContext";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 
-// fetch("https://work.viretadev.com/api/work/change_password", {
+// fetch("https://work.viretadev.com/api/work/addMembersToTeam", {
 //   method: "POST",
 //   headers: {
 //     Authorization: `Bearer ${Cookies.get("token")}`,
 //     "Content-Type": null,
 //   },
 //   body: JSON.stringify({
-//     current_password: "12345",
-//     new_password: "123456",
+//     leader_id: 2,
+//     members: [{ memberid: 1 }, { memberid: 2 }, { memberid: 3 }],
 //   }),
 // })
 //   .then(async (res) => {

@@ -7,6 +7,7 @@ import userReducer from "../features/user/userSlice.js";
 import updateProfileReducer from "../features/updateProfile/updateProfileSlice.js";
 import rolesDepartmentReducer from "../features/rolesDepartment/rolesDeparmentSlice.js";
 import roleMembersReducer from "../features/roleMembers/roleMembersSlice.js";
+import addMembersToTeamSlice from "../features/addMembersToTeam/addMembersToTeamSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   updateUser: updateProfileReducer,
   rolesDepartment: rolesDepartmentReducer,
   roleMembers: roleMembersReducer,
+  addMembersToTeam: addMembersToTeamSlice,
 });
 
 const store = createStore(
