@@ -25,13 +25,10 @@ import TaskHistory from "../coreModule/hrAdmin/taskHistoy/TaskHistory";
 import EmployeeViewModal from "../coreModule/EmployeeViewModal/EmployeeViewModal";
 import AddDepartment from "../coreModule/superAdmin/addDepartment/AddDepartment";
 import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader";
-<<<<<<< HEAD
 import NotFound from "../components/NotFound/NotFound";
 import AddMember from "../coreModule/superAdmin/addDepartment/addMember";
-=======
 // import WorkDistributionForm from "../coreModule/teamAdminPanel/workDistrubition/WorkDis";
 import WorkGroup from "../coreModule/teamAdminPanel/WorkDistribution/WorkGroup";
->>>>>>> main
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -73,14 +70,11 @@ const route = createBrowserRouter(
         <Route path="viewmodal" element={<EmployeeViewModal />} />
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
-<<<<<<< HEAD
         <Route path="addmember" element={<AddMember />} />
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />         {/* mahbub.................. */}
         <Route path="employeeList" element={<EmployeeList />} />         {/* mahbub.................. */}
-=======
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />
         {/* mahbub.................. */}
->>>>>>> main
       </Route>
       <Route path="404" element={<NotFound />} />
     </>
