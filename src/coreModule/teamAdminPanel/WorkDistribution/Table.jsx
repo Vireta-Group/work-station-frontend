@@ -4,10 +4,10 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-} from "../../components/ui/table/index";
+} from "../../../components/ui/table/index";
 
 // import Badge from "../../ui/badge/Badge";
-import Badge from "../../components/ui/badge/Badge";
+import Badge from "../../../components/ui/badge/Badge";
 
 // Table Data (JavaScript version)
 const tableData = [

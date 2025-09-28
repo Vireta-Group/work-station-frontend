@@ -17,13 +17,15 @@ import { ThemeProvider } from "./context/ThemeContext";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 
-// fetch("https://work.viretadev.com/api/work/profile", {
+// fetch("https://work.viretadev.com/api/work/showWorkDistribution", {
 //   method: "POST",
 //   headers: {
 //     Authorization: `Bearer ${Cookies.get("token")}`,
 //     "Content-Type": null,
-//     // Note: do NOT set Origin here — browsers will ignore/deny it.
 //   },
+//   body: JSON.stringify({
+//     emp_id: 1,
+//   }),
 // })
 //   .then(async (res) => {
 //     const data = await res.json().catch(() => null);

@@ -2,13 +2,25 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import { thunk } from "redux-thunk";
 import authReducer from "../features/auth/authSlice.js";
-import workSubmissionReducers from "../features/workSubmition/workSubmitionSlice.js";
-import userSlice from "../features/user/userSlice.js";
+import workSubmissionReducer from "../features/workSubmition/workSubmitionSlice.js";
+import userReducer from "../features/user/userSlice.js";
+import updateProfileReducer from "../features/updateProfile/updateProfileSlice.js";
+import rolesDepartmentReducer from "../features/rolesDepartment/rolesDeparmentSlice.js";
+import roleMembersReducer from "../features/roleMembers/roleMembersSlice.js";
+import departmentReducer from "../features/getDepartment/getDepartmentSlice.js";
+import membersByLeaderReducer from "../features/membersByLeader/membersByLeaderSlice.js";
+import workDistributionReducer from "../features/workDistribution/workDistributionSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  workSubmision: workSubmissionReducers,
-  user: userSlice,
+  workSubmision: workSubmissionReducer,
+  user: userReducer,
+  updateUser: updateProfileReducer,
+  rolesDepartment: rolesDepartmentReducer,
+  roleMembers: roleMembersReducer,
+  getAllDepartment: departmentReducer,
+  membersByLeader: membersByLeaderReducer,
+  workDistribution: workDistributionReducer,
 });
 
 const store = createStore(
