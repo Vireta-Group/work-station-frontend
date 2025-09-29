@@ -6,13 +6,14 @@ const TextArea = ({
   value = "", // Default value
   onChange, // Callback for changes
   className = "", // Additional custom styles
+  name = "", // Input name
   disabled = false, // Disabled state
   error = false, // Error state
   hint = "", // Default hint text
 }) => {
   const handleChange = (e) => {
     if (onChange) {
-      onChange(e.target.value);
+      onChange(e);
     }
   };
 
@@ -32,6 +33,7 @@ const TextArea = ({
         placeholder={placeholder}
         rows={rows}
         value={value}
+        name={name}
         onChange={handleChange}
         disabled={disabled}
         className={textareaClasses}
