@@ -21,8 +21,6 @@ function Report() {
     }));
   };
 
-  console.log(report);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchExpenseReportByDates(formDate));
