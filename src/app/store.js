@@ -10,10 +10,11 @@ import roleMembersReducer from "../features/roleMembers/roleMembersSlice.js";
 import departmentReducer from "../features/getDepartment/getDepartmentSlice.js";
 import membersByLeaderReducer from "../features/membersByLeader/membersByLeaderSlice.js";
 import workDistributionReducer from "../features/workDistribution/workDistributionSlice.js";
+import myWorkReducer from "../features/myWork/myWorkSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  workSubmision: workSubmissionReducer,
+  workSubmission: workSubmissionReducer,
   user: userReducer,
   updateUser: updateProfileReducer,
   rolesDepartment: rolesDepartmentReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   getAllDepartment: departmentReducer,
   membersByLeader: membersByLeaderReducer,
   workDistribution: workDistributionReducer,
+  myWork: myWorkReducer,
 });
 
 const store = createStore(

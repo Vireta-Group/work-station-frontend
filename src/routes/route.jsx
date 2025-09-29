@@ -67,7 +67,7 @@ const route = createBrowserRouter(
         <Route path="employeeList" element={<EmployeeList />} />
         <Route path="taskhistory" element={<TaskHistory />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
-        <Route path="viewmodal" element={<EmployeeViewModal />} />
+        <Route path="accept-employee" element={<EmployeeViewModal />} />
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
         <Route path="addmember" element={<AddMember />} />
