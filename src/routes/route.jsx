@@ -25,6 +25,8 @@ import TaskHistory from "../coreModule/hrAdmin/taskHistoy/TaskHistory";
 import EmployeeViewModal from "../coreModule/EmployeeViewModal/EmployeeViewModal";
 import AddDepartment from "../coreModule/superAdmin/addDepartment/AddDepartment";
 import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader";
+import NotFound from "../components/NotFound/NotFound";
+import AddMember from "../coreModule/superAdmin/addDepartment/addMember";
 // import WorkDistributionForm from "../coreModule/teamAdminPanel/workDistrubition/WorkDis";
 import WorkGroup from "../coreModule/teamAdminPanel/WorkDistribution/WorkGroup";
 
@@ -68,9 +70,13 @@ const route = createBrowserRouter(
         <Route path="accept-employee" element={<EmployeeViewModal />} />
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
+        <Route path="addmember" element={<AddMember />} />
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />         {/* mahbub.................. */}
+        <Route path="employeeList" element={<EmployeeList />} />         {/* mahbub.................. */}
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />
         {/* mahbub.................. */}
       </Route>
+      <Route path="404" element={<NotFound />} />
     </>
   )
 );
