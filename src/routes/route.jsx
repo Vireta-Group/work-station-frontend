@@ -7,7 +7,6 @@ import Root from "./root";
 import AddEmployee from "../coreModule/hrAdmin/addEmployee/AddEmployee";
 import LogIn from "../pages/AuthPages/LogIn";
 import WorkSubmission from "../coreModule/userPanel/workSubmission/WorkSubmission";
-// import Dashbord from "../pages/HomeDashbord";
 import AdminDashbord from "../coreModule/userPanel/adminDashbord/AdminDashbord";
 import UserProfiles from "../coreModule/userPanel/userProfile/UserProfile";
 import EmployeePersonalPage from "../coreModule/teamAdminPanel/employeePersonalPage/EmployeePersonalPage";
@@ -25,8 +24,14 @@ import TaskHistory from "../coreModule/hrAdmin/taskHistoy/TaskHistory";
 import EmployeeViewModal from "../coreModule/EmployeeViewModal/EmployeeViewModal";
 import AddDepartment from "../coreModule/superAdmin/addDepartment/AddDepartment";
 import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader";
+import NotFound from "../components/NotFound/NotFound";
+import AddMember from "../coreModule/superAdmin/addDepartment/addMember";
 // import WorkDistributionForm from "../coreModule/teamAdminPanel/workDistrubition/WorkDis";
 import WorkDistribution from "../coreModule/teamAdminPanel/WorkDistribution/WorkDistribution";
+import WorkGroup from "../coreModule/teamAdminPanel/WorkDistribution/WorkGroup";
+import AddIncome from "../coreModule/accouting/addIncome/AddIncome";
+import AddExpenes from "../coreModule/accouting/addExpenes/AddExpenes";
+import Report from "../coreModule/accouting/report/Report";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -65,12 +70,21 @@ const route = createBrowserRouter(
         <Route path="employeeList" element={<EmployeeList />} />
         <Route path="taskhistory" element={<TaskHistory />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
-        <Route path="viewmodal" element={<EmployeeViewModal />} />
+        <Route path="accept-employee" element={<EmployeeViewModal />} />
         <Route path="addDepartment" element={<AddDepartment />} />
         <Route path="addTeamLeader" element={<AddTeamLeader />} />
+        <Route path="addmember" element={<AddMember />} />
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />
         {/* mahbub.................. */}
+        <Route path="employeeList" element={<EmployeeList />} />
+        {/* mahbub.................. */}
+        <Route path="SupAdDashbord" element={<SupAdDashbord />} />
+        {/* mahbub.................. */}
+        <Route path="add-income" element={<AddIncome />} />
+        <Route path="add-expenes" element={<AddExpenes />} />
+        <Route path="report" element={<Report />} />
       </Route>
+      <Route path="404" element={<NotFound />} />
     </>
   )
 );

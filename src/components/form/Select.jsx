@@ -3,6 +3,7 @@ import { useState } from "react";
 const Select = ({
   options,
   placeholder = "Select an option",
+  name,
   onChange,
   className = "",
   defaultValue = "",
@@ -13,7 +14,7 @@ const Select = ({
   const handleChange = (e) => {
     const value = e.target.value;
     setSelectedValue(value);
-    onChange(value); // Trigger parent handler
+    onChange(e); // Trigger parent handler
   };
 
   return (
@@ -23,6 +24,7 @@ const Select = ({
           ? "text-gray-800 dark:text-white/90"
           : "text-gray-400 dark:text-gray-400"
       } ${className}`}
+      name={name}
       value={selectedValue}
       onChange={handleChange}
     >
