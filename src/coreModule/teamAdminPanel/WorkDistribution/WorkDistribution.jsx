@@ -1,11 +1,13 @@
-import Table from "../../components/table/Table";
+import BasicTable from "./BasicTable";
 import WorkGroup from "./WorkGroup";
 
 const WorkDistribution = () => {
   return (
     <div className="dark:bg-gray-800 ">
-      <WorkGroup />
-      <Table />
+      <div className="mb-6">
+        <WorkGroup />
+      </div>
+      <BasicTable />
     </div>
   );
 };
