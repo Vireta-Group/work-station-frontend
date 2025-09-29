@@ -11,6 +11,9 @@ import departmentReducer from "../features/getDepartment/getDepartmentSlice.js";
 import membersByLeaderReducer from "../features/membersByLeader/membersByLeaderSlice.js";
 import workDistributionReducer from "../features/workDistribution/workDistributionSlice.js";
 import myWorkReducer from "../features/myWork/myWorkSlice.js";
+import addIncomeReducer from "../features/addIncome/addIncomeSlice.js";
+import addExpenseReducer from "../features/addExpenes/addExpenesSlice.js";
+import expenesReportReducer from "../features/expenesReport/expenesReportSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -23,6 +26,9 @@ const rootReducer = combineReducers({
   membersByLeader: membersByLeaderReducer,
   workDistribution: workDistributionReducer,
   myWork: myWorkReducer,
+  addIncome: addIncomeReducer,
+  addExpense: addExpenseReducer,
+  expenesReport: expenesReportReducer,
 });
 
 const store = createStore(
