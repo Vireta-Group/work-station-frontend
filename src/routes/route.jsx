@@ -63,10 +63,10 @@ const route = createBrowserRouter(
         {/* mahbub.................. */}
         <Route path="adminDashbord" element={<AdminDashbord />} />
         {/* mahbub.................. */}
-        <Route path="employee-form" element={<AddEmployee />} />
+        <Route path="add-employee" element={<AddEmployee />} />
         <Route path="teamadminpanel" element={<TeamAdminPanel />} />
         {/* mahbub.................. */}
-        <Route path="employeeList" element={<EmployeeList />} />
+        {/* <Route path="employeeList" element={<EmployeeList />} /> */}
         <Route path="taskhistory" element={<TaskHistory />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
         <Route path="accept-employee" element={<EmployeeViewModal />} />

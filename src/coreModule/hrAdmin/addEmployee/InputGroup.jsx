@@ -421,8 +421,71 @@ import {
 import ComponentCard from "../../../components/common/ComponentCard";
 import Label from "../../../components/form/Label";
 import Input from "../../../components/form/input/InputField";
+import { use, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addEmployee } from "../../../features/addEmployee/addEmployeeSlice";
 
 export default function InputGroup() {
+  const [formData, setFormData] = useState({
+    name: "",
+    father: "",
+    mother: "",
+    full_address: "",
+    nid: "",
+    mobile: "",
+    email: "",
+    pic: "",
+    last_edu: "",
+    bkash: "",
+    dob: "",
+    bank_account: "",
+    bank_routing: "",
+    bank_name: "",
+    bank_branch: "",
+    username: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
+
+  const fileToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result || "";
+        // result is "data:<mime>;base64,<base64>"
+        const base64 = result.split(",")[1] ?? "";
+        resolve(base64);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+  const changeHandler = async (e) => {
+    const { name, type, files, value } = e.target;
+
+    if (type === "file") {
+      const file = files?.[0];
+      if (!file) {
+        setFormData((prevData) => ({ ...prevData, pic: "" }));
+        return;
+      }
+      try {
+        const base64 = await fileToBase64(file);
+        // store raw base64 (no data: prefix) to match other code expectations
+        setFormData((prevData) => ({ ...prevData, pic: base64 }));
+      } catch (err) {
+        console.error("Failed to read file:", err);
+      }
+      return;
+    }
+
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const clickHandler = () => {
+    dispatch(addEmployee(formData));
+  };
+
   return (
     <ComponentCard title="Input Group">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -430,7 +493,14 @@ export default function InputGroup() {
         <div>
           <Label>Full Name</Label>
           <div className="relative">
-            <Input placeholder="John Doe" type="text" className="pl-[62px]" />
+            <Input
+              placeholder="John Doe"
+              value={formData.name}
+              name="name"
+              onChange={changeHandler}
+              type="text"
+              className="pl-[62px]"
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsPerson className="!w-6 !h-6 text-gray-500" />
             </span>
@@ -444,6 +514,9 @@ export default function InputGroup() {
             <Input
               placeholder="Father's Name"
               type="text"
+              value={formData.father}
+              name="father"
+              onChange={changeHandler}
               className="pl-[62px]"
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
@@ -460,6 +533,9 @@ export default function InputGroup() {
               placeholder="Mother's Name"
               type="text"
               className="pl-[62px]"
+              value={formData.mother}
+              name="mother"
+              onChange={changeHandler}
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsPerson className="!w-6 !h-6 text-gray-500" />
@@ -472,9 +548,12 @@ export default function InputGroup() {
           <Label>NID</Label>
           <div className="relative">
             <Input
+              value={formData.nid}
               placeholder="1234567890"
               type="number"
               className="pl-[62px]"
+              name="nid"
+              onChange={changeHandler}
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsCreditCard2Front className="!w-6 !h-6 text-gray-500" />
@@ -486,7 +565,13 @@ export default function InputGroup() {
         <div>
           <Label>Date of Birth</Label>
           <div className="relative">
-            <Input type="date" className="pl-[62px]" />
+            <Input
+              type="date"
+              className="pl-[62px]"
+              value={formData.dob}
+              name="dob"
+              onChange={changeHandler}
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsCalendar className="!w-6 !h-6 text-gray-500" />
             </span>
@@ -495,9 +580,12 @@ export default function InputGroup() {
 
         {/* Local Address Field */}
         <div>
-          <Label>Local Address</Label>
+          <Label>Full Address</Label>
           <div className="relative">
             <Input
+              value={formData.full_address}
+              name="full_address"
+              onChange={changeHandler}
               placeholder="Local Address"
               type="text"
               className="pl-[62px]"
@@ -508,26 +596,14 @@ export default function InputGroup() {
           </div>
         </div>
 
-        {/* Permanent Address Field */}
-        <div>
-          <Label>Permanent Address</Label>
-          <div className="relative">
-            <Input
-              placeholder="Permanent Address"
-              type="text"
-              className="pl-[62px]"
-            />
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsHouseDoor className="!w-6 !h-6 text-gray-500" />
-            </span>
-          </div>
-        </div>
-
         {/* Last Education Field */}
         <div>
           <Label>Last Education</Label>
           <div className="relative">
             <Input
+              value={formData.last_edu}
+              name="last_edu"
+              onChange={changeHandler}
               placeholder="Bachelor / Master"
               type="text"
               className="pl-[62px]"
@@ -538,11 +614,18 @@ export default function InputGroup() {
           </div>
         </div>
 
-        {/* Salary Field */}
+        {/* Phone Number Field */}
         <div>
-          <Label>Salary</Label>
+          <Label>Phone Number</Label>
           <div className="relative">
-            <Input placeholder="50000" type="number" className="pl-[62px]" />
+            <Input
+              placeholder="50000"
+              type="number"
+              className="pl-[62px]"
+              value={formData.mobile}
+              name="mobile"
+              onChange={changeHandler}
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsCurrencyDollar className="!w-6 !h-6 text-gray-500" />
             </span>
@@ -551,12 +634,15 @@ export default function InputGroup() {
 
         {/* Department Field */}
         <div>
-          <Label>Department</Label>
+          <Label>Email</Label>
           <div className="relative">
             <Input
               placeholder="HR / IT / Finance"
               type="text"
               className="pl-[62px]"
+              value={formData.email}
+              name="email"
+              onChange={changeHandler}
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsBuilding className="!w-6 !h-6 text-gray-500" />
@@ -566,12 +652,15 @@ export default function InputGroup() {
 
         {/* Designation Field */}
         <div>
-          <Label>Designation</Label>
+          <Label>Bkash Number</Label>
           <div className="relative">
             <Input
               placeholder="Manager / Developer"
               type="text"
               className="pl-[62px]"
+              value={formData.bkash}
+              name="bkash"
+              onChange={changeHandler}
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsBriefcase className="!w-6 !h-6 text-gray-500" />
@@ -579,65 +668,119 @@ export default function InputGroup() {
           </div>
         </div>
 
-        {/* Gender Field */}
+        {/* Bank Account Number Field */}
         <div>
-          <Label>Gender</Label>
+          <Label>Bank Account Number</Label>
           <div className="relative">
-            <select className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-              <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsGenderAmbiguous className="!w-6 !h-6 text-gray-500" />
-            </span>
-          </div>
-        </div>
-
-        {/* Blood Group Field */}
-        <div>
-          <Label>Blood Group</Label>
-          <div className="relative">
-            <select className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-              <option value="">Select Blood Group</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-            </select>
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsDroplet className="!w-6 !h-6 text-gray-500" />
-            </span>
-          </div>
-        </div>
-
-        {/* Join Date Field */}
-        <div>
-          <Label>Join Date</Label>
-          <div className="relative">
-            <Input type="date" className="pl-[62px]" />
+            <Input
+              type="text"
+              className="pl-[62px]"
+              value={formData.bank_account}
+              name="bank_account"
+              onChange={changeHandler}
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsCalendar className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
         </div>
 
-        {/* Working Type Dropdown */}
+        {/* Bank Name Field */}
         <div>
-          <Label>Working Type</Label>
+          <Label>Bank Name</Label>
           <div className="relative">
-            <select className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-              <option value="">Select Type</option>
-              <option value="remote">Remote</option>
-              <option value="physical">Physical</option>
-            </select>
+            <Input
+              type="text"
+              className="pl-[62px]"
+              value={formData.bank_name}
+              name="bank_name"
+              onChange={changeHandler}
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsLaptop className="!w-6 !h-6 text-gray-500" />
+              <BsCalendar className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
+
+        {/* Bank Name Field */}
+        <div>
+          <Label>Bank Route</Label>
+          <div className="relative">
+            <Input
+              type="text"
+              className="pl-[62px]"
+              value={formData.bank_routing}
+              name="bank_routing"
+              onChange={changeHandler}
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsCalendar className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
+
+        {/* Bank Branch Field */}
+        <div>
+          <Label>Bank Branch</Label>
+          <div className="relative">
+            <Input
+              type="text"
+              className="pl-[62px]"
+              value={formData.bank_branch}
+              name="bank_branch"
+              onChange={changeHandler}
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsCalendar className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
+
+        {/* Bank Branch Field */}
+        <div>
+          <Label>User Name</Label>
+          <div className="relative">
+            <Input
+              type="text"
+              className="pl-[62px]"
+              value={formData.username}
+              name="username"
+              onChange={changeHandler}
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsCalendar className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
+
+        {/* User Name Field */}
+        <div>
+          <Label>Password</Label>
+          <div className="relative">
+            <Input
+              type="text"
+              className="pl-[62px]"
+              value={formData.password}
+              name="password"
+              onChange={changeHandler}
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsCalendar className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
+        <div>
+          <Label>User Image</Label>
+          <div className="relative">
+            <Input
+              type="file"
+              className="pl-[62px]"
+              accept="image/*"
+              name="pic"
+              onChange={changeHandler}
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsCalendar className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
         </div>
@@ -645,7 +788,7 @@ export default function InputGroup() {
         {/* Send for Approval Button */}
         <div className="pt-4">
           <button
-            type="submit"
+            onClick={clickHandler}
             className="w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700"
           >
             Send for Approval
