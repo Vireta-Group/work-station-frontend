@@ -30,7 +30,7 @@ import AddMember from "../coreModule/superAdmin/addDepartment/addMember";
 import WorkDistribution from "../coreModule/teamAdminPanel/WorkDistribution/WorkDistribution";
 import WorkGroup from "../coreModule/teamAdminPanel/WorkDistribution/WorkGroup";
 import AddIncome from "../coreModule/accouting/addIncome/AddIncome";
-import AddExpenes from "../coreModule/accouting/addExpenes/AddExpenes";
+import AddExpenses from "../coreModule/accouting/addExpenses/AddExpenses";
 import Report from "../coreModule/accouting/report/Report";
 
 const route = createBrowserRouter(
@@ -64,10 +64,10 @@ const route = createBrowserRouter(
         {/* mahbub.................. */}
         <Route path="adminDashbord" element={<AdminDashbord />} />
         {/* mahbub.................. */}
-        <Route path="employee-form" element={<AddEmployee />} />
+        <Route path="add-employee" element={<AddEmployee />} />
         <Route path="teamadminpanel" element={<TeamAdminPanel />} />
         {/* mahbub.................. */}
-        <Route path="employeeList" element={<EmployeeList />} />
+        {/* <Route path="employeeList" element={<EmployeeList />} /> */}
         <Route path="taskhistory" element={<TaskHistory />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
         <Route path="accept-employee" element={<EmployeeViewModal />} />
@@ -81,7 +81,7 @@ const route = createBrowserRouter(
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />
         {/* mahbub.................. */}
         <Route path="add-income" element={<AddIncome />} />
-        <Route path="add-expenes" element={<AddExpenes />} />
+        <Route path="add-expenses" element={<AddExpenses />} />
         <Route path="report" element={<Report />} />
       </Route>
       <Route path="404" element={<NotFound />} />
