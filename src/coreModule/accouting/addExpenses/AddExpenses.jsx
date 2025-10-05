@@ -1,3 +1,65 @@
+// import React from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { addExpense } from "../../../features/addExpenes/addExpenesSlice";
+
+// function AddExpenes() {
+//   const [state, setState] = React.useState({
+//     cat_id: "",
+//     perpose: "",
+//     amounts: "",
+//     dates: "",
+//   });
+//   const dispatch = useDispatch();
+
+//   function changeHandler(e) {
+//     setState({ ...state, [e.target.name]: e.target.value });
+//   }
+
+//   function handleSubmit(e) {
+//     e.preventDefault();
+//     dispatch(addExpense(state));
+//   }
+
+//   return (
+//     <form>
+//       <input
+//         type="text"
+//         placeholder="cat id"
+//         value={state.cat_id}
+//         onChange={changeHandler}
+//         name="cat_id"
+//       />
+//       <input
+//         type="number"
+//         placeholder="amount"
+//         value={state.amounts}
+//         onChange={changeHandler}
+//         name="amounts"
+//       />
+//       <input
+//         type="date"
+//         placeholder="date"
+//         value={state.dates}
+//         onChange={changeHandler}
+//         name="dates"
+//       />
+//       <input
+//         type="text"
+//         placeholder="purpose"
+//         value={state.perpose}
+//         onChange={changeHandler}
+//         name="perpose"
+//       />
+//       <button type="submit" onClick={handleSubmit}>
+//         Submit
+//       </button>
+//     </form>
+//   );
+// }
+
+// export default AddExpenes;
+
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addIncome } from "../../../features/addIncome/addIncomeSlice";
@@ -5,7 +67,7 @@ import ComponentCard from "../../../components/common/ComponentCard";
 import Label from "../../../components/form/Label";
 import Input from "../../../components/form/input/InputField";
 
-function AddIncome() {
+function AddExpenses() {
   const [state, setState] = React.useState({
     cat_id: "",
     perpose: "",
@@ -13,7 +75,7 @@ function AddIncome() {
     dates: "",
   });
   const dispatch = useDispatch();
-  const incomes = useSelector((store) => store.addIncome.incomes);
+  const expenses = useSelector((store) => store.addExpense.expenses);
 
   function changeHandler(e) {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -25,43 +87,9 @@ function AddIncome() {
   }
 
   return (
-    // <form>
-    //   <input
-    //     type="text"
-    //     placeholder="cat id"
-    //     value={state.cat_id}
-    //     onChange={changeHandler}
-    //     name="cat_id"
-    //   />
-    //   <input
-    //     type="number"
-    //     placeholder="amount"
-    //     value={state.amounts}
-    //     onChange={changeHandler}
-    //     name="amounts"
-    //   />
-    //   <input
-    //     type="date"
-    //     placeholder="date"
-    //     value={state.dates}
-    //     onChange={changeHandler}
-    //     name="dates"
-    //   />
-    //   <input
-    //     type="text"
-    //     placeholder="purpose"
-    //     value={state.perpose}
-    //     onChange={changeHandler}
-    //     name="perpose"
-    //   />
-    //   <button type="submit" onClick={handleSubmit}>
-    //     Submit
-    //   </button>
-    // </form>
-
     <div className="p-6 min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors space-y-6">
       {/* Form Card */}
-      <ComponentCard title="Add Income">
+      <ComponentCard title="Add Expense">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label>Category ID</Label>
@@ -118,7 +146,7 @@ function AddIncome() {
   );
 }
 
-export default AddIncome;
+export default AddExpenses;
 
 
 
