@@ -27,6 +27,7 @@ import AddTeamLeader from "../coreModule/superAdmin/addDepartment/AddTeamLeader"
 import NotFound from "../components/NotFound/NotFound";
 import AddMember from "../coreModule/superAdmin/addDepartment/addMember";
 // import WorkDistributionForm from "../coreModule/teamAdminPanel/workDistrubition/WorkDis";
+import WorkDistribution from "../coreModule/teamAdminPanel/WorkDistribution/WorkDistribution";
 import WorkGroup from "../coreModule/teamAdminPanel/WorkDistribution/WorkGroup";
 import AddIncome from "../coreModule/accouting/addIncome/AddIncome";
 import AddExpenses from "../coreModule/accouting/addExpenses/AddExpenses";
@@ -54,7 +55,7 @@ const route = createBrowserRouter(
         <Route path="workSubmission" element={<WorkSubmission />} />
         <Route path="profile" element={<UserProfiles />} />
         <Route path="employeeStatus" element={<EmployeePersonalPage />} />
-        <Route path="workDistribution" element={<WorkGroup />} />
+        <Route path="workDistribution" element={<WorkDistribution />} />
         {/* <Route path="workDistribution" element={<WorkDistributionForm />} /> */}
         <Route path="employeeAttendence" element={<UserAttendence />} />
         <Route path="hrDashbord" element={<HrDashbord />} />
