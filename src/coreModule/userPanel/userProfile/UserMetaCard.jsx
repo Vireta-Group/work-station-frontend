@@ -14,15 +14,30 @@ export default function UserMetaCard() {
   const handleSave = () => {
     closeModal();
   };
+
+  const picRaw = userData?.pic?.toString()?.trim();
+  const placeholder =
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="100%" height="100%" fill="%23e5e7eb"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23737477" font-size="14">No Image</text></svg>';
+  const imgSrc = picRaw
+    ? picRaw.startsWith("data:")
+      ? picRaw
+      : `data:image/png;base64,${picRaw}`
+    : placeholder;
+
+  console.log(userData);
   return (
     <>
       <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
         <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
           <div className="flex flex-col items-center w-full gap-6 xl:flex-row">
-            <div className="w-20 h-20 overflow-hidden border border-gray-200 rounded-full dark:border-gray-800">
+            <div className="w-20 h-20 overflow-hidden border border-gray-200 flex items-center justify-center rounded-full dark:border-gray-800">
               <img
-                src={`data:image/png;base64,${userData?.pic} `}
-                alt={userData?.name}
+                src={imgSrc}
+                alt={userData?.name ?? "User avatar"}
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = placeholder;
+                }}
               />
             </div>
             <div className="order-3 xl:order-2">
@@ -31,11 +46,11 @@ export default function UserMetaCard() {
               </h4>
               <div className="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {userData?.role}
+                  {userData?.department}
                 </p>
                 <div className="hidden h-3.5 w-px bg-gray-300 dark:bg-gray-700 xl:block"></div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {userData?.mobile}
+                  {userData?.role}
                 </p>
               </div>
             </div>
