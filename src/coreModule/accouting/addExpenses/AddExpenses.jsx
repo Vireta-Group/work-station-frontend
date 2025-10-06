@@ -59,10 +59,9 @@
 
 // export default AddExpenes;
 
-
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addIncome } from "../../../features/addIncome/addIncomeSlice";
+import { addExpense } from "../../../features/addExpenes/addExpenesSlice";
 import ComponentCard from "../../../components/common/ComponentCard";
 import Label from "../../../components/form/Label";
 import Input from "../../../components/form/input/InputField";
@@ -83,7 +82,7 @@ function AddExpenses() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(addIncome(state));
+    dispatch(addExpense(state));
   }
 
   return (
@@ -147,6 +146,3 @@ function AddExpenses() {
 }
 
 export default AddExpenses;
-
-
-
