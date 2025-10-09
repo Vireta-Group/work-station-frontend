@@ -17,10 +17,12 @@ import {
   BsPerson,
 } from "react-icons/bs";
 import Input from "../../../components/form/input/InputField";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfile } from "../../../features/editProfile/editProfileSlice";
 
 const EditEmployeeForm = () => {
   const employee = useSelector((data) => data.empById).data;
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     father: "",
@@ -64,11 +66,8 @@ const EditEmployeeForm = () => {
 
   // Update button
   const handleUpdate = () => {
-    console.log("Updated Data:", formData);
-    alert("✅ Employee info updated successfully!");
+    dispatch(editProfile(formData));
   };
-
-  console.log(formData?.username);
 
   return (
     <ComponentCard title="Input Group">
@@ -326,11 +325,12 @@ const EditEmployeeForm = () => {
 
         {/* bank_routing Field */}
         <div>
-          <Label>User Name</Label>
+          <Label>Bank Routing Name</Label>
           <div className="relative">
             <Input
               name="bank_routing"
               value={formData?.bank_routing}
+              onChange={handleChange}
               placeholder="Manager / Developer"
               type="text"
               className="pl-[62px]"
@@ -394,30 +394,10 @@ const EditEmployeeForm = () => {
             </span>
           </div>
         </div>
-
-        {/* pic*/}
-        {/* <div>
-          <Label>Profile Picture</Label>
-          <div className="relative">
-            <Input
-              name="pic"
-              value={formData?.pic}
-              onChange={handleChange}
-              placeholder="Manager / Developer"
-              type="file"
-              className="pl-[62px]"
-            />
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsBriefcase className="!w-6 !h-6 text-gray-500" />
-            </span>
-          </div>
-        </div> */}
-
-        {/* Send for Approval Button */}
       </div>
       <div className="pt-4">
         <button
-          type="submit"
+          onClick={handleUpdate}
           className="w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700"
         >
           update
