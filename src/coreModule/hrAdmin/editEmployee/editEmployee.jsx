@@ -5,6 +5,7 @@ import EditEmployeeForm from "./EditEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDepartment } from "../../../features/getDepartment/getDepartmentSlice";
 import { fetchEmployeesByDepartment } from "../../../features/employeeByDepartment/employeeByDepartmentSlice";
+import { fetchEmployeeById } from "../../../features/empById/empByIdSlice";
 
 // const employees = [
 //   {
@@ -36,7 +37,7 @@ import { fetchEmployeesByDepartment } from "../../../features/employeeByDepartme
 // ];
 
 const EditEmployee = () => {
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [empId, setEmpId] = useState("");
   const dispatch = useDispatch();
   const depertment = useSelector((data) => data.getAllDepartment);
   const employees = useSelector((data) => data.employeeByDepertment);
@@ -48,9 +49,8 @@ const EditEmployee = () => {
   }, [depertment, dispatch]);
 
   // Dropdown select
-  const handleSelect = (id) => {
-    const emp = employees.find((e) => e.id === parseInt(id));
-    setSelectedEmployee(emp);
+  const handleSelect = (e) => {
+    setEmpId(e.target.value);
   };
 
   const depertmentChanger = (e) => {
@@ -58,7 +58,11 @@ const EditEmployee = () => {
     dispatch(fetchEmployeesByDepartment({ department_id: id }));
   };
 
-  console.log(employees);
+  const clickHandler = () => {
+    dispatch(fetchEmployeeById({ emp_id: empId }));
+  };
+
+  // console.log(employees);
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-black  shadow-lg rounded-2xl">
       {/* <h2 className="text-xl font-bold mb-4 flex items-center gap-2 dark:text-white">
@@ -88,7 +92,7 @@ const EditEmployee = () => {
 
       <select
         className="w-full border p-2 rounded mb-4 bg-white dark:bg-black  dark:text-white"
-        // onChange={(e) => handleSelect(e.target.value)}
+        onChange={handleSelect}
       >
         <option className="dark:text-white" value="">
           Select Employee
@@ -99,9 +103,10 @@ const EditEmployee = () => {
           </option>
         ))}
       </select>
+      <button onClick={clickHandler}>get data</button>
 
       {/* Form Component */}
-      {selectedEmployee && <EditEmployeeForm employee={selectedEmployee} />}
+      <EditEmployeeForm />
     </div>
   );
 };

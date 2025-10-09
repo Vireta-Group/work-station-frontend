@@ -1,23 +1,27 @@
-import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router";
+import { user } from "../features/user/userSlice";
 
 export default function RoleProtected({ children, roles = [] }) {
-  const user = useSelector((s) => s.user?.user);
-  const location = useLocation();
+  // const dispatch = useDispatch();
+  // const userData = useSelector((data) => data.user).user;
 
-  if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
+  // if (userData === null) {
+  //   dispatch(user());
+  // }
+  // console.log(userData?.department);
 
-  if (!roles || roles.length === 0) {
-    return children;
-  }
+  // if (!roles || roles.length === 0) {
+  //   return children;
+  // }
 
-  const userRole = user.role ?? user?.roles ?? null;
+  // const userRole = userData?.department ?? userData?.department ?? null;
 
-  if (!userRole || !roles.includes(userRole)) {
-    return <Navigate to="/" replace />;
-  }
+  // if (userRole) {
+  //   if (!userRole || !roles.includes(userRole)) {
+  //     return <Navigate to="/" replace />;
+  //   }
+  // }
 
   return children;
 }

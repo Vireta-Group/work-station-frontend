@@ -19,6 +19,7 @@ import removeMemeberReducer from "../features/removeMember/removeMemberSlice.js"
 import addEmployeeReducer from "../features/addEmployee/addEmployeeSlice.js";
 import taskHistoryReducer from "../features/taskHistory/taskHistorySlice.js";
 import employeeByDepertmentReducer from "../features/employeeByDepartment/employeeByDepartmentSlice.js";
+import empByIdReducer from "../features/empById/empByIdSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   addEmployee: addEmployeeReducer,
   taskHistory: taskHistoryReducer,
   employeeByDepertment: employeeByDepertmentReducer,
+  empById: empByIdReducer,
 });
 
 const store = createStore(
