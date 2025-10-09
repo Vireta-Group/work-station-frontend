@@ -32,6 +32,7 @@ import WorkGroup from "../coreModule/teamAdminPanel/WorkDistribution/WorkGroup";
 import AddIncome from "../coreModule/accouting/addIncome/AddIncome";
 import AddExpenses from "../coreModule/accouting/addExpenses/AddExpenses";
 import Report from "../coreModule/accouting/report/Report";
+import RoleProtected from "./RoleProtected";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -54,7 +55,11 @@ const route = createBrowserRouter(
       >
         <Route path="workSubmission" element={<WorkSubmission />} />
         <Route path="profile" element={<UserProfiles />} />
-        <Route path="employeeStatus" element={<EmployeePersonalPage />} />
+
+        <Route element={<RoleProtected roles={["hr", "management"]} />}>
+          <Route path="employeeStatus" element={<EmployeePersonalPage />} />
+        </Route>
+
         <Route path="workDistribution" element={<WorkDistribution />} />
         {/* <Route path="workDistribution" element={<WorkDistributionForm />} /> */}
         <Route path="employeeAttendence" element={<UserAttendence />} />

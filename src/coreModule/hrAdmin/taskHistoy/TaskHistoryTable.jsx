@@ -19,7 +19,6 @@ import { useSelector } from "react-redux";
 
 export default function TaskHistoryTable() {
   const tasks = useSelector((data) => data.taskHistory);
-  console.log(tasks);
 
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
