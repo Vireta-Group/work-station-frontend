@@ -1,5 +1,5 @@
 // EditEmployeeForm.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ComponentCard from "../../../components/common/ComponentCard";
 import Label from "../../../components/form/Label";
 import {
@@ -17,124 +17,59 @@ import {
   BsPerson,
 } from "react-icons/bs";
 import Input from "../../../components/form/input/InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfile } from "../../../features/editProfile/editProfileSlice";
 
-const EditEmployeeForm = ({ employee }) => {
-  const [formData, setFormData] = useState(employee);
+const EditEmployeeForm = () => {
+  const employee = useSelector((data) => data.empById).data;
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    name: "",
+    father: "",
+    mother: "",
+    nid: "",
+    dob: "",
+    full_address: "",
+    email: "",
+    last_edu: "",
+    mobile: "",
+    bkash: "",
+    department: "",
+    designation: "",
+    role: "",
+    username: "",
+    bank_routing: "",
+    bank_name: "",
+    bank_branch: "",
+    bank_account: "",
+    pic: "",
+  });
+
+  useEffect(() => {
+    if (employee) {
+      setFormData((prev) => ({ ...prev, ...employee }));
+    }
+  }, [setFormData, employee]);
 
   // Input change
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, type, files, value } = e.target;
+    if (type === "file") {
+      const file = files?.[0];
+      setFormData((prev) => ({ ...prev, [name]: file || "" }));
+      return;
+    }
+    setFormData((prev) => ({ ...prev, [name]: value ?? "" }));
   };
+
+  // console.log(employee);
 
   // Update button
   const handleUpdate = () => {
-    console.log("Updated Data:", formData);
-    alert("✅ Employee info updated successfully!");
+    dispatch(editProfile(formData));
   };
 
   return (
-    // <div className="grid grid-cols-2 gap-4 ">
-    //   <input
-    //     type="text"
-    //     name="name"
-    //     value={formData.name || ""}
-    //     onChange={handleChange}
-    //     placeholder="Full Name"
-    //     className="border p-2 rounded dark:text-white"
-    //   />
-    //   <input
-    //     type="text"
-    //     name="father"
-    //     value={formData.father || ""}
-    //     onChange={handleChange}
-    //     placeholder="Father Name"
-    //     className="border p-2 rounded"
-    //   />
-    //   <input
-    //     type="text"
-    //     name="mother"
-    //     value={formData.mother || ""}
-    //     onChange={handleChange}
-    //     placeholder="Mother Name"
-    //     className="border p-2 rounded"
-    //   />
-    //   <input
-    //     type="text"
-    //     name="nid"
-    //     value={formData.nid || ""}
-    //     onChange={handleChange}
-    //     placeholder="NID"
-    //     className="border p-2 rounded"
-    //   />
-    //   <input
-    //     type="date"
-    //     name="dob"
-    //     value={formData.dob || ""}
-    //     onChange={handleChange}
-    //     className="border p-2 rounded"
-    //   />
-    //   <input
-    //     type="text"
-    //     name="local"
-    //     value={formData.local || ""}
-    //     onChange={handleChange}
-    //     placeholder="Local Address"
-    //     className="border p-2 rounded"
-    //   />
-    //   <input
-    //     type="text"
-    //     name="permanent"
-    //     value={formData.permanent || ""}
-    //     onChange={handleChange}
-    //     placeholder="Permanent Address"
-    //     className="border p-2 rounded"
-    //   />
-    //   <input
-    //     type="text"
-    //     name="education"
-    //     value={formData.education || ""}
-    //     onChange={handleChange}
-    //     placeholder="Last Education"
-    //     className="border p-2 rounded"
-    //   />
-
-    //   {/* Gender Select */}
-    //   <select
-    //     name="gender"
-    //     value={formData.gender || ""}
-    //     onChange={handleChange}
-    //     className="border p-2 rounded"
-    //   >
-    //     <option value="">Select Gender</option>
-    //     <option value="Male">Male</option>
-    //     <option value="Female">Female</option>
-    //     <option value="Other">Other</option>
-    //   </select>
-
-    //   {/* Blood Group */}
-    //   <select
-    //     name="blood"
-    //     value={formData.blood || ""}
-    //     onChange={handleChange}
-    //     className="border p-2 rounded"
-    //   >
-    //     <option value="">Select Blood Group</option>
-    //     <option value="A+">A+</option>
-    //     <option value="A-">A-</option>
-    //     <option value="B+">B+</option>
-    //     <option value="B-">B-</option>
-    //     <option value="O+">O+</option>
-    //     <option value="O-">O-</option>
-    //   </select>
-
-    //   {/* Update Button */}
-    //   <button
-    //     onClick={handleUpdate}
-    //     className="col-span-2 mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
-    //   >
-    //     Update Info
-    //   </button>
-    // </div>
     <ComponentCard title="Input Group">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Full Name Field */}
@@ -142,8 +77,9 @@ const EditEmployeeForm = ({ employee }) => {
           <Label>Full Name</Label>
           <div className="relative">
             <Input
-              value={formData.name || ""}
+              value={formData?.name || ""}
               onChange={handleChange}
+              name="name"
               placeholder="John Doe"
               type="text"
               className="pl-[62px]"
@@ -160,8 +96,9 @@ const EditEmployeeForm = ({ employee }) => {
           <div className="relative">
             <Input
               name="father"
-              value={formData.father || ""}
+              value={formData?.father || ""}
               placeholder="Father's Name"
+              onChange={handleChange}
               type="text"
               className="pl-[62px]"
             />
@@ -176,10 +113,11 @@ const EditEmployeeForm = ({ employee }) => {
           <Label>Mother Name</Label>
           <div className="relative">
             <Input
-              name="father"
-              value={formData.father || ""}
+              name="mother"
+              value={formData?.mother || ""}
               placeholder="Mother's Name"
               type="text"
+              onChange={handleChange}
               className="pl-[62px]"
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
@@ -193,9 +131,10 @@ const EditEmployeeForm = ({ employee }) => {
           <Label>NID</Label>
           <div className="relative">
             <Input
-              name="father"
-              value={formData.nid || ""}
+              name="nid"
+              value={formData?.nid || ""}
               placeholder="1234567890"
+              onChange={handleChange}
               type="number"
               className="pl-[62px]"
             />
@@ -210,9 +149,10 @@ const EditEmployeeForm = ({ employee }) => {
           <Label>Date of Birth</Label>
           <div className="relative">
             <Input
-              name="father"
-              value={formData.dob || ""}
+              name="dob"
+              value={formData?.dob || ""}
               type="date"
+              onChange={handleChange}
               className="pl-[62px]"
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
@@ -223,13 +163,14 @@ const EditEmployeeForm = ({ employee }) => {
 
         {/* Local Address Field */}
         <div>
-          <Label>Local Address</Label>
+          <Label>Full Address</Label>
           <div className="relative">
             <Input
-              name="father"
-              value={formData.local || ""}
+              name="full_address"
+              value={formData?.full_address || ""}
               placeholder="Local Address"
               type="text"
+              onChange={handleChange}
               className="pl-[62px]"
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
@@ -238,13 +179,14 @@ const EditEmployeeForm = ({ employee }) => {
           </div>
         </div>
 
-        {/* Permanent Address Field */}
+        {/* e mail */}
         <div>
-          <Label>Permanent Address</Label>
+          <Label>Email</Label>
           <div className="relative">
             <Input
-              name="father"
-              value={formData.permanent || ""}
+              name="email"
+              value={formData?.email || ""}
+              onChange={handleChange}
               placeholder="Permanent Address"
               type="text"
               className="pl-[62px]"
@@ -260,8 +202,9 @@ const EditEmployeeForm = ({ employee }) => {
           <Label>Last Education</Label>
           <div className="relative">
             <Input
-              name="father"
-              value={formData.education || ""}
+              name="last_edu"
+              value={formData?.last_edu || ""}
+              onChange={handleChange}
               placeholder="Bachelor / Master"
               type="text"
               className="pl-[62px]"
@@ -272,22 +215,50 @@ const EditEmployeeForm = ({ employee }) => {
           </div>
         </div>
 
-        {/* Salary Field */}
-        {/* <div>
-          <Label>Salary</Label>
+        {/* mobile number */}
+        <div>
+          <Label>Mobile Number</Label>
           <div className="relative">
-            <Input placeholder="50000" type="number" className="pl-[62px]" />
+            <Input
+              name="mobile"
+              onChange={handleChange}
+              value={formData?.mobile}
+              placeholder="50000"
+              type="number"
+              className="pl-[62px]"
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               <BsCurrencyDollar className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
-        </div> */}
+        </div>
+
+        {/* bkash number */}
+        <div>
+          <Label>Bkash Number</Label>
+          <div className="relative">
+            <Input
+              name="bkash"
+              onChange={handleChange}
+              value={formData?.bkash}
+              placeholder="50000"
+              type="number"
+              className="pl-[62px]"
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsCurrencyDollar className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
 
         {/* Department Field */}
-        {/* <div>
+        <div>
           <Label>Department</Label>
           <div className="relative">
             <Input
+              name="department"
+              value={formData?.department}
+              onChange={handleChange}
               placeholder="HR / IT / Finance"
               type="text"
               className="pl-[62px]"
@@ -296,13 +267,16 @@ const EditEmployeeForm = ({ employee }) => {
               <BsBuilding className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
-        </div> */}
+        </div>
 
         {/* Designation Field */}
-        {/* <div>
+        <div>
           <Label>Designation</Label>
           <div className="relative">
             <Input
+              name="designation"
+              onChange={handleChange}
+              value={formData?.designation}
               placeholder="Manager / Developer"
               type="text"
               className="pl-[62px]"
@@ -311,85 +285,119 @@ const EditEmployeeForm = ({ employee }) => {
               <BsBriefcase className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
-        </div> */}
-
-        {/* Gender Field */}
-        <div>
-          <Label>Gender</Label>
-          <div className="relative">
-            <select
-              name="father"
-              value={formData.gender || ""}
-              className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
-            >
-              <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsGenderAmbiguous className="!w-6 !h-6 text-gray-500" />
-            </span>
-          </div>
         </div>
 
-        {/* Blood Group Field */}
+        {/* role Field */}
         <div>
-          <Label>Blood Group</Label>
+          <Label>Role</Label>
           <div className="relative">
-            <select
-              name="father"
-              value={formData.blood || ""}
+            <Input
+              name="role"
               onChange={handleChange}
-              className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
-            >
-              <option value="">Select Blood Group</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-            </select>
+              value={formData?.role}
+              placeholder="Manager / Developer"
+              type="text"
+              className="pl-[62px]"
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsDroplet className="!w-6 !h-6 text-gray-500" />
+              <BsBriefcase className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
         </div>
 
-        {/* Join Date Field */}
-        {/* <div>
-          <Label>Join Date</Label>
+        {/* user name Field */}
+        <div>
+          <Label>User Name</Label>
           <div className="relative">
-            <Input type="date" className="pl-[62px]" />
+            <Input
+              name="username"
+              onChange={handleChange}
+              value={formData?.username}
+              placeholder="Manager / Developer"
+              type="text"
+              className="pl-[62px]"
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsCalendar className="!w-6 !h-6 text-gray-500" />
+              <BsBriefcase className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
-        </div> */}
+        </div>
 
-        {/* Working Type Dropdown */}
-        {/* <div>
-          <Label>Working Type</Label>
+        {/* bank_routing Field */}
+        <div>
+          <Label>Bank Routing Name</Label>
           <div className="relative">
-            <select className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-              <option value="">Select Type</option>
-              <option value="remote">Remote</option>
-              <option value="physical">Physical</option>
-            </select>
+            <Input
+              name="bank_routing"
+              value={formData?.bank_routing}
+              onChange={handleChange}
+              placeholder="Manager / Developer"
+              type="text"
+              className="pl-[62px]"
+            />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsLaptop className="!w-6 !h-6 text-gray-500" />
+              <BsBriefcase className="!w-6 !h-6 text-gray-500" />
             </span>
           </div>
-        </div> */}
+        </div>
 
-        {/* Send for Approval Button */}
+        {/* bank_name Field */}
+        <div>
+          <Label>Bank Name</Label>
+          <div className="relative">
+            <Input
+              name="bank_name"
+              value={formData?.bank_name}
+              onChange={handleChange}
+              placeholder="Manager / Developer"
+              type="text"
+              className="pl-[62px]"
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsBriefcase className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
+
+        {/* bank_branch Field */}
+        <div>
+          <Label>Bank Branch</Label>
+          <div className="relative">
+            <Input
+              name="bank_branch"
+              value={formData?.bank_branch}
+              onChange={handleChange}
+              placeholder="Manager / Developer"
+              type="text"
+              className="pl-[62px]"
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsBriefcase className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
+
+        {/* bank_account Field */}
+        <div>
+          <Label>Accoutn Number</Label>
+          <div className="relative">
+            <Input
+              name="bank_account"
+              value={formData?.bank_account}
+              onChange={handleChange}
+              placeholder="Manager / Developer"
+              type="text"
+              className="pl-[62px]"
+            />
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              <BsBriefcase className="!w-6 !h-6 text-gray-500" />
+            </span>
+          </div>
+        </div>
       </div>
       <div className="pt-4">
         <button
-          type="submit"
+          onClick={handleUpdate}
           className="w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700"
         >
           update
