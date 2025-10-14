@@ -11,68 +11,121 @@ import viretaLogo from "../assets/logo/vireta-logo.png";
 import viretaLogoDark from "../assets/logo/vireta-logo-dark.png";
 import viretaLogoSmall from "../assets/logo/vireta-small-logo.png";
 import viretaLogoSmallDark from "../assets/logo/vireta-small-logo-dark.png";
+import { useSelector } from "react-redux";
 
-const navItems = [
+const hr = [
+  {
+    icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
+    name: "Employee Status",
+    path: "/employeeStatus",
+  },
+  {
+    icon: <img src={icons.UserCircleIcon} alt="Employee Attendence" />,
+    name: "Employee attendence",
+    path: "/employeeAttendence",
+  },
+
+  {
+    icon: <img src={icons.GridIcon} alt="Add New Employee" />,
+    name: "Add Employee",
+    path: "/add-employee",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Task History" />,
+    name: "Task History",
+    path: "/taskhistory",
+  },
+];
+
+const onlyHr = [
   {
     icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
     name: "Dashboard",
-    path: "/",
+    path: "/hrDashbord",
   },
+];
+
+const teamLeader = [
+  {
+    icon: <img src={icons.UserCircleIcon} alt="work distrubution" />,
+    name: "Work Distrubition",
+    path: "/workDistribution",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    name: "Dashboard",
+    path: "/adminDashbord",
+  },
+];
+
+const emp = [
+  {
+    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    name: "Dashboard",
+    path: "/hrDashbord",
+  },
+];
+
+const submiteWork = [
+  {
+    icon: <img src={icons.GridIcon} alt="Submit Icon" />,
+    name: "Work Submission",
+    path: "/workSubmission",
+  },
+];
+
+const admin = [
+  {
+    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    name: "Dashbord",
+    path: "/SupAdDashbord",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Edit Employee" />,
+    name: "Edit Employee",
+    path: "/editemployee",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Accept Employee" />,
+    name: "Accept Employee",
+    path: "/accept-employee",
+  },
+
+  {
+    icon: <img src={icons.GridIcon} alt="Employees Icon" />,
+    name: "Employees List",
+    path: "/employeeList",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Report Icon" />,
+    name: "Income Expense Report",
+    path: "/report",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Expenses Icon" />,
+    name: "Add Expenses",
+    path: "/add-expenses",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Income Icon" />,
+    name: "Add Income",
+    path: "/add-income",
+  },
+];
+
+const profile = [
   {
     icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
     name: "User Profile",
     path: "/profile",
   },
-  // {
-  //   name: "Tables",
-  //   icon: <img src={icons.TableIcon} alt="Tables Icon" />,
-  //   subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  // },
-  // {
-  //   name: "Pages",
-  //   icon: <img src={icons.PageIcon} alt="Pages Icon" />,
-  //   subItems: [
-  //     { name: "Blank Page", path: "/blank", pro: false },
-  //     { name: "404 Error", path: "/error-404", pro: false },
-  //   ],
-  // },
 ];
-
-const othersItems = [];
-//   {
-//     icon: <img src={icons.PieChartIcon} alt="Charts Icon" />,
-//     name: "Charts",
-//     subItems: [
-//       { name: "Line Chart", path: "/line-chart", pro: false },
-//       { name: "Bar Chart", path: "/bar-chart", pro: false },
-//     ],
-//   },
-//   {
-//     icon: <img src={icons.BoxCubeIcon} alt="UI Elements Icon" />,
-//     name: "UI Elements",
-//     subItems: [
-//       { name: "Alerts", path: "/alerts", pro: false },
-//       { name: "Avatar", path: "/avatars", pro: false },
-//       { name: "Badge", path: "/badge", pro: false },
-//       { name: "Buttons", path: "/buttons", pro: false },
-//       { name: "Images", path: "/images", pro: false },
-//       { name: "Videos", path: "/videos", pro: false },
-//     ],
-//   },
-//   {
-//     icon: <img src={icons.PlugInIcon} alt="Authentication Icon" />,
-//     name: "Authentication",
-//     subItems: [
-//       { name: "Sign In", path: "/signin", pro: false },
-//       { name: "Sign Up", path: "/signup", pro: false },
-//     ],
-//   },
-// ];
 
 const AppSidebar = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const location = useLocation();
-
+  const [navItems, setNavItems] = useState([]);
+  const user = useSelector((data) => data.user).user;
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [subMenuHeight, setSubMenuHeight] = useState({});
   const subMenuRefs = useRef({});
@@ -83,24 +136,20 @@ const AppSidebar = () => {
   );
 
   useEffect(() => {
-    let submenuMatched = false;
-    ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
-      items.forEach((nav, index) => {
-        if (nav.subItems) {
-          nav.subItems.forEach((subItem) => {
-            if (isActive(subItem.path)) {
-              setOpenSubmenu({
-                type: menuType,
-                index,
-              });
-              submenuMatched = true;
-            }
-          });
-        }
-      });
-    });
+    if (user?.department === "management") {
+      setNavItems([...admin, ...profile, ...hr, ...submiteWork]);
+    } else if (user?.department === "hr") {
+      setNavItems([...hr, ...onlyHr, ...profile, ...submiteWork]);
+    } else if (user?.department === "frontend") {
+      if (user?.role === "teamleader")
+        setNavItems([...teamLeader, ...profile, ...submiteWork]);
+    } else {
+      setNavItems([...emp, ...profile, ...submiteWork]);
+    }
+  }, [user]);
 
+  useEffect(() => {
+    let submenuMatched = false;
     if (!submenuMatched) {
       setOpenSubmenu(null);
     }
@@ -149,7 +198,7 @@ const AppSidebar = () => {
               }`}
             >
               <span
-                className={`menu-item-icon-size  ${
+                className={`menu-item-icon-size ${
                   openSubmenu?.type === menuType && openSubmenu?.index === index
                     ? "menu-item-icon-active"
                     : "menu-item-icon-inactive"
@@ -296,12 +345,7 @@ const AppSidebar = () => {
             </>
           ) : (
             <>
-              <img
-                src={viretaLogoSmall}
-                alt="Logo"
-                width={32}
-                height={32}
-              />
+              <img src={viretaLogoSmall} alt="Logo" width={32} height={32} />
             </>
           )}
         </Link>
@@ -329,7 +373,7 @@ const AppSidebar = () => {
               </h2>
               {renderMenuItems(navItems, "main")}
             </div>
-            <div className="">
+            {/* <div className="">
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
                   !isExpanded && !isHovered
@@ -344,7 +388,7 @@ const AppSidebar = () => {
                 )}
               </h2>
               {renderMenuItems(othersItems, "others")}
-            </div>
+            </div> */}
           </div>
         </nav>
         {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}
