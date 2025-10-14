@@ -56,9 +56,14 @@ const route = createBrowserRouter(
         <Route path="workSubmission" element={<WorkSubmission />} />
         <Route path="profile" element={<UserProfiles />} />
 
-        <Route element={<RoleProtected roles={["hr", "management"]} />}>
-          <Route path="employeeStatus" element={<EmployeePersonalPage />} />
-        </Route>
+        <Route
+          path="employeeStatus"
+          element={
+            <RoleProtected roles={["hr", "management"]}>
+              <EmployeePersonalPage />
+            </RoleProtected>
+          }
+        />
 
         <Route path="workDistribution" element={<WorkDistribution />} />
         {/* <Route path="workDistribution" element={<WorkDistributionForm />} /> */}
@@ -70,20 +75,16 @@ const route = createBrowserRouter(
         <Route path="adminDashbord" element={<AdminDashbord />} />
         {/* mahbub.................. */}
         <Route path="add-employee" element={<AddEmployee />} />
-        <Route path="teamadminpanel" element={<TeamAdminPanel />} />
+        {/* <Route path="teamadminpanel" element={<TeamAdminPanel />} /> */}
         {/* mahbub.................. */}
         {/* <Route path="employeeList" element={<EmployeeList />} /> */}
         <Route path="taskhistory" element={<TaskHistory />} />
         <Route path="editemployee" element={<EditEmployeeDashboard />} />
         <Route path="accept-employee" element={<EmployeeViewModal />} />
-        <Route path="addDepartment" element={<AddDepartment />} />
-        <Route path="addTeamLeader" element={<AddTeamLeader />} />
-        <Route path="addmember" element={<AddMember />} />
         <Route path="SupAdDashbord" element={<SupAdDashbord />} />
         {/* mahbub.................. */}
         <Route path="employeeList" element={<EmployeeList />} />
         {/* mahbub.................. */}
-        <Route path="SupAdDashbord" element={<SupAdDashbord />} />
         {/* mahbub.................. */}
         <Route path="add-income" element={<AddIncome />} />
         <Route path="add-expenses" element={<AddExpenses />} />
