@@ -33,6 +33,25 @@ import AddIncome from "../coreModule/accouting/addIncome/AddIncome";
 import AddExpenses from "../coreModule/accouting/addExpenses/AddExpenses";
 import Report from "../coreModule/accouting/report/Report";
 import RoleProtected from "./RoleProtected";
+import { useSelector } from "react-redux";
+
+const Dashboard = () => {
+  const data = useSelector((data) => data.user).user;
+
+  if (data?.department === "frontend") {
+    if (data?.role === "teamleader") {
+      return <AdminDashbord />;
+    } else {
+      return <HomeDashbord />;
+    }
+  } else if (data?.department === "management") {
+    return <SupAdDashbord />;
+  } else if (data?.department === "hr") {
+    return <HrDashbord />;
+  } else {
+    return <p>LODING...</p>;
+  }
+};
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -55,6 +74,7 @@ const route = createBrowserRouter(
       >
         <Route path="workSubmission" element={<WorkSubmission />} />
         <Route path="profile" element={<UserProfiles />} />
+        <Route index element={<Dashboard />} />
 
         <Route
           path="employeeStatus"
@@ -65,30 +85,106 @@ const route = createBrowserRouter(
           }
         />
 
-        <Route path="workDistribution" element={<WorkDistribution />} />
+        <Route
+          path="workDistribution"
+          element={
+            <RoleProtected roles={["frontend"]} isLeader={true}>
+              <WorkDistribution />
+            </RoleProtected>
+          }
+        />
+
         {/* <Route path="workDistribution" element={<WorkDistributionForm />} /> */}
-        <Route path="employeeAttendence" element={<UserAttendence />} />
-        <Route path="hrDashbord" element={<HrDashbord />} />
+        <Route
+          path="employeeAttendence"
+          element={
+            <RoleProtected roles={["hr", "management"]}>
+              <UserAttendence />
+            </RoleProtected>
+          }
+        />
+
         {/* mahbub.................. */}
-        <Route index element={<HomeDashbord />} />
+
         {/* mahbub.................. */}
-        <Route path="adminDashbord" element={<AdminDashbord />} />
         {/* mahbub.................. */}
-        <Route path="add-employee" element={<AddEmployee />} />
+
+        <Route
+          path="add-employee"
+          element={
+            <RoleProtected roles={["hr", "management"]}>
+              <AddEmployee />
+            </RoleProtected>
+          }
+        />
+
         {/* <Route path="teamadminpanel" element={<TeamAdminPanel />} /> */}
         {/* mahbub.................. */}
         {/* <Route path="employeeList" element={<EmployeeList />} /> */}
-        <Route path="taskhistory" element={<TaskHistory />} />
-        <Route path="editemployee" element={<EditEmployeeDashboard />} />
-        <Route path="accept-employee" element={<EmployeeViewModal />} />
-        <Route path="SupAdDashbord" element={<SupAdDashbord />} />
+
+        <Route
+          path="taskhistory"
+          element={
+            <RoleProtected roles={["hr", "management"]}>
+              <TaskHistory />
+            </RoleProtected>
+          }
+        />
+        <Route
+          path="editemployee"
+          element={
+            <RoleProtected roles={["management"]}>
+              <EditEmployeeDashboard />
+            </RoleProtected>
+          }
+        />
+        <Route
+          path="accept-employee"
+          element={
+            <RoleProtected roles={["management"]}>
+              <EmployeeViewModal />
+            </RoleProtected>
+          }
+        />
+        <Route
+          path="employeeList"
+          element={
+            <RoleProtected roles={["management"]}>
+              <EmployeeList />
+            </RoleProtected>
+          }
+        />
+
         {/* mahbub.................. */}
-        <Route path="employeeList" element={<EmployeeList />} />
+
         {/* mahbub.................. */}
         {/* mahbub.................. */}
-        <Route path="add-income" element={<AddIncome />} />
-        <Route path="add-expenses" element={<AddExpenses />} />
-        <Route path="report" element={<Report />} />
+        <Route
+          path="add-income"
+          element={
+            <RoleProtected roles={["management"]}>
+              <AddIncome />
+            </RoleProtected>
+          }
+        />
+
+        <Route
+          path="add-expenses"
+          element={
+            <RoleProtected roles={["management"]}>
+              <AddExpenses />
+            </RoleProtected>
+          }
+        />
+
+        <Route
+          path="report"
+          element={
+            <RoleProtected roles={["management"]}>
+              <Report />
+            </RoleProtected>
+          }
+        />
       </Route>
       <Route path="404" element={<NotFound />} />
     </>

@@ -41,20 +41,20 @@ const onlyHr = [
   {
     icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
     name: "Dashboard",
-    path: "/hrDashbord",
+    path: "/",
   },
 ];
 
 const teamLeader = [
   {
+    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    name: "Dashboard",
+    path: "/",
+  },
+  {
     icon: <img src={icons.UserCircleIcon} alt="work distrubution" />,
     name: "Work Distrubition",
     path: "/workDistribution",
-  },
-  {
-    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
-    name: "Dashboard",
-    path: "/adminDashbord",
   },
 ];
 
@@ -62,7 +62,7 @@ const emp = [
   {
     icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
     name: "Dashboard",
-    path: "/hrDashbord",
+    path: "/",
   },
 ];
 
@@ -78,42 +78,30 @@ const admin = [
   {
     icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
     name: "Dashbord",
-    path: "/SupAdDashbord",
+    path: "/",
   },
   {
     icon: <img src={icons.GridIcon} alt="Edit Employee" />,
-    name: "Edit Employee",
-    path: "/editemployee",
-  },
-  {
-    icon: <img src={icons.GridIcon} alt="Accept Employee" />,
-    name: "Accept Employee",
-    path: "/accept-employee",
+    name: "Employees",
+    subItems: [
+      { name: "Edit Employee", path: "/editemployee", pro: false },
+      { name: "Accept Employee", path: "/accept-employee", pro: false },
+      { name: "Employees List", path: "/employeeList", pro: false },
+    ],
   },
 
   {
-    icon: <img src={icons.GridIcon} alt="Employees Icon" />,
-    name: "Employees List",
-    path: "/employeeList",
-  },
-  {
-    icon: <img src={icons.GridIcon} alt="Report Icon" />,
-    name: "Income Expense Report",
-    path: "/report",
-  },
-  {
-    icon: <img src={icons.GridIcon} alt="Expenses Icon" />,
-    name: "Add Expenses",
-    path: "/add-expenses",
-  },
-  {
-    icon: <img src={icons.GridIcon} alt="Income Icon" />,
-    name: "Add Income",
-    path: "/add-income",
+    icon: <img src={icons.BoxCubeIcon} alt="UI Elements Icon" />,
+    name: "Income Expenses",
+    subItems: [
+      { name: "Add Income", path: "/add-expenses", pro: false },
+      { name: "Add Expenses", path: "/add-income", pro: false },
+      { name: "Report", path: "/report", pro: false },
+    ],
   },
 ];
 
-const profile = [
+const othersItems = [
   {
     icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
     name: "User Profile",
@@ -137,23 +125,41 @@ const AppSidebar = () => {
 
   useEffect(() => {
     if (user?.department === "management") {
-      setNavItems([...admin, ...profile, ...hr, ...submiteWork]);
+      setNavItems([...admin, ...hr, ...submiteWork]);
     } else if (user?.department === "hr") {
-      setNavItems([...hr, ...onlyHr, ...profile, ...submiteWork]);
+      setNavItems([...hr, ...onlyHr, ...submiteWork]);
     } else if (user?.department === "frontend") {
       if (user?.role === "teamleader")
-        setNavItems([...teamLeader, ...profile, ...submiteWork]);
+        setNavItems([...teamLeader, ...submiteWork]);
     } else {
-      setNavItems([...emp, ...profile, ...submiteWork]);
+      setNavItems([...emp, ...submiteWork]);
     }
   }, [user]);
 
   useEffect(() => {
     let submenuMatched = false;
+
+    ["main", "others"].forEach((menuType) => {
+      const items = menuType === "main" ? navItems : othersItems;
+      items.forEach((nav, index) => {
+        if (nav.subItems) {
+          nav.subItems.forEach((subItem) => {
+            if (isActive(subItem.path)) {
+              setOpenSubmenu({
+                type: menuType,
+                index,
+              });
+              submenuMatched = true;
+            }
+          });
+        }
+      });
+    });
+
     if (!submenuMatched) {
       setOpenSubmenu(null);
     }
-  }, [location, isActive]);
+  }, [location, isActive, navItems]);
 
   useEffect(() => {
     if (openSubmenu !== null) {
@@ -373,7 +379,7 @@ const AppSidebar = () => {
               </h2>
               {renderMenuItems(navItems, "main")}
             </div>
-            {/* <div className="">
+            <div className="">
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
                   !isExpanded && !isHovered
@@ -387,8 +393,8 @@ const AppSidebar = () => {
                   <img src={icons.HorizontaLDots} alt="Other Dots" />
                 )}
               </h2>
-              {renderMenuItems(othersItems, "others")}
-            </div> */}
+              {renderMenuItems(othersItems, "other")}
+            </div>
           </div>
         </nav>
         {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}
