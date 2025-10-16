@@ -8,7 +8,8 @@ import Input from "../../../components/form/input/InputField";
 
 import { BsCalendar2Event, BsPersonAdd } from "react-icons/bs";
 
-export default function EditEmployee({ isOpen, onClose, onSave }) {
+export default function EditEmployee({ isOpen, onClose, onSave, data }) {
+  console.log(data);
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-[700px] m-4">
       <div className="no-scrollbar relative   overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
@@ -23,17 +24,25 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
               <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                 <div>
                   <Label>task title</Label>
-                  <Input type="text" placeholder="John Doe" />
+                  <Input
+                    type="text"
+                    placeholder="hello world"
+                    value={data.work_title}
+                  />
                 </div>
 
                 <div>
                   <Label>task Description</Label>
-                  <Input type="text" placeholder="John Doe" />
+                  <Input type="text" value={data.work_desc} />
                 </div>
                 <div>
                   <Label>Expire Date</Label>
                   <div className="relative">
-                    <Input type="date" className="pl-[62px]" />
+                    <Input
+                      type="date"
+                      className="pl-[62px]"
+                      value={data.work_expire_date}
+                    />
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
                       <BsCalendar2Event className="!w-6 !h-6 text-gray-500" />
                     </span>

@@ -10,7 +10,6 @@ const initialState = {
 export const workSubmision = createAsyncThunk(
   "work/create",
   async (data1, { rejectWithValue }) => {
-    console.log(data1);
     try {
       const response = await apiClient.post("work/create", data1);
 

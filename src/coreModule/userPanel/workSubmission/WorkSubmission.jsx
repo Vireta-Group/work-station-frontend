@@ -27,8 +27,6 @@ export default function WorkSubmission() {
   }));
   const dispatch = useDispatch();
 
-  //   console.log(myTasks);
-
   useEffect(() => {
     if (tasks.status === "idle") {
       dispatch(fetchMyWork());
@@ -72,7 +70,7 @@ export default function WorkSubmission() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Task Title */}
         <div>
-          <Label>Task</Label>
+          <Label>Available Task</Label>
           <select
             name="work_id"
             value={state.work_id ?? ""}
@@ -96,6 +94,19 @@ export default function WorkSubmission() {
         {/* <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               optional icon
             </span> */}
+
+        {/* task title  */}
+        <div>
+          <Label htmlFor="title">Title</Label>
+          <Input
+            id="title"
+            type="text"
+            placeholder="Enter commit id"
+            value={state.title}
+            onChange={changeHandler}
+            name="title"
+          />
+        </div>
 
         {/* Task Description */}
         <div>
