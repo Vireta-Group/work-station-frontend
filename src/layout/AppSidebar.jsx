@@ -11,68 +11,109 @@ import viretaLogo from "../assets/logo/vireta-logo.png";
 import viretaLogoDark from "../assets/logo/vireta-logo-dark.png";
 import viretaLogoSmall from "../assets/logo/vireta-small-logo.png";
 import viretaLogoSmallDark from "../assets/logo/vireta-small-logo-dark.png";
+import { useSelector } from "react-redux";
 
-const navItems = [
+const hr = [
+  {
+    icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
+    name: "Employee Status",
+    path: "/employeeStatus",
+  },
+  {
+    icon: <img src={icons.UserCircleIcon} alt="Employee Attendence" />,
+    name: "Employee attendence",
+    path: "/employeeAttendence",
+  },
+
+  {
+    icon: <img src={icons.GridIcon} alt="Add New Employee" />,
+    name: "Add Employee",
+    path: "/add-employee",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Task History" />,
+    name: "Task History",
+    path: "/taskhistory",
+  },
+];
+
+const onlyHr = [
+  {
+    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    name: "Dashboard",
+    path: "/",
+  },
+];
+
+const teamLeader = [
   {
     icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
     name: "Dashboard",
     path: "/",
   },
   {
+    icon: <img src={icons.UserCircleIcon} alt="work distrubution" />,
+    name: "Work Distrubition",
+    path: "/workDistribution",
+  },
+];
+
+const emp = [
+  {
+    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    name: "Dashboard",
+    path: "/",
+  },
+];
+
+const submiteWork = [
+  {
+    icon: <img src={icons.GridIcon} alt="Submit Icon" />,
+    name: "Work Submission",
+    path: "/workSubmission",
+  },
+];
+
+const admin = [
+  {
+    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    name: "Dashbord",
+    path: "/",
+  },
+  {
+    icon: <img src={icons.GridIcon} alt="Edit Employee" />,
+    name: "Employees",
+    subItems: [
+      { name: "Edit Employee", path: "/editemployee", pro: false },
+      { name: "Accept Employee", path: "/accept-employee", pro: false },
+      { name: "Employees List", path: "/employeeList", pro: false },
+    ],
+  },
+
+  {
+    icon: <img src={icons.BoxCubeIcon} alt="UI Elements Icon" />,
+    name: "Income Expenses",
+    subItems: [
+      { name: "Add Income", path: "/add-expenses", pro: false },
+      { name: "Add Expenses", path: "/add-income", pro: false },
+      { name: "Report", path: "/report", pro: false },
+    ],
+  },
+];
+
+const othersItems = [
+  {
     icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
     name: "User Profile",
     path: "/profile",
   },
-  // {
-  //   name: "Tables",
-  //   icon: <img src={icons.TableIcon} alt="Tables Icon" />,
-  //   subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  // },
-  // {
-  //   name: "Pages",
-  //   icon: <img src={icons.PageIcon} alt="Pages Icon" />,
-  //   subItems: [
-  //     { name: "Blank Page", path: "/blank", pro: false },
-  //     { name: "404 Error", path: "/error-404", pro: false },
-  //   ],
-  // },
 ];
-
-const othersItems = [];
-//   {
-//     icon: <img src={icons.PieChartIcon} alt="Charts Icon" />,
-//     name: "Charts",
-//     subItems: [
-//       { name: "Line Chart", path: "/line-chart", pro: false },
-//       { name: "Bar Chart", path: "/bar-chart", pro: false },
-//     ],
-//   },
-//   {
-//     icon: <img src={icons.BoxCubeIcon} alt="UI Elements Icon" />,
-//     name: "UI Elements",
-//     subItems: [
-//       { name: "Alerts", path: "/alerts", pro: false },
-//       { name: "Avatar", path: "/avatars", pro: false },
-//       { name: "Badge", path: "/badge", pro: false },
-//       { name: "Buttons", path: "/buttons", pro: false },
-//       { name: "Images", path: "/images", pro: false },
-//       { name: "Videos", path: "/videos", pro: false },
-//     ],
-//   },
-//   {
-//     icon: <img src={icons.PlugInIcon} alt="Authentication Icon" />,
-//     name: "Authentication",
-//     subItems: [
-//       { name: "Sign In", path: "/signin", pro: false },
-//       { name: "Sign Up", path: "/signup", pro: false },
-//     ],
-//   },
-// ];
 
 const AppSidebar = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const location = useLocation();
-
+  const [navItems, setNavItems] = useState([]);
+  const user = useSelector((data) => data.user).user;
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [subMenuHeight, setSubMenuHeight] = useState({});
   const subMenuRefs = useRef({});
@@ -83,7 +124,21 @@ const AppSidebar = () => {
   );
 
   useEffect(() => {
+    if (user?.department === "management") {
+      setNavItems([...admin, ...hr, ...submiteWork]);
+    } else if (user?.department === "hr") {
+      setNavItems([...hr, ...onlyHr, ...submiteWork]);
+    } else if (user?.department === "frontend") {
+      if (user?.role === "teamleader")
+        setNavItems([...teamLeader, ...submiteWork]);
+    } else {
+      setNavItems([...emp, ...submiteWork]);
+    }
+  }, [user]);
+
+  useEffect(() => {
     let submenuMatched = false;
+
     ["main", "others"].forEach((menuType) => {
       const items = menuType === "main" ? navItems : othersItems;
       items.forEach((nav, index) => {
@@ -104,7 +159,7 @@ const AppSidebar = () => {
     if (!submenuMatched) {
       setOpenSubmenu(null);
     }
-  }, [location, isActive]);
+  }, [location, isActive, navItems]);
 
   useEffect(() => {
     if (openSubmenu !== null) {
@@ -149,7 +204,7 @@ const AppSidebar = () => {
               }`}
             >
               <span
-                className={`menu-item-icon-size  ${
+                className={`menu-item-icon-size ${
                   openSubmenu?.type === menuType && openSubmenu?.index === index
                     ? "menu-item-icon-active"
                     : "menu-item-icon-inactive"
@@ -296,12 +351,7 @@ const AppSidebar = () => {
             </>
           ) : (
             <>
-              <img
-                src={viretaLogoSmall}
-                alt="Logo"
-                width={32}
-                height={32}
-              />
+              <img src={viretaLogoSmall} alt="Logo" width={32} height={32} />
             </>
           )}
         </Link>
@@ -343,7 +393,7 @@ const AppSidebar = () => {
                   <img src={icons.HorizontaLDots} alt="Other Dots" />
                 )}
               </h2>
-              {renderMenuItems(othersItems, "others")}
+              {renderMenuItems(othersItems, "other")}
             </div>
           </div>
         </nav>

@@ -1,27 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router";
 import { user } from "../features/user/userSlice";
+import { useEffect } from "react";
 
-export default function RoleProtected({ children, roles = [] }) {
-  // const dispatch = useDispatch();
-  // const userData = useSelector((data) => data.user).user;
+export default function RoleProtected({ children, roles = [], isLeader }) {
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user).user;
 
-  // if (userData === null) {
-  //   dispatch(user());
-  // }
-  // console.log(userData?.department);
+  useEffect(() => {
+    if (userData === null) {
+      dispatch(user());
+    }
+  }, [userData, dispatch]);
 
-  // if (!roles || roles.length === 0) {
-  //   return children;
-  // }
+  if (userData === null) {
+    return <div>Loading...</div>;
+  }
 
-  // const userRole = userData?.department ?? userData?.department ?? null;
+  if (!roles || roles.length === 0) {
+    return children;
+  }
 
-  // if (userRole) {
-  //   if (!userRole || !roles.includes(userRole)) {
-  //     return <Navigate to="/" replace />;
-  //   }
-  // }
+  const userRole = userData?.department ?? null;
+
+  if (!userRole || !roles.includes(userRole)) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (roles.includes("frontend")) {
+    if (isLeader && userData?.role === "teamleader") {
+      return children;
+    } else {
+      return <Navigate to="/" replace />;
+    }
+  }
 
   return children;
 }
