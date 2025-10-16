@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 export default function UserInfoCard() {
   const userData = useSelector((data) => data.user).user;
 
-  console.log(userData);
-
   const { isOpen, openModal, closeModal } = useModal();
   const handleSave = () => {
     closeModal();

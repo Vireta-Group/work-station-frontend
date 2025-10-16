@@ -94,7 +94,6 @@ const route = createBrowserRouter(
           }
         />
 
-        {/* <Route path="workDistribution" element={<WorkDistributionForm />} /> */}
         <Route
           path="employeeAttendence"
           element={
@@ -104,11 +103,6 @@ const route = createBrowserRouter(
           }
         />
 
-        {/* mahbub.................. */}
-
-        {/* mahbub.................. */}
-        {/* mahbub.................. */}
-
         <Route
           path="add-employee"
           element={
@@ -117,10 +111,6 @@ const route = createBrowserRouter(
             </RoleProtected>
           }
         />
-
-        {/* <Route path="teamadminpanel" element={<TeamAdminPanel />} /> */}
-        {/* mahbub.................. */}
-        {/* <Route path="employeeList" element={<EmployeeList />} /> */}
 
         <Route
           path="taskhistory"
@@ -155,10 +145,6 @@ const route = createBrowserRouter(
           }
         />
 
-        {/* mahbub.................. */}
-
-        {/* mahbub.................. */}
-        {/* mahbub.................. */}
         <Route
           path="add-income"
           element={

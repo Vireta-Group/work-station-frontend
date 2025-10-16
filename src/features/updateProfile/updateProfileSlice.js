@@ -11,7 +11,6 @@ export const updateUser = createAsyncThunk(
   "work/update_profile",
   async (updateUser, { rejectWithValue }) => {
     try {
-      console.log(updateUser);
       if (updateUser.password.newPassword.trim()) {
         const response = await apiClient.post(
           "work/update_profile",
