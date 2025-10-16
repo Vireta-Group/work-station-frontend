@@ -64,46 +64,55 @@ const EditEmployee = () => {
 
   // console.log(employees);
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-black  shadow-lg rounded-2xl">
-      {/* <h2 className="text-xl font-bold mb-4 flex items-center gap-2 dark:text-white">
-        <FaUserEdit className="text-blue-600 dark:text dark:text-white" /> Edit
-        Employee Info
-      </h2> */}
-
-      {/* Employee Dropdown */}
-
-      <select
-        className="w-full border p-2 rounded mb-4 bg-white dark:bg-black  dark:text-white"
-        onChange={depertmentChanger}
-      >
-        <option className="dark:text-white" value="">
-          Select Depertment
-        </option>
-        {depertment?.departments?.map((dep) => (
-          <option
-            className="dark:text-white"
-            key={dep.departmentId}
-            value={dep.departmentId}
-          >
-            {dep.departmentName}
+    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-black shadow-lg rounded-2xl">
+      {/* Department & Employee Selects */}
+      <div className="flex flex-col md:flex-row gap-4 mb-4">
+        <select
+          className="w-full md:w-1/2 border p-2 rounded bg-white dark:bg-black dark:text-white"
+          onChange={depertmentChanger}
+        >
+          <option className="dark:text-white" value="">
+            Select Department
           </option>
-        ))}
-      </select>
+          {depertment?.departments?.map((dep) => (
+            <option
+              className="dark:text-white"
+              key={dep.departmentId}
+              value={dep.departmentId}
+            >
+              {dep.departmentName}
+            </option>
+          ))}
+        </select>
 
-      <select
-        className="w-full border p-2 rounded mb-4 bg-white dark:bg-black  dark:text-white"
-        onChange={handleSelect}
-      >
-        <option className="dark:text-white" value="">
-          Select Employee
-        </option>
-        {employees?.items?.map((emp) => (
-          <option className="dark:text-white" key={emp.empId} value={emp.empId}>
-            {emp.empName}
+        <select
+          className="w-full md:w-1/2 border p-2 rounded bg-white dark:bg-black dark:text-white"
+          onChange={handleSelect}
+        >
+          <option className="dark:text-white" value="">
+            Select Employee
           </option>
-        ))}
-      </select>
-      <button onClick={clickHandler}>get data</button>
+          {employees?.items?.map((emp) => (
+            <option
+              className="dark:text-white"
+              key={emp.empId}
+              value={emp.empId}
+            >
+              {emp.empName}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Button */}
+      <div className="text-center mb-4">
+        <button
+          onClick={clickHandler}
+          className="px-6 py-2 bg-gradient-to-r from-[#01DBE5]  to-[#02AEFA] text-white font-semibold rounded-lg hover:opacity-90 transition"
+        >
+          Get Data
+        </button>
+      </div>
 
       {/* Form Component */}
       <EditEmployeeForm />
