@@ -17,17 +17,15 @@ import { ThemeProvider } from "./context/ThemeContext";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 
-// fetch("https://work.viretadev.com/api/work/employeeAttendanceShow", {
+// fetch("https://work.viretadev.com/api/work/showWorkDistributionForLeader", {
 //   method: "POST",
 //   headers: {
 //     Authorization: `Bearer ${Cookies.get("token")}`,
 //     "Content-Type": null,
 //   },
-//   body: JSON.stringify({
-//     department_id: 1,
-//     start_date: "10-10-2025",
-//     end_date: "13-10-2025",
-//   }),
+//   // body: JSON.stringify({
+//   //   name: "Omur Faruk",
+//   // }),
 // })
 //   .then(async (res) => {
 //     const data = await res.json().catch(() => null);
