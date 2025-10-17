@@ -106,7 +106,7 @@ const EditEmployee = () => {
       <button onClick={clickHandler}>get data</button>
 
       {/* Form Component */}
-      <EditEmployeeForm />
+      <EditEmployeeForm empId={empId} />
     </div>
   );
 };

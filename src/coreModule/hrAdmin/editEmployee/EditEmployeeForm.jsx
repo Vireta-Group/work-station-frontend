@@ -20,7 +20,7 @@ import Input from "../../../components/form/input/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../../../features/editProfile/editProfileSlice";
 
-const EditEmployeeForm = () => {
+const EditEmployeeForm = (empId) => {
   const employee = useSelector((data) => data.empById).data;
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -47,9 +47,9 @@ const EditEmployeeForm = () => {
 
   useEffect(() => {
     if (employee) {
-      setFormData((prev) => ({ ...prev, ...employee }));
+      setFormData((prev) => ({ ...prev, ...employee, emp_id: empId.empId }));
     }
-  }, [setFormData, employee]);
+  }, [setFormData, employee, empId]);
 
   // Input change
   const handleChange = (e) => {
@@ -62,7 +62,7 @@ const EditEmployeeForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value ?? "" }));
   };
 
-  // console.log(employee);
+  console.log(formData.emp_id);
 
   // Update button
   const handleUpdate = () => {
