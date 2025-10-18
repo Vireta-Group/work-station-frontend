@@ -7,6 +7,21 @@ import Input from "../../../components/form/input/InputField";
 import { workSubmision } from "../../../features/workSubmition/workSubmitionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyWork } from "../../../features/myWork/myWorkSlice";
+import { z } from "zod";
+import LoadingSpinner from "../../../components/ui/loading/LoadingSpinner";
+import PopupMessage from "../../../components/ui/PopupMessage/PopupMessage";
+
+// ✅ Step 1: Define Zod schema
+const workSchema = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  description: z.string().min(1, { message: "Description is required" }),
+  status: z.string().min(1, { message: "Status is required" }),
+  commitMessage: z.string().min(1, { message: "Commit message is required" }),
+  commitId: z.string().min(1, { message: "Commit ID is required" }),
+  work_id: z.union([z.string(), z.number()]).refine((val) => val !== "", {
+    message: "Please select a task",
+  }),
+});
 
 export default function WorkSubmission() {
   const [state, setState] = useState({
@@ -27,11 +42,18 @@ export default function WorkSubmission() {
   }));
   const dispatch = useDispatch();
 
+  const [validationErrors, setValidationErrors] = useState({});
+  const [popup, setPopup] = useState({ open: false, type: "", message: "" });
+
   useEffect(() => {
     if (tasks.status === "idle") {
       dispatch(fetchMyWork());
     }
   }, [tasks, dispatch]);
+
+  const { status, error, successMessage } = useSelector(
+    (state) => state.workSubmission
+  );
 
   const statusOptions = [
     { value: "Continuous", label: "Continuous" },
@@ -50,6 +72,16 @@ export default function WorkSubmission() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const result = workSchema.safeParse(state);
+    if (!result.success) {
+      const formattedErrors = {};
+      result.error.issues.forEach((err) => {
+        formattedErrors[err.path[0]] = err.message;
+      });
+      setValidationErrors(formattedErrors);
+      return;
+    }
+    setValidationErrors({});
     dispatch(workSubmision(state));
   };
 
@@ -65,111 +97,178 @@ export default function WorkSubmission() {
     }));
   }
 
+  //Popup sho Logic
+  useEffect(() => {
+    if (status === "succeeded")
+      setPopup({
+        open: true,
+        type: "success",
+        message: "Income added successfully!",
+      });
+    setState({
+      cat_id: "",
+      perpose: "",
+      amounts: "",
+      dates: "",
+    });
+
+    if (status === "failed") {
+      setPopup({
+        open: true,
+        type: "error",
+        message: error?.message || "Failed to add income!",
+      });
+    }
+  }, [status, error]);
+
   return (
-    <ComponentCard title="Work Submission">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Task Title */}
-        <div>
-          <Label>Available Task</Label>
-          <select
-            name="work_id"
-            value={state.work_id ?? ""}
-            onChange={handleTaskSelectChange}
-            className="h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-11 text-sm shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-          >
-            <option value="" disabled>
-              {myTasks?.length ? "Select task" : "No tasks available"}
-            </option>
-            {myTasks?.map((option) => (
-              <option
-                key={option.value}
-                value={option.value}
-                data-title={option.label}
-              >
-                {option.label}
+    <>
+      <ComponentCard title="Work Submission">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Task Title */}
+          <div>
+            <Label>Available Task</Label>
+            <select
+              name="work_id"
+              value={state.work_id ?? ""}
+              onChange={handleTaskSelectChange}
+              className="h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-11 text-sm shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+            >
+              <option value="" disabled>
+                {myTasks?.length ? "Select task" : "No tasks available"}
               </option>
-            ))}
-          </select>
-        </div>
-        {/* <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+              {myTasks?.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  data-title={option.label}
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            {/* {validationErrors["work_id"] && (
+              <p className="text-red-500 text-sm mt-1">
+                {validationErrors["work_id"]}
+              </p>
+            )} */}
+          </div>
+          {/* <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
               optional icon
             </span> */}
 
-        {/* task title  */}
-        <div>
-          <Label htmlFor="title">Title</Label>
-          <Input
-            id="title"
-            type="text"
-            placeholder="Enter commit id"
-            value={state.title}
-            onChange={changeHandler}
-            name="title"
-          />
-        </div>
+          {/* task title  */}
+          <div>
+            <Label htmlFor="title">Title</Label>
+            <Input
+              id="title"
+              type="text"
+              placeholder="Enter commit id"
+              value={state.title}
+              onChange={changeHandler}
+              name="title"
+            />
+            {validationErrors["title"] && (
+              <p className="text-red-500 text-sm mt-1">
+                {validationErrors["title"]}
+              </p>
+            )}
+          </div>
 
-        {/* Task Description */}
-        <div>
-          <Label htmlFor="taskDescription">Task Description</Label>
-          <TextArea
-            id="taskDescription"
-            rows={3}
-            placeholder="Enter task description"
-            value={state.description}
-            name="description"
-            onChange={changeHandler}
-          />
-        </div>
+          {/* Task Description */}
+          <div>
+            <Label htmlFor="taskDescription">Task Description</Label>
+            <TextArea
+              id="taskDescription"
+              rows={3}
+              placeholder="Enter task description"
+              value={state.description}
+              name="description"
+              onChange={changeHandler}
+            />
+            {validationErrors["description"] && (
+              <p className="text-red-500 text-sm mt-1">
+                {validationErrors["description"]}
+              </p>
+            )}
+          </div>
 
-        {/* Status Dropdown */}
-        <div>
-          <Label>Status</Label>
-          <Select
-            options={statusOptions}
-            placeholder="Select status"
-            name="status"
-            value={state.status}
-            onChange={changeHandler}
-            className="dark:bg-dark-900"
-          />
-        </div>
+          {/* Status Dropdown */}
+          <div>
+            <Label>Status</Label>
+            <Select
+              options={statusOptions}
+              placeholder="Select status"
+              name="status"
+              value={state.status}
+              onChange={changeHandler}
+              className="dark:bg-dark-900"
+            />
+            {validationErrors["status"] && (
+              <p className="text-red-500 text-sm mt-1">
+                {validationErrors["status"]}
+              </p>
+            )}
+          </div>
 
-        {/* Commit ID */}
-        <div>
-          <Label htmlFor="commitId">GitHub Commit ID</Label>
-          <Input
-            id="commitId"
-            type="text"
-            placeholder="Enter commit id"
-            value={state.commitId}
-            onChange={changeHandler}
-            name="commitId"
-          />
-        </div>
+          {/* Commit ID */}
+          <div>
+            <Label htmlFor="commitId">GitHub Commit ID</Label>
+            <Input
+              id="commitId"
+              type="text"
+              placeholder="Enter commit id"
+              value={state.commitId}
+              onChange={changeHandler}
+              name="commitId"
+            />
+            {validationErrors["commitId"] && (
+              <p className="text-red-500 text-sm mt-1">
+                {validationErrors["commitId"]}
+              </p>
+            )}
+          </div>
 
-        {/* GitHub Commit Message */}
-        <div>
-          <Label htmlFor="commitMessage">GitHub Commit Message</Label>
-          <Input
-            id="commitMessage"
-            type="text"
-            placeholder="Enter commit message"
-            value={state.commitMessage}
-            onChange={changeHandler}
-            name="commitMessage"
-          />
-        </div>
+          {/* GitHub Commit Message */}
+          <div>
+            <Label htmlFor="commitMessage">GitHub Commit Message</Label>
+            <Input
+              id="commitMessage"
+              type="text"
+              placeholder="Enter commit message"
+              value={state.commitMessage}
+              onChange={changeHandler}
+              name="commitMessage"
+            />
+            {validationErrors["commitMessage"] && (
+              <p className="text-red-500 text-sm mt-1">
+                {validationErrors["commitMessage"]}
+              </p>
+            )}
+          </div>
 
-        {/* Submit Button */}
-        <div>
-          <button
-            type="submit"
-            className="px-6 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-700 transition"
-          >
-            submit
-          </button>
-        </div>
-      </form>
-    </ComponentCard>
+          {/* Submit Button */}
+          <div>
+            <button
+              type="submit"
+              className="px-6 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-700 transition"
+            >
+              submit
+            </button>
+          </div>
+        </form>
+      </ComponentCard>
+
+      {/*  Loading Spinner */}
+      <LoadingSpinner open={status === "loading"} />
+
+      {/*  Popup */}
+      <PopupMessage
+        open={popup.open}
+        type={popup.type}
+        message={popup.message}
+        onClose={() => setPopup({ open: false, type: "", message: "" })}
+      />
+    </>
   );
 }
