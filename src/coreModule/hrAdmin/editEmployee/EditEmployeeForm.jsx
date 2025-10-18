@@ -62,8 +62,6 @@ const EditEmployeeForm = (empId) => {
     setFormData((prev) => ({ ...prev, [name]: value ?? "" }));
   };
 
-  console.log(formData.emp_id);
-
   // Update button
   const handleUpdate = () => {
     dispatch(editProfile(formData));
