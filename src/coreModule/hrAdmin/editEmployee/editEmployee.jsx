@@ -115,7 +115,7 @@ const EditEmployee = () => {
       </div>
 
       {/* Form Component */}
-      <EditEmployeeForm />
+      <EditEmployeeForm empId={empId} />
     </div>
   );
 };

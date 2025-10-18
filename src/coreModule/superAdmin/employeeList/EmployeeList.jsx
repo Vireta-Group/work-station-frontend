@@ -205,7 +205,6 @@ export default function EmployeeList() {
   const employeesData = useSelector((data) => data.employeeByDepertment).items;
   const dispatch = useDispatch();
 
-  console.log(employeesData);
   useEffect(() => {
     if (allDepartment?.length === 0) {
       dispatch(getAllDepartment());
@@ -222,18 +221,6 @@ export default function EmployeeList() {
   // Resign function (remove employee)
   const handleResign = (id) => {
     dispatch(resignedEmployee(id));
-  };
-
-  // Modal open
-  const handleEdit = (employee) => {
-    setSelectedEmployee(employee);
-    setIsModalOpen(true);
-  };
-
-  // Modal close
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedEmployee(null);
   };
 
   return (
@@ -267,7 +254,6 @@ export default function EmployeeList() {
           <tr className="bg-gray-500">
             <th className="border p-3 text-left">Employee</th>
             <th className="border p-3 text-center">Resign</th>
-            <th className="border p-3 text-center">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -298,16 +284,6 @@ export default function EmployeeList() {
                     Resign
                   </button>
                 </td>
-
-                {/* Edit */}
-                <td className="border p-3 text-center">
-                  <button
-                    onClick={() => handleEdit(emp)}
-                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                  >
-                    Edit
-                  </button>
-                </td>
               </tr>
             ))
           ) : (
@@ -319,124 +295,6 @@ export default function EmployeeList() {
           )}
         </tbody>
       </table>
-
-      {/* Modal */}
-      {isModalOpen && selectedEmployee && (
-        <div className="fixed inset-0 flex  items-center justify-center bg-black bg-opacity-40">
-          <div className="bg-white p-6 rounded shadow-lg w-[500px] ">
-            <h2 className="text-xl font-semibold mb-4">Edit Employee</h2>
-
-            {/* Employee Image */}
-            <div className="flex justify-center mb-4">
-              <img
-                src={selectedEmployee.img}
-                alt={selectedEmployee.name}
-                className="w-20 h-20 rounded-full border"
-              />
-            </div>
-            <form className="space-y-2">
-              {/* Full Name */}
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  defaultValue={selectedEmployee.name}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-
-              {/* Father Name */}
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Father Name *
-                </label>
-                <input
-                  type="text"
-                  defaultValue={selectedEmployee.father}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-
-              {/* Mother Name */}
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Mother Name *
-                </label>
-                <input
-                  type="text"
-                  defaultValue={selectedEmployee.mother}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-
-              {/* NID */}
-              <div>
-                <label className="block text-sm font-medium mb-1">NID *</label>
-                <input
-                  type="text"
-                  defaultValue={selectedEmployee.nid}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-
-              {/* DOB */}
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Date of Birth *
-                </label>
-                <input
-                  type="date"
-                  defaultValue={selectedEmployee.dob}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-
-              {/* Username */}
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  defaultValue={selectedEmployee.username}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-
-              {/* Password (show as text) */}
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Password
-                </label>
-                <input
-                  type="text" // 👈 এখন password দেখাবে
-                  defaultValue={selectedEmployee.password}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex justify-end gap-3 mt-4">
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
