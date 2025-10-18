@@ -1,109 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Badge from "../../../components/ui/badge/Badge";
 import Select from "../../../components/form/Select";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllDepartment } from "../../../features/getDepartment/getDepartmentSlice";
+import { fetchEmployeesByDepartment } from "../../../features/employeeByDepartment/employeeByDepartmentSlice";
+import { fetchTaskHistoryByDates } from "../../../features/taskHistory/taskHistorySlice";
+import { fetchEmployeeById } from "../../../features/empById/empByIdSlice";
 
 export default function EmployeePersonalPage() {
   const [formData, setFormData] = useState({
-    name: "",
-    startDate: "",
-    endDate: "",
+    emp_id: "",
+    startdate: "",
+    enddate: "",
   });
-  const [employee, setEmployee] = useState(null);
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const tasks = useSelector((data) => data.taskHistory).items;
+  const employee = useSelector((data) => data.empById).data;
+  const dep = useSelector((data) => data.getAllDepartment).departments;
+  const emp = useSelector((data) => data.employeeByDepertment).items;
+  const dispatch = useDispatch();
 
-  const dummyEmployees = [
-    {
-      id: 1,
-      name: "John Doe",
-      role: "Software Engineer",
-      joinDate: "2023-01-15",
-      email: "john@example.com",
-      tasks: [
-        {
-          title: "Frontend Module",
-          description: "Build login page",
-          startDate: "2023-07-01",
-          expireDate: "2023-07-05",
-          status: "Completed",
-        },
-        {
-          title: "Dashboard",
-          description: "Create admin dashboard",
-          startDate: "2023-07-06",
-          expireDate: "2023-07-12",
-          status: "In Progress",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      role: "UI/UX Designer",
-      joinDate: "2022-10-10",
-      email: "jane@example.com",
-      tasks: [
-        {
-          title: "Wireframes",
-          description: "Design wireframes for new app",
-          startDate: "2023-07-02",
-          expireDate: "2023-07-08",
-          status: "In Progress",
-        },
-      ],
-    },
-  ];
+  console.log(tasks);
 
-  const employeeOptions = dummyEmployees.map((emp) => ({
-    value: emp.name,
-    label: emp.name,
+  const departments = dep?.map((item) => ({
+    value: item.departmentId,
+    label: item.departmentName,
   }));
 
+  const employeeOptions = emp?.map((emp) => ({
+    value: emp.empId,
+    label: emp.empName,
+  }));
+
+  useEffect(() => {
+    if (dep.length === 0) {
+      dispatch(getAllDepartment());
+    }
+  }, [dep, dispatch]);
+
   const handleSearch = () => {
-    setLoading(true);
-    setError("");
+    dispatch(fetchEmployeeById({ emp_id: formData.emp_id }));
+    dispatch(fetchTaskHistoryByDates(formData));
+  };
 
-    if (!formData.name) {
-      setError("❌ Please enter a valid employee name.");
-      setLoading(false);
-      return;
-    }
-
-    const foundEmployee = dummyEmployees.find(
-      (emp) => emp.name.toLowerCase() === formData.name.toLowerCase()
-    );
-
-    if (foundEmployee) {
-      setEmployee(foundEmployee);
-
-      // Filter tasks by date range if dates are selected
-      let filteredTasks = foundEmployee.tasks || [];
-
-      if (formData.startDate) {
-        filteredTasks = filteredTasks.filter(
-          (task) => task.startDate >= formData.startDate
-        );
-      }
-      if (formData.endDate) {
-        filteredTasks = filteredTasks.filter(
-          (task) => task.expireDate <= formData.endDate
-        );
-      }
-
-      setTasks(filteredTasks);
-    } else {
-      setEmployee(null);
-      setTasks([]);
-      setError("❌ No employee found with this name.");
-    }
-    setLoading(false);
+  const changeDepartmentHanlder = (e) => {
+    dispatch(fetchEmployeesByDepartment(e.target.value));
   };
 
   return (
     <div className="p-6 space-y-6">
       {/* Search Form */}
       <div className="bg-gray-800 shadow rounded-2xl p-4 flex gap-4 items-end">
+        <div className="flex-1">
+          <label className="block text-sm font-medium mb-1 text-white">
+            Select Department
+          </label>
+          <Select
+            name="name"
+            options={departments}
+            onChange={changeDepartmentHanlder}
+            placeholder="Select Department"
+          />
+        </div>
+
         <div className="flex-1">
           <label className="block text-sm font-medium mb-1 text-white">
             Employee Name
@@ -117,10 +75,10 @@ export default function EmployeePersonalPage() {
                 : null
             }
             onChange={(selectedOption) =>
-              setFormData({
-                ...formData,
-                name: selectedOption.value,
-              })
+              setFormData((prev) => ({
+                ...prev,
+                emp_id: selectedOption.target.value,
+              }))
             }
             placeholder="Select employee"
           />
@@ -133,7 +91,7 @@ export default function EmployeePersonalPage() {
             type="date"
             value={formData.startDate}
             onChange={(e) =>
-              setFormData({ ...formData, startDate: e.target.value })
+              setFormData((prev) => ({ ...prev, startdate: e.target.value }))
             }
             className="rounded-lg p-2"
             placeholder="Select start date"
@@ -147,7 +105,7 @@ export default function EmployeePersonalPage() {
             type="date"
             value={formData.endDate}
             onChange={(e) =>
-              setFormData({ ...formData, endDate: e.target.value })
+              setFormData((prev) => ({ ...prev, enddate: e.target.value }))
             }
             className="rounded-lg p-2"
             placeholder="Select end date"
@@ -157,24 +115,29 @@ export default function EmployeePersonalPage() {
           onClick={handleSearch}
           className="bg-brand-500 text-white px-4 py-2 rounded-lg hover:bg-brand-600"
         >
-          {loading ? "Searching..." : "Search"}
+          {/* {loading ? "Searching..." : "Search"} */}
+          Search
         </button>
       </div>
 
       {/* Error Alert */}
-      {error && (
+      {/* {error && (
         <div className="bg-red-500 text-white px-4 py-2 rounded-lg">
           {error}
         </div>
-      )}
+      )} */}
 
       {/* Employee Meta */}
       {employee && (
         <div className="bg-gray-300 shadow rounded-2xl p-6">
-          <h2 className="text-xl font-bold">{employee.name}</h2>
-          <p className="text-gray-600">Role: {employee.role}</p>
-          <p className="text-gray-600">Joining Date: {employee.joinDate}</p>
-          <p className="text-gray-600">Email: {employee.email}</p>
+          <img
+            src={`data:image/png;base64,${employee.pic}`}
+            alt={employee?.name}
+          />
+          <h2 className="text-xl font-bold">{employee?.name}</h2>
+          <p className="text-gray-600">Designation: {employee?.designation}</p>
+          <p className="text-gray-600">Role: {employee?.role}</p>
+          <p className="text-gray-600">Email: {employee?.email}</p>
         </div>
       )}
 
@@ -193,24 +156,32 @@ export default function EmployeePersonalPage() {
               </tr>
             </thead>
             <tbody>
-              {tasks.map((task, idx) => (
-                <tr key={idx} className="hover:bg-gray-50">
-                  <td className="p-3 border">{task.title}</td>
-                  <td className="p-3 border">{task.description}</td>
-                  <td className="p-3 border">{task.startDate}</td>
-                  <td className="p-3 border">{task.expireDate}</td>
+              {tasks?.map((task) => (
+                <tr key={task?.work_id} className="hover:bg-gray-50">
+                  <td className="p-3 border">{task?.work_title}</td>
+                  <td className="p-3 border">{task?.work_desc}</td>
+                  <td className="p-3 border">{task?.work_date}</td>
+                  <td className="p-3 border">{task?.work_expire_date}</td>
                   <td className="p-3 border">
                     <Badge
                       variant="light"
                       color={
-                        task.status === "Completed"
+                        task?.completing_details[
+                          task?.completing_details.length - 1
+                        ]?.status === "Completed"
                           ? "success"
-                          : task.status === "In Progress"
+                          : task?.completing_details[
+                              task?.completing_details.length - 1
+                            ]?.status === "In Progress"
                           ? "primary"
                           : "warning"
                       }
                     >
-                      {task.status}
+                      {
+                        task?.completing_details[
+                          task?.completing_details.length - 1
+                        ]?.status
+                      }
                     </Badge>
                   </td>
                 </tr>
@@ -221,9 +192,9 @@ export default function EmployeePersonalPage() {
       )}
 
       {/* No Tasks */}
-      {!loading && employee && tasks.length === 0 && (
+      {/* {!loading && employee && tasks.length === 0 && (
         <p className="text-gray-500">No tasks found for this employee.</p>
-      )}
+      )} */}
     </div>
   );
 }
