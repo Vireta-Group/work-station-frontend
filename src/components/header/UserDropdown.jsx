@@ -3,8 +3,8 @@ import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/auth/authSlice";
-import { user } from "../../features/user/userSlice";
+import { logoutByAuth } from "../../features/auth/authSlice";
+import { user, logout } from "../../features/user/userSlice.js";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +34,7 @@ export default function UserDropdown() {
 
   function logoutHandler() {
     dispatch(logout());
+    dispatch(logoutByAuth());
     navigate("/login");
   }
 

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../api/apiClient";
+import Cookies from "js-cookie";
 
 const initialState = {
   user: null,
@@ -28,6 +29,14 @@ export const user = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.status = "idle";
+      state.error = null;
+      Cookies.remove("token");
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(user.pending, (state) => {
@@ -44,5 +53,7 @@ const userSlice = createSlice({
       });
   },
 });
+
+export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;

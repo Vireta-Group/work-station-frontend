@@ -38,7 +38,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
+    logoutByAuth: (state) => {
       state.user = null;
       state.isAuthenticated = false;
       state.status = "idle";
@@ -71,5 +71,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logoutByAuth } = authSlice.actions;
 export default authSlice.reducer;

@@ -19,8 +19,6 @@ export default function EmployeePersonalPage() {
   const emp = useSelector((data) => data.employeeByDepertment).items;
   const dispatch = useDispatch();
 
-  console.log(tasks);
-
   const departments = dep?.map((item) => ({
     value: item.departmentId,
     label: item.departmentName,

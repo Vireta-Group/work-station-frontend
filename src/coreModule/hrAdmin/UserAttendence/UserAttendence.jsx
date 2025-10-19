@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -6,10 +6,28 @@ import {
   TableRow,
   TableCell,
 } from "../../../components/ui/table/index";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchEmployeeAttendanceByDates } from "../../../features/employeeAttendance/employeeAttendanceSlice";
 
 const EmployeeAttendance = () => {
   const [date, setDate] = useState("");
   const [employees, setEmployees] = useState([]);
+  // ____
+  const att = useSelector((data) => data.employeeAttendance).items;
+  const dispatch = useDispatch();
+  console.log(att);
+
+  useEffect(() => {
+    if (att.length === 0) {
+      dispatch(
+        fetchEmployeeAttendanceByDates({
+          department_id: "1",
+          start_date: "01-10-2025",
+          end_date: "19-10-2025",
+        })
+      );
+    }
+  });
 
   // Dummy employee data
 

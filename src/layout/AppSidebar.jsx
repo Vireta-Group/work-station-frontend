@@ -56,6 +56,11 @@ const teamLeader = [
     name: "Work Distrubition",
     path: "/workDistribution",
   },
+  {
+    icon: <img src={icons.GridIcon} alt="Task History" />,
+    name: "Task History",
+    path: "/taskhistory",
+  },
 ];
 
 const emp = [
