@@ -30,6 +30,8 @@ export default function RoleProtected({ children, roles = [], isLeader }) {
   if (roles.includes("frontend")) {
     if (isLeader && userData?.role === "teamleader") {
       return children;
+    } else if (roles.includes("managment") || roles.includes("hr")) {
+      return children;
     } else {
       return <Navigate to="/" replace />;
     }

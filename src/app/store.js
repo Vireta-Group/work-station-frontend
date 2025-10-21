@@ -23,6 +23,7 @@ import empByIdReducer from "../features/empById/empByIdSlice.js";
 import editProfileReducer from "../features/editProfile/editProfileSlice.js";
 import todayTaskReducer from "../features/todayTask/todayTaskSlice.js";
 import resignedEmployeeReducer from "../features/resignedEmployee/resignedEmployeeSlice.js";
+import employeeAttendanceReducer from "../features/employeeAttendance/employeeAttendanceSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
   editProfile: editProfileReducer,
   todayTask: todayTaskReducer,
   resignedEmployee: resignedEmployeeReducer,
+  employeeAttendance: employeeAttendanceReducer,
 });
 
 const store = createStore(

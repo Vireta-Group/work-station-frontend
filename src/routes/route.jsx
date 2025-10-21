@@ -115,7 +115,10 @@ const route = createBrowserRouter(
         <Route
           path="taskhistory"
           element={
-            <RoleProtected roles={["hr", "management"]}>
+            <RoleProtected
+              roles={["hr", "management", "frontend"]}
+              isLeader={true}
+            >
               <TaskHistory />
             </RoleProtected>
           }
