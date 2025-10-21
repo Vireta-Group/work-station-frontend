@@ -9,10 +9,7 @@ export const resignedEmployee = createAsyncThunk(
   "resignedEmployee/post",
   async ({ emp_id }, { rejectWithValue }) => {
     try {
-      if (!emp_id) {
-        return rejectWithValue("emp_id is required");
-      }
-
+      console.log("emp id", emp_id);
       // axios supports AbortController via the `signal` option
       const res = await apiClient.post("/work/resignedEmployee", {
         emp_id,

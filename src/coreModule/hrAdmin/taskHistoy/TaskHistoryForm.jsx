@@ -13,8 +13,6 @@ import {
   selectTaskHistoryError,
 } from "../../../features/taskHistory/taskHistorySlice";
 import { z } from "zod";
-import LoadingSpinner from "../../../components/ui/loading/LoadingSpinner";
-import PopupMessage from "../../../components/ui/PopupMessage/PopupMessage";
 
 //  Step 1: Validation Schema
 const historySchema = z.object({
@@ -223,17 +221,6 @@ export default function TaskHistoryForm() {
           </div>
         </div>
       </div>
-
-      {/* Spinner */}
-      <LoadingSpinner open={status === "loading"} />
-
-      {/* Popup */}
-      <PopupMessage
-        open={popup.open}
-        type={popup.type}
-        message={popup.message}
-        onClose={() => setPopup({ open: false, type: "", message: "" })}
-      />
     </>
   );
 }
