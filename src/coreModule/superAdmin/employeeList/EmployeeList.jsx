@@ -219,8 +219,15 @@ export default function EmployeeList() {
   };
 
   // Resign function (remove employee)
-  const handleResign = (id) => {
-    dispatch(resignedEmployee(id));
+  const handleResign = (id, name) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to resign ${name}?`
+    );
+
+    if (confirmDelete) {
+      console.log("confirmDelete", id);
+      dispatch(resignedEmployee({ emp_id: id }));
+    }
   };
 
   return (
@@ -278,7 +285,7 @@ export default function EmployeeList() {
                 {/* Resign */}
                 <td className="border p-3 text-center">
                   <button
-                    onClick={() => handleResign(emp?.empId)}
+                    onClick={() => handleResign(emp?.empId, emp?.empName)}
                     className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                   >
                     Resign

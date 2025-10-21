@@ -59,7 +59,7 @@ export default function TaskHistoryTable() {
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
             {tasks?.items?.map((order) => (
               <TableRow key={order?.work_id}>
-                <TableCell className="px-5 py-4 sm:px-6 text-start">
+                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                   <div className="flex items-center gap-3">
                     {order?.work_title}
                   </div>

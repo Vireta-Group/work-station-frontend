@@ -6,6 +6,16 @@ import { getAllDepartment } from "../../../features/getDepartment/getDepartmentS
 import { fetchEmployeesByDepartment } from "../../../features/employeeByDepartment/employeeByDepartmentSlice";
 import { fetchTaskHistoryByDates } from "../../../features/taskHistory/taskHistorySlice";
 import { fetchEmployeeById } from "../../../features/empById/empByIdSlice";
+import LoadingSpinner from "../../../components/ui/loading/LoadingSpinner";
+import PopupMessage from "../../../components/ui/PopupMessage/PopupMessage";
+import { z } from "zod";
+
+// ✅ Zod validation schema
+const employeeSearchSchema = z.object({
+  emp_id: z.string().min(1, { message: "Employee is required" }),
+  startdate: z.string().min(1, { message: "Start date is required" }),
+  enddate: z.string().min(1, { message: "End date is required" }),
+});
 
 export default function EmployeePersonalPage() {
   const [formData, setFormData] = useState({
@@ -20,6 +30,11 @@ export default function EmployeePersonalPage() {
   const dispatch = useDispatch();
 
   console.log(tasks);
+
+  const [validationErrors, setValidationErrors] = useState({});
+  const [popup, setPopup] = useState({ open: false, type: "", message: "" });
+  const status = useSelector((state) => state.taskHistory.status);
+  const error = useSelector((state) => state.taskHistory.error);
 
   const departments = dep?.map((item) => ({
     value: item.departmentId,
@@ -38,6 +53,18 @@ export default function EmployeePersonalPage() {
   }, [dep, dispatch]);
 
   const handleSearch = () => {
+    // Validate with Zod
+    const result = employeeSearchSchema.safeParse(formData);
+    if (!result.success) {
+      const formattedErrors = {};
+      result.error.issues.forEach((err) => {
+        if (err.path[0]) formattedErrors[err.path[0]] = err.message;
+      });
+      setValidationErrors(formattedErrors);
+      return;
+    }
+
+    setValidationErrors({});
     dispatch(fetchEmployeeById({ emp_id: formData.emp_id }));
     dispatch(fetchTaskHistoryByDates(formData));
   };
@@ -46,155 +73,200 @@ export default function EmployeePersonalPage() {
     dispatch(fetchEmployeesByDepartment(e.target.value));
   };
 
+  // ✅ Popup Handling
+  useEffect(() => {
+    if (status === "succeeded") {
+      setPopup({
+        open: true,
+        type: "success",
+        message: "Employee tasks fetched successfully!",
+      });
+    } else if (status === "failed") {
+      setPopup({
+        open: true,
+        type: "error",
+        message: error?.message || "Failed to fetch employee tasks!",
+      });
+    }
+  }, [status, error]);
+
   return (
-    <div className="p-6 space-y-6">
-      {/* Search Form */}
-      <div className="bg-gray-800 shadow rounded-2xl p-4 flex gap-4 items-end">
-        <div className="flex-1">
-          <label className="block text-sm font-medium mb-1 text-white">
-            Select Department
-          </label>
-          <Select
-            name="name"
-            options={departments}
-            onChange={changeDepartmentHanlder}
-            placeholder="Select Department"
-          />
-        </div>
+    <>
+      <div className="p-6 space-y-6">
+        {/* Search Form */}
+        <div className="  shadow rounded-2xl p-6 space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1 text-white">
+                Select Department
+              </label>
+              <Select
+                name="name"
+                options={departments}
+                onChange={changeDepartmentHanlder}
+                placeholder="Select Department"
+              />
+            </div>
 
-        <div className="flex-1">
-          <label className="block text-sm font-medium mb-1 text-white">
-            Employee Name
-          </label>
-          <Select
-            name="name"
-            options={employeeOptions}
-            value={
-              formData.name
-                ? { value: formData.name, label: formData.name }
-                : null
-            }
-            onChange={(selectedOption) =>
-              setFormData((prev) => ({
-                ...prev,
-                emp_id: selectedOption.target.value,
-              }))
-            }
-            placeholder="Select employee"
-          />
+            <div>
+              <label className="block text-sm font-medium mb-1 text-white">
+                Employee Name
+              </label>
+              <Select
+                name="name"
+                options={employeeOptions}
+                value={
+                  formData.name
+                    ? { value: formData.name, label: formData.name }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    emp_id: selectedOption.target.value,
+                  }))
+                }
+                placeholder="Select employee"
+              />
+              {validationErrors["emp_id"] && (
+                <p className="text-red-500 text-sm mt-1">
+                  {validationErrors["emp_id"]}
+                </p>
+              )}
+            </div>
+          </div>
+          <div />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1 text-white">
+                Start Date
+              </label>
+              <input
+                type="date"
+                value={formData.startDate}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    startdate: e.target.value,
+                  }))
+                }
+                className="rounded-lg p-2"
+                placeholder="Select start date"
+              />
+              {validationErrors["startdate"] && (
+                <p className="text-red-500 text-sm mt-1">
+                  {validationErrors["startdate"]}
+                </p>
+              )}
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1 text-white">
+                End Date
+              </label>
+              <input
+                type="date"
+                value={formData.endDate}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, enddate: e.target.value }))
+                }
+                className="rounded-lg p-2 w-full"
+                placeholder="Select end date"
+              />
+              {validationErrors["enddate"] && (
+                <p className="text-red-500 text-sm mt-1">
+                  {validationErrors["enddate"]}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-center pt-4">
+            <button
+              onClick={handleSearch}
+              className="bg-brand-500 text-white px-4 py-2 rounded-lg hover:bg-brand-600"
+            >
+              {/* {loading ? "Searching..." : "Search"} */}
+              Search
+            </button>
+          </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-1 text-white">
-            Start Date
-          </label>
-          <input
-            type="date"
-            value={formData.startDate}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, startdate: e.target.value }))
-            }
-            className="rounded-lg p-2"
-            placeholder="Select start date"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1 text-white">
-            End Date
-          </label>
-          <input
-            type="date"
-            value={formData.endDate}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, enddate: e.target.value }))
-            }
-            className="rounded-lg p-2"
-            placeholder="Select end date"
-          />
-        </div>
-        <button
-          onClick={handleSearch}
-          className="bg-brand-500 text-white px-4 py-2 rounded-lg hover:bg-brand-600"
-        >
-          {/* {loading ? "Searching..." : "Search"} */}
-          Search
-        </button>
-      </div>
-
-      {/* Error Alert */}
-      {/* {error && (
+        {/* Error Alert */}
+        {/* {error && (
         <div className="bg-red-500 text-white px-4 py-2 rounded-lg">
           {error}
         </div>
       )} */}
 
-      {/* Employee Meta */}
-      {employee && (
-        <div className="bg-gray-300 shadow rounded-2xl p-6">
-          <img
-            src={`data:image/png;base64,${employee.pic}`}
-            alt={employee?.name}
-          />
-          <h2 className="text-xl font-bold">{employee?.name}</h2>
-          <p className="text-gray-600">Designation: {employee?.designation}</p>
-          <p className="text-gray-600">Role: {employee?.role}</p>
-          <p className="text-gray-600">Email: {employee?.email}</p>
-        </div>
-      )}
+        {/* Employee Meta */}
+        {employee && (
+          <div className="bg-gray-300 shadow rounded-2xl p-6">
+            <img
+              src={`data:image/png;base64,${employee.pic}`}
+              alt={employee?.name}
+            />
+            <h2 className="text-xl font-bold">{employee?.name}</h2>
+            <p className="text-gray-600">
+              Designation: {employee?.designation}
+            </p>
+            <p className="text-gray-600">Role: {employee?.role}</p>
+            <p className="text-gray-600">Email: {employee?.email}</p>
+          </div>
+        )}
 
-      {/* Task Table */}
-      {tasks.length > 0 && (
-        <div className="bg-white shadow rounded-2xl p-6">
-          <h3 className="text-lg font-semibold mb-4">Employee Tasks</h3>
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-gray-100 text-left">
-                <th className="p-3 border">Task Title</th>
-                <th className="p-3 border">Description</th>
-                <th className="p-3 border">Start Date</th>
-                <th className="p-3 border">Expire Date</th>
-                <th className="p-3 border">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks?.map((task) => (
-                <tr key={task?.work_id} className="hover:bg-gray-50">
-                  <td className="p-3 border">{task?.work_title}</td>
-                  <td className="p-3 border">{task?.work_desc}</td>
-                  <td className="p-3 border">{task?.work_date}</td>
-                  <td className="p-3 border">{task?.work_expire_date}</td>
-                  <td className="p-3 border">
-                    <Badge
-                      variant="light"
-                      color={
-                        task?.completing_details[
-                          task?.completing_details.length - 1
-                        ]?.status === "Completed"
-                          ? "success"
-                          : task?.completing_details[
-                              task?.completing_details.length - 1
-                            ]?.status === "In Progress"
-                          ? "primary"
-                          : "warning"
-                      }
-                    >
-                      {
-                        task?.completing_details[
-                          task?.completing_details.length - 1
-                        ]?.status
-                      }
-                    </Badge>
-                  </td>
+        {/* Task Table */}
+        {tasks.length > 0 && (
+          <div className="bg-white shadow rounded-2xl p-6">
+            <h3 className="text-lg font-semibold mb-4">Employee Tasks</h3>
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-100 text-left">
+                  <th className="p-3 border">Task Title</th>
+                  <th className="p-3 border">Description</th>
+                  <th className="p-3 border">Start Date</th>
+                  <th className="p-3 border">Expire Date</th>
+                  <th className="p-3 border">Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody>
+                {tasks?.map((task) => (
+                  <tr key={task?.work_id} className="hover:bg-gray-50">
+                    <td className="p-3 border">{task?.work_title}</td>
+                    <td className="p-3 border">{task?.work_desc}</td>
+                    <td className="p-3 border">{task?.work_date}</td>
+                    <td className="p-3 border">{task?.work_expire_date}</td>
+                    <td className="p-3 border">
+                      <Badge
+                        variant="light"
+                        color={
+                          task?.completing_details[
+                            task?.completing_details.length - 1
+                          ]?.status === "Completed"
+                            ? "success"
+                            : task?.completing_details[
+                                task?.completing_details.length - 1
+                              ]?.status === "In Progress"
+                            ? "primary"
+                            : "warning"
+                        }
+                      >
+                        {
+                          task?.completing_details[
+                            task?.completing_details.length - 1
+                          ]?.status
+                        }
+                      </Badge>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
-      {/* No Tasks */}
-      {/* {!loading && employee && tasks.length === 0 && (
+        {/* No Tasks */}
+        {/* {!loading && employee && tasks.length === 0 && (
         <p className="text-gray-500">No tasks found for this employee.</p>
       )} */}
-    </div>
+      </div>
+    </>
   );
 }
