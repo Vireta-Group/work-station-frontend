@@ -17,7 +17,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 
-// fetch("https://work.viretadev.com/api/work/showWorkDistributionForLeader", {
+// fetch("https://work.viretadev.com/api/work/myWordDistribute", {
 //   method: "POST",
 //   headers: {
 //     Authorization: `Bearer ${Cookies.get("token")}`,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useSelector } from "react-redux";
 
 const tableData = [
   {
@@ -41,11 +41,11 @@ const tableData = [
 
 export default function Table() {
   const [expandedRows, setExpandedRows] = useState({});
+  // const tableData = useSelector((data) => data.myWork);
 
   const toggleExpand = (id) => {
     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
   };
-  
 
   return (
     <div className="overflow-x-auto">
@@ -64,9 +64,16 @@ export default function Table() {
             const isExpanded = expandedRows[row.id];
             const shortDesc = row.description.slice(0, 50); // প্রথম 50 character দেখাবে
             return (
-              <tr key={row.id} className="border-b border-gray-200 dark:border-gray-700">
-                <td className="p-4 text-gray-800 dark:text-gray-200 font-semibold">{row.workTitle}</td>
-                <td className="p-4 text-gray-800 dark:text-gray-200">{row.projectName}</td>
+              <tr
+                key={row.id}
+                className="border-b border-gray-200 dark:border-gray-700"
+              >
+                <td className="p-4 text-gray-800 dark:text-gray-200 font-semibold">
+                  {row.workTitle}
+                </td>
+                <td className="p-4 text-gray-800 dark:text-gray-200">
+                  {row.projectName}
+                </td>
                 <td className="p-4 text-gray-600 dark:text-gray-300">
                   {isExpanded ? row.description : `${shortDesc}... `}
                   <button
@@ -76,7 +83,9 @@ export default function Table() {
                     {isExpanded ? "See Less" : "See More"}
                   </button>
                 </td>
-                <td className="p-4 text-gray-800 dark:text-gray-200">{row.expireDate}</td>
+                <td className="p-4 text-gray-800 dark:text-gray-200">
+                  {row.expireDate}
+                </td>
               </tr>
             );
           })}

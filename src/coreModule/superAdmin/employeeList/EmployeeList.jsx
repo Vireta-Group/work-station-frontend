@@ -263,7 +263,7 @@ export default function EmployeeList() {
                 {/* Employee (Img + Name + Designation) */}
                 <td className="border p-3 flex items-center gap-3">
                   <img
-                    src={`data:image/png;base64,${emp.empPicture}`}
+                    src={emp.empPicture}
                     alt={emp?.empName}
                     className="w-10 h-10 rounded-full"
                   />
