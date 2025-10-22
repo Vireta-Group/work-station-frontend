@@ -17,14 +17,15 @@ import { ThemeProvider } from "./context/ThemeContext";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 
-// fetch("https://work.viretadev.com/api/work/myWordDistribute", {
+// fetch("https://work.viretadev.com/api/work/unapproveEmployes", {
 //   method: "POST",
 //   headers: {
 //     Authorization: `Bearer ${Cookies.get("token")}`,
 //     "Content-Type": null,
 //   },
-//   // body: JSON.stringify({
-//   //   name: "Omur Faruk",
+//   //   body: JSON.stringify({
+//   //   "name": "string",
+//   //   "father": "string",
 //   // }),
 // })
 //   .then(async (res) => {
