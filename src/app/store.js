@@ -15,7 +15,6 @@ import myWorkReducer from "../features/myWork/myWorkSlice.js";
 import addIncomeReducer from "../features/addIncome/addIncomeSlice.js";
 import addExpenseReducer from "../features/addExpenes/addExpenesSlice.js";
 import expenesReportReducer from "../features/expenesReport/expenesReportSlice.js";
-import removeMemeberReducer from "../features/removeMember/removeMemberSlice.js";
 import addEmployeeReducer from "../features/addEmployee/addEmployeeSlice.js";
 import taskHistoryReducer from "../features/taskHistory/taskHistorySlice.js";
 import employeeByDepertmentReducer from "../features/employeeByDepartment/employeeByDepartmentSlice.js";
@@ -24,6 +23,7 @@ import editProfileReducer from "../features/editProfile/editProfileSlice.js";
 import todayTaskReducer from "../features/todayTask/todayTaskSlice.js";
 import resignedEmployeeReducer from "../features/resignedEmployee/resignedEmployeeSlice.js";
 import employeeAttendanceReducer from "../features/employeeAttendance/employeeAttendanceSlice.js";
+import unapproveEmpReducer from "../features/unapproveEmp/unapproveEmpSlice.js";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -40,7 +40,6 @@ const rootReducer = combineReducers({
   addIncome: addIncomeReducer,
   addExpense: addExpenseReducer,
   expenesReport: expenesReportReducer,
-  removeMember: removeMemeberReducer,
   addEmployee: addEmployeeReducer,
   taskHistory: taskHistoryReducer,
   employeeByDepertment: employeeByDepertmentReducer,
@@ -49,6 +48,7 @@ const rootReducer = combineReducers({
   todayTask: todayTaskReducer,
   resignedEmployee: resignedEmployeeReducer,
   employeeAttendance: employeeAttendanceReducer,
+  unapproveEmp: unapproveEmpReducer,
 });
 
 const store = createStore(

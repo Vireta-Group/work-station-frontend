@@ -21,7 +21,13 @@ import {
   BsPerson,
 } from "react-icons/bs";
 
-export default function EditEmployee({ isOpen, onClose, onSave }) {
+export default function EditEmployee({ isOpen, onClose, onSave, user }) {
+  const [formData, setFormData] = React.useState(user);
+
+  const changeHandler = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-[700px] m-4">
       <div className="no-scrollbar relative   overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
@@ -34,11 +40,14 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Father Name Field */}
             <div>
-              <Label>Father Name</Label>
+              <Label>Name</Label>
               <div className="relative">
                 <Input
-                  placeholder="Father's Name"
+                  placeholder="Name"
+                  name="name"
                   type="text"
+                  onChange={changeHandler}
+                  value={formData?.name}
                   className="pl-[62px]"
                 />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
@@ -53,6 +62,27 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
               <div className="relative">
                 <Input
                   placeholder="Mother's Name"
+                  name="mother"
+                  value={formData?.mother}
+                  onChange={changeHandler}
+                  type="text"
+                  className="pl-[62px]"
+                />
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
+                  <BsPerson className="!w-6 !h-6 text-gray-500" />
+                </span>
+              </div>
+            </div>
+
+            {/* Father Name Field */}
+            <div>
+              <Label>Father Name</Label>
+              <div className="relative">
+                <Input
+                  placeholder="Father's Name"
+                  name="father"
+                  value={formData?.father}
+                  onChange={changeHandler}
                   type="text"
                   className="pl-[62px]"
                 />
@@ -69,6 +99,9 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
                 <Input
                   placeholder="1234567890"
                   type="number"
+                  name="nid"
+                  value={formData?.nid}
+                  onChange={changeHandler}
                   className="pl-[62px]"
                 />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
@@ -81,7 +114,13 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
             <div>
               <Label>Date of Birth</Label>
               <div className="relative">
-                <Input type="date" className="pl-[62px]" />
+                <Input
+                  type="date"
+                  className="pl-[62px]"
+                  name="dob"
+                  value={formData?.dob}
+                  onChange={changeHandler}
+                />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
                   <BsCalendar className="!w-6 !h-6 text-gray-500" />
                 </span>
@@ -90,10 +129,13 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
 
             {/* Local Address Field */}
             <div>
-              <Label>Local Address</Label>
+              <Label>Address</Label>
               <div className="relative">
                 <Input
                   placeholder="Local Address"
+                  name="full_address"
+                  onChange={changeHandler}
+                  value={formData?.full_address}
                   type="text"
                   className="pl-[62px]"
                 />
@@ -105,10 +147,13 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
 
             {/* Permanent Address Field */}
             <div>
-              <Label>Permanent Address</Label>
+              <Label>Last Education</Label>
               <div className="relative">
                 <Input
-                  placeholder="Permanent Address"
+                  placeholder="Last Education"
+                  name="last_edu"
+                  onChange={changeHandler}
+                  value={formData?.last_edu}
                   type="text"
                   className="pl-[62px]"
                 />
@@ -118,13 +163,16 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
               </div>
             </div>
 
-            {/* Last Education Field */}
+            {/* phone number */}
             <div>
-              <Label>Last Education</Label>
+              <Label>Phone Nubmer</Label>
               <div className="relative">
                 <Input
-                  placeholder="Bachelor / Master"
-                  type="text"
+                  placeholder="Enter You Phone Number"
+                  name="mobile"
+                  onChange={changeHandler}
+                  value={formData.mobile}
+                  type="number"
                   className="pl-[62px]"
                 />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
@@ -133,42 +181,51 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
               </div>
             </div>
 
-            {/* Salary Field */}
-            {/* <div>
-              <Label>Salary</Label>
+            {/* bkash number */}
+            <div>
+              <Label>Bkash Number</Label>
               <div className="relative">
                 <Input
-                  placeholder="50000"
+                  placeholder="Enter Bkash Number"
                   type="number"
+                  name="bkash"
+                  onChange={changeHandler}
+                  value={formData.bkash}
                   className="pl-[62px]"
                 />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
                   <BsCurrencyDollar className="!w-6 !h-6 text-gray-500" />
                 </span>
               </div>
-            </div> */}
+            </div>
 
             {/* Department Field */}
-            {/* <div>
+            <div>
               <Label>Department</Label>
               <div className="relative">
                 <Input
                   placeholder="HR / IT / Finance"
                   type="text"
+                  name="department"
+                  onChange={changeHandler}
+                  value={formData.department}
                   className="pl-[62px]"
                 />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
                   <BsBuilding className="!w-6 !h-6 text-gray-500" />
                 </span>
               </div>
-            </div> */}
+            </div>
 
             {/* Designation Field */}
-            {/* <div>
+            <div>
               <Label>Designation</Label>
               <div className="relative">
                 <Input
                   placeholder="Manager / Developer"
+                  name="designation"
+                  onChange={changeHandler}
+                  value={formData.designation}
                   type="text"
                   className="pl-[62px]"
                 />
@@ -176,70 +233,42 @@ export default function EditEmployee({ isOpen, onClose, onSave }) {
                   <BsBriefcase className="!w-6 !h-6 text-gray-500" />
                 </span>
               </div>
-            </div> */}
+            </div>
 
-            {/* Gender Field */}
+            {/* email Field */}
             <div>
-              <Label>Gender</Label>
+              <Label>Email</Label>
               <div className="relative">
-                <select className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
+                <Input
+                  placeholder="Enter Email"
+                  name="email"
+                  onChange={changeHandler}
+                  value={formData.email}
+                  type="email"
+                  className="pl-[62px]"
+                />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
                   <BsGenderAmbiguous className="!w-6 !h-6 text-gray-500" />
                 </span>
               </div>
             </div>
 
-            {/* Blood Group Field */}
-            {/* <div>
-              <Label>Blood Group</Label>
+            {/* Role Field */}
+            <div>
+              <Label>Role</Label>
               <div className="relative">
-                <select className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-                  <option value="">Select Blood Group</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                </select>
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-                  <BsDroplet className="!w-6 !h-6 text-gray-500" />
-                </span>
-              </div>
-            </div> */}
-
-            {/* Join Date Field */}
-            {/* <div>
-              <Label>Join Date</Label>
-              <div className="relative">
-                <Input type="date" className="pl-[62px]" />
+                <Input
+                  type="date"
+                  name="role"
+                  onChange={changeHandler}
+                  value={formData.role}
+                  className="pl-[62px]"
+                />
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
                   <BsCalendar className="!w-6 !h-6 text-gray-500" />
                 </span>
               </div>
-            </div> */}
-
-            {/* Working Type Dropdown
-            <div>
-              <Label>Working Type</Label>
-              <div className="relative">
-                <select className="w-full rounded-md border border-gray-300 bg-white pl-[62px] py-3 text-gray-700 focus:outline-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-                  <option value="">Select Type</option>
-                  <option value="remote">Remote</option>
-                  <option value="physical">Physical</option>
-                </select>
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-                  <BsLaptop className="!w-6 !h-6 text-gray-500" />
-                </span>
-              </div>
-            </div> */}
+            </div>
           </div>
 
           <div className="flex items-center gap-3 px-2 mt-6  justify-center">

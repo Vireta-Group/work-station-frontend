@@ -4,73 +4,88 @@ import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
 import { useModal } from "../../hooks/useModal";
 import EditEmployee from "./EditEmployeeModal";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "../../components/ui/table/index";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { fetchUpapproveEmp } from "../../features/unapproveEmp/unapproveEmpSlice";
 
 export default function InputGroup() {
+  const employees = useSelector((data) => data.unapproveEmp);
+  const dispatch = useDispatch();
   const { isOpen, openModal, closeModal } = useModal();
+
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  useEffect(() => {
+    if (employees.status === "idle") {
+      dispatch(fetchUpapproveEmp());
+    }
+  }, [dispatch, employees.status]); // use the specific field
+
+  const handleEditClick = (user) => {
+    setSelectedUser(user);
+    openModal();
+  };
+
   const handleSave = () => {
     // Handle save logic here
-    console.log("Saving changes...");
+    console.log("Saving changes for:", selectedUser);
     closeModal();
   };
+
   return (
     <ComponentCard title="Input Group " className="w-1/2 mx-auto">
-      <div className="grid grid-cols-1  gap-6">
-        {/* Full Name Field */}
-        <div>
-          <Label>Full Name</Label>
-          <div className="relative">
-            {/* Static Box instead of Input */}
-            <div className="pl-[62px] h-11 flex items-center rounded-lg border border-gray-200 bg-gray-50 text-gray-800 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 px-4">
-              John Doe
-            </div>
+      <div className="grid grid-cols-1 gap-6">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHeader>
 
-            {/* Icon */}
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsPerson className="!w-6 !h-6 text-gray-500" />
-            </span>
-          </div>
-        </div>
+          <TableBody>
+            {employees?.items?.map((user) => (
+              <TableRow key={user.id ?? user.email ?? user.name}>
+                {" "}
+                {/* avoid index */}
+                <TableCell>{user?.name}</TableCell>
+                <TableCell>
+                  <div className="pt-4">
+                    <button
+                      onClick={() => handleEditClick(user)}
+                      className="w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 mb-4"
+                    >
+                      Edit
+                    </button>
 
-        {/* Department Field */}
-        <div>
-          <Label>Department</Label>
-          <div className="relative">
-            {/* Static Box instead of Input */}
-            <div className="pl-[62px] h-11 flex items-center rounded-lg border border-gray-200 bg-gray-50 text-gray-800 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 px-4">
-              finance
-            </div>
-
-            {/* Icon */}
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <BsPerson className="!w-6 !h-6 text-gray-500" />
-            </span>
-          </div>
-        </div>
-
-        {/* Send for Approval Button */}
-        <div className="pt-4">
-          <div>
-            <button
-              onClick={openModal}
-              className="w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 mb-4"
-            >
-              Edit
-            </button>
-
-            <EditEmployee
-              isOpen={isOpen}
-              onClose={closeModal}
-              onSave={handleSave}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700"
-          >
-            Approval
-          </button>
-        </div>
+                    <button
+                      type="button"
+                      className="w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700"
+                    >
+                      Approval
+                    </button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
+
+      {/* Single modal here */}
+      <EditEmployee
+        isOpen={isOpen}
+        onClose={closeModal}
+        onSave={handleSave}
+        user={selectedUser}
+      />
     </ComponentCard>
   );
 }
