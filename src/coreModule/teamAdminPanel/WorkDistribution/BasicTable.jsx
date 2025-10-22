@@ -20,8 +20,6 @@ export default function BasicTable() {
   const tasks = useSelector((data) => data.todayTask).task;
   const dispatch = useDispatch();
 
-  console.log(tasks);
-
   useEffect(() => {
     if (tasks === null) {
       dispatch(getTodayDistributedTask());
