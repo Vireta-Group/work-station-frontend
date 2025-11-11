@@ -10,28 +10,46 @@ import { useSidebar } from "../context/SidebarContext";
 import viretaLogo from "../assets/logo/vireta-logo.png";
 import viretaLogoDark from "../assets/logo/vireta-logo-dark.png";
 import viretaLogoSmall from "../assets/logo/vireta-small-logo.png";
-import viretaLogoSmallDark from "../assets/logo/vireta-small-logo-dark.png";
 import { useSelector } from "react-redux";
+import { RiDashboardLine } from "react-icons/ri";
+import { LiaUserEditSolid } from "react-icons/lia";
+import { CgProfile } from "react-icons/cg";
+import { TbReportMoney } from "react-icons/tb";
+import { AiOutlineFileSearch } from "react-icons/ai";
+import { IoPersonAddOutline } from "react-icons/io5";
+import { FaTasks } from "react-icons/fa";
+import { MdOutlineAssignmentReturned } from "react-icons/md";
+import { MdOutlineFileDownloadDone } from "react-icons/md";
+import { LuUserSearch } from "react-icons/lu";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const hr = [
   {
-    icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
+    icon: (
+      <LuUserSearch className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Employee Status",
     path: "/employeeStatus",
   },
   {
-    icon: <img src={icons.UserCircleIcon} alt="Employee Attendence" />,
+    icon: (
+      <AiOutlineFileSearch className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Employee attendence",
     path: "/employeeAttendence",
   },
 
   {
-    icon: <img src={icons.GridIcon} alt="Add New Employee" />,
+    icon: (
+      <IoPersonAddOutline className="text-gray-800 font-bold dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Add Employee",
     path: "/add-employee",
   },
   {
-    icon: <img src={icons.GridIcon} alt="Task History" />,
+    icon: (
+      <FaTasks className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Task History",
     path: "/taskhistory",
   },
@@ -39,7 +57,9 @@ const hr = [
 
 const onlyHr = [
   {
-    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    icon: (
+      <RiDashboardLine className="text-gray-500 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Dashboard",
     path: "/",
   },
@@ -47,17 +67,23 @@ const onlyHr = [
 
 const teamLeader = [
   {
-    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    icon: (
+      <RiDashboardLine className="text-gray-500 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Dashboard",
     path: "/",
   },
   {
-    icon: <img src={icons.UserCircleIcon} alt="work distrubution" />,
+    icon: (
+      <MdOutlineAssignmentReturned className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Work Distrubition",
     path: "/workDistribution",
   },
   {
-    icon: <img src={icons.GridIcon} alt="Task History" />,
+    icon: (
+      <FaTasks className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Task History",
     path: "/taskhistory",
   },
@@ -65,7 +91,9 @@ const teamLeader = [
 
 const emp = [
   {
-    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    icon: (
+      <RiDashboardLine className="text-gray-500 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Dashboard",
     path: "/",
   },
@@ -73,7 +101,9 @@ const emp = [
 
 const submiteWork = [
   {
-    icon: <img src={icons.GridIcon} alt="Submit Icon" />,
+    icon: (
+      <MdOutlineFileDownloadDone className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Work Submission",
     path: "/workSubmission",
   },
@@ -81,12 +111,16 @@ const submiteWork = [
 
 const admin = [
   {
-    icon: <img src={icons.GridIcon} alt="Dashboard Icon" />,
+    icon: (
+      <RiDashboardLine className="text-gray-500 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Dashbord",
     path: "/",
   },
   {
-    icon: <img src={icons.GridIcon} alt="Edit Employee" />,
+    icon: (
+      <LiaUserEditSolid className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Employees",
     subItems: [
       { name: "Edit Employee", path: "/editemployee", pro: false },
@@ -96,7 +130,9 @@ const admin = [
   },
 
   {
-    icon: <img src={icons.BoxCubeIcon} alt="UI Elements Icon" />,
+    icon: (
+      <TbReportMoney className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "Income Expenses",
     subItems: [
       { name: "Add Income", path: "/add-expenses", pro: false },
@@ -108,7 +144,9 @@ const admin = [
 
 const othersItems = [
   {
-    icon: <img src={icons.UserCircleIcon} alt="User Profile Icon" />,
+    icon: (
+      <CgProfile className="text-gray-800 dark:text-white hover:text-blue-500 transition duration-300" />
+    ),
     name: "User Profile",
     path: "/profile",
   },
@@ -221,14 +259,12 @@ const AppSidebar = () => {
                 <span className="menu-item-text">{nav.name}</span>
               )}
               {(isExpanded || isHovered || isMobileOpen) && (
-                <img
-                  src={icons.ChevronDownIcon}
-                  alt="Chevron down"
+                <ChevronDownIcon
                   className={`ml-auto w-5 h-5 transition-transform duration-200 ${
                     openSubmenu?.type === menuType &&
                     openSubmenu?.index === index
                       ? "rotate-180 text-brand-500"
-                      : ""
+                      : "text-gray-500 dark:text-white"
                   }`}
                 />
               )}
